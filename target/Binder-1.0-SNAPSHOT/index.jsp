@@ -2,12 +2,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <link rel="stylesheet" href="Content/LoginPageStyle.css">
 </head>
 <body>
-<h1><%= "Hello World!" %>
-</h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
+
+<div class="mainContainer">
+    <div class="navMainContainer">
+        <div class="navHeader">
+            <img src="Content/Images/heartLogo.png" width="30" height="30"/>
+            <span class="navHeader__text">Binder</span>
+        </div>
+    </div>
+</div>
 </body>
 </html>
