@@ -18,7 +18,7 @@ public class User {
     private int age;
 
     private City city;
-    private Hobbies[] hobbies;
+   // private Hobbies[] hobbies;
 
     public int getAge() {
         return age;
@@ -49,7 +49,7 @@ public class User {
         this.dateOfBirth = dateOfBirth;
 
         this.city = city;
-        this.hobbies = hobbies;
+        //this.hobbies = hobbies;
 
         this.age = getCurrentAge(dateOfBirth);
     }
@@ -82,9 +82,9 @@ public class User {
         this.city = city;
     }
 
-    public void setHobbies(Hobbies[] hobbies) {
+    /*public void setHobbies(Hobbies[] hobbies) {
         this.hobbies = hobbies;
-    }
+    }*/
 
     public String getName() {
         return name;
@@ -110,9 +110,10 @@ public class User {
         return city;
     }
 
+    /*
     public Hobbies[] getHobbies() {
         return hobbies;
-    }
+    }*/
 
     public int getCurrentAge(String date){
         Date birthDate = new Date(date);

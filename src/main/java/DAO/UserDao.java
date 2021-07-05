@@ -38,6 +38,7 @@ public class UserDao {
         user.setDateOfBirth(rs.getString(6));
         user.setCity(City.valueOf(rs.getString(7)));
 
+        /*
         String hobs = rs.getString(8);
         String[] hobslist = hobs.split(",");
         Hobbies[] hobbies = new Hobbies[hobslist.length];
@@ -47,6 +48,7 @@ public class UserDao {
             k++;
         }
         user.setHobbies(hobbies);
+        */
 
         return user;
     }
