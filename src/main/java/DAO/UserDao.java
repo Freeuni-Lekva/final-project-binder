@@ -24,9 +24,14 @@ public class UserDao {
         }
     }
 
-    public User getUser(String username) throws  SQLException{
-        StringBuilder statement = new StringBuilder("use Binder ");
-        statement.append("Select * from Users where username = \'" + username + "\'");
+    public User getUser(String key,Boolean isUsername) throws  SQLException{
+        StringBuilder statement = new StringBuilder("use binder; ");
+        if(isUsername){
+            statement.append("Select * from Users where username = \'" + key + "\'");
+        }else{
+            statement.append("Select * from Users where email = \'" + key + "\'");
+        }
+
         User user = new User();
         ResultSet rs = pstmt.executeQuery(statement.toString());
 
@@ -51,6 +56,36 @@ public class UserDao {
         */
 
         return user;
+    }
+    public void setUser(User user) throws SQLException {
+        // TODO : hobby, gender ar dagvimatebia jer , gamoiyenet variables, values cvladebi
+        String name = user.getName();
+        String surname = user.getSurname();
+        String  email = user.getEmail();
+        String username = user.getUsername();
+        String password = user.getPassword();
+        String dateOfBirth = user.getDateOfBirth();
+        int age = user.getAge();
+        City city = user.getCity();
+        //Hobbies hobbies ;
+        //String gender ..
+        String variables = " name , surname , email, username , password, dateOfBirth,age,city,hobbies ";
+        String values = "\'" + name + "\',\'" + surname + "\',\'" + email
+                + "\',\'" + username + "\',\'"+ password + "\',\'" +dateOfBirth +"\'," + age
+                + ",\'" + city.toString() +"\'";
+        // Variables
+        StringBuilder statement = new StringBuilder("use binder; " );
+        statement.append("INSERT INTO user ("  );
+        statement.append(variables);
+        statement.append(" ) ");
+        // Values
+        statement.append("VALUES ( ");
+        statement.append(values);
+        statement.append(" ) ");
+        ResultSet rs = pstmt.executeQuery(statement.toString());
+
+
+
     }
 
 

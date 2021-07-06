@@ -1,12 +1,13 @@
 Create table User(
-                     id INT,
-                     name varchar(30) NOT NULL,
-                     surname varchar(30) NOT NULL,
-                     email varchar(30) NOT NULL,
+                     id int AUTO_INCREMENT PRIMARY KEY,
+                     name varchar(30) ,
+                     surname varchar(30) ,
+                     email varchar(30) ,
                      username varchar (30),
-                     password varchar(30) NOT NULL,
-                     dateOfBirth varchar(30) NOT NULL,
+                     password varchar(30) ,
+                     dateOfBirth varchar(30) ,
                      age INT,
-                     city varchar(30) NOT NULL,
-                     hobbies varchar(300)
+                     city varchar(30) ,
+                     hobbies varchar(300),
+                     gender varchar(30)
 );
