@@ -3,6 +3,7 @@ package DAO;
 import DatabaseMetaInfo.MyDatabase;
 import Enums.City;
 import Enums.Hobbies;
+import Exceptions.RegistrationException;
 import Model.User;
 
 import javax.xml.transform.Result;
@@ -13,35 +14,33 @@ import java.sql.SQLException;
 
 public class UserDao {
 
-    private PreparedStatement pstmt;
+    private Connection con;
+
 
     public UserDao(){
-        Connection con = MyDatabase.getConnection();
-        try {
-            pstmt = con.prepareStatement("");
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        con = MyDatabase.getConnection();
     }
 
     public User getUser(String key,Boolean isUsername) throws  SQLException{
-        StringBuilder statement = new StringBuilder("use binder; ");
+        PreparedStatement pstmt = con.prepareStatement("Use binder; ");
+        StringBuilder statement = new StringBuilder();
         if(isUsername){
-            statement.append("Select * from Users where username = \'" + key + "\'");
+            statement.append("Select * from User where username = \"" + key + "\"");
         }else{
-            statement.append("Select * from Users where email = \'" + key + "\'");
+            statement.append("Select * from User where email = \"" + key + "\"");
         }
 
         User user = new User();
         ResultSet rs = pstmt.executeQuery(statement.toString());
-
-        user.setName(rs.getString(1));
-        user.setSurname(rs.getString(2));
-        user.setEmail(rs.getString(3));
-        user.setUsername(rs.getString(4));
-        user.setPassword(rs.getString(5));
-        user.setDateOfBirth(rs.getString(6));
-        user.setCity(City.valueOf(rs.getString(7)));
+        rs.next();
+        user.setName(rs.getString(2));
+        user.setSurname(rs.getString(3));
+        user.setEmail(rs.getString(4));
+        user.setUsername(rs.getString(5));
+        user.setPassword(rs.getString(6));
+        user.setDateOfBirth(rs.getString(7));
+        user.setAge(rs.getInt(8));
+        user.setCity(City.valueOf(rs.getString(9)));
 
         /*
         String hobs = rs.getString(8);
@@ -57,35 +56,29 @@ public class UserDao {
 
         return user;
     }
-    public void setUser(User user) throws SQLException {
-        // TODO : hobby, gender ar dagvimatebia jer , gamoiyenet variables, values cvladebi
-        String name = user.getName();
-        String surname = user.getSurname();
-        String  email = user.getEmail();
-        String username = user.getUsername();
-        String password = user.getPassword();
-        String dateOfBirth = user.getDateOfBirth();
-        int age = user.getAge();
-        City city = user.getCity();
-        //Hobbies hobbies ;
-        //String gender ..
-        String variables = " name , surname , email, username , password, dateOfBirth,age,city,hobbies ";
-        String values = "\'" + name + "\',\'" + surname + "\',\'" + email
-                + "\',\'" + username + "\',\'"+ password + "\',\'" +dateOfBirth +"\'," + age
-                + ",\'" + city.toString() +"\'";
-        // Variables
-        StringBuilder statement = new StringBuilder("use binder; " );
-        statement.append("INSERT INTO user ("  );
-        statement.append(variables);
-        statement.append(" ) ");
-        // Values
-        statement.append("VALUES ( ");
-        statement.append(values);
-        statement.append(" ) ");
-        ResultSet rs = pstmt.executeQuery(statement.toString());
+    public void setUser(User user) throws SQLException, RegistrationException {
+        PreparedStatement pstmt = con.prepareStatement("Select count(id) from user where email = ?");
+        pstmt.setString(1,user.getEmail());
+        ResultSet rs = pstmt.executeQuery();
+        rs.next();
+        if(rs.getInt(1) > 0){
+            throw new RegistrationException("Username with this email is already registered!");
+        }else {
+            pstmt.close();
+            pstmt = con.prepareStatement("INSERT INTO user " +
+                    " (name , surname , email, username , password, dateOfBirth, age, city) " +
+                    "VALUES (?,?,?,?,?,?,?,?);");
+            pstmt.setString(1, user.getName());
+            pstmt.setString(2, user.getSurname());
+            pstmt.setString(3, user.getEmail());
+            pstmt.setString(4, user.getUsername());
+            pstmt.setString(5, user.getPassword());
+            pstmt.setString(6, user.getDateOfBirth());
+            pstmt.setInt(7, user.getAge());
+            pstmt.setString(8, user.getCity().toString());
 
-
-
+            pstmt.executeUpdate();
+        }
     }
 
 

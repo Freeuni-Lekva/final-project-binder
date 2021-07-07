@@ -15,6 +15,7 @@ public class User {
     private String username;
     private String password;
     private String dateOfBirth;
+    private String sex;
     private int age;
 
     private City city;
@@ -39,7 +40,7 @@ public class User {
     public User(String name, String surname,
                 String email, String username,
                 String password,
-                String dateOfBirth,
+                String dateOfBirth, String sex,
                 City city, Hobbies[] hobbies) {
         this.name = name;
         this.surname = surname;
@@ -47,7 +48,7 @@ public class User {
         this.username = username;
         this.password = password; //hashed
         this.dateOfBirth = dateOfBirth;
-
+        this.sex = sex;
         this.city = city;
         //this.hobbies = hobbies;
 
@@ -85,6 +86,14 @@ public class User {
     /*public void setHobbies(Hobbies[] hobbies) {
         this.hobbies = hobbies;
     }*/
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
     public String getName() {
         return name;

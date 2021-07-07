@@ -19,34 +19,32 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession httpSession = request.getSession();
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String username = request.getParameter("username");
+        String username = request.getParameter("email");
+        String password = String.valueOf(request.getParameter("password").hashCode());
         UserDao userDao = new UserDao();
-        if((email != null || username != null) && password != null){
-            String key;
+        if(username != null && password != null){
             boolean isUser;
-            key = (email == null?username:email);
-            isUser = (email == null?true:false);
+            isUser = (username.contains("@") ? false:true);
             User user = null;
             try {
-                user = userDao.getUser(key,isUser);
+                user = userDao.getUser(username,isUser);
             } catch (SQLException throwables) {
-                httpSession.setAttribute("loginWrong",new String("User does not exist"));
+                request.setAttribute("loginWrong",new String("User does not exist"));
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
-
+                requestDispatcher.forward(request, response);
             }
-            if(user.getPassword()==String.valueOf(password.hashCode())){
+            if(user.getPassword()==password){
                 // TODO: for home.jsp
-                httpSession.setAttribute("user", user);
+                request.setAttribute("user", user);
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
+                requestDispatcher.forward(request, response);
             }
-
         }else{
-            httpSession.setAttribute("loginNotFilled",new String("Please fill both fields"));
+            request.setAttribute("loginNotFilled",new String("Please fill both fields"));
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
+            requestDispatcher.forward(request, response);
         }
+
 
     }
 }

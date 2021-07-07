@@ -20,6 +20,4 @@ public enum City {
     AKHALKALAKI,
     AKHMETA,
     SOKHUMI,
-    ;
-
 }
