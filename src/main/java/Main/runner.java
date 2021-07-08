@@ -1,8 +1,7 @@
 package Main;
 
-import DAO.UserDao;
+import DAO.UserDAO;
 import Enums.City;
-import Exceptions.RegistrationException;
 import Model.User;
 
 import java.sql.SQLException;
@@ -10,7 +9,7 @@ import java.sql.SQLException;
 public class runner {
 
     public static void main(String[] args) {
-        UserDao userDao = new UserDao();
+        UserDAO userDao = new UserDAO();
         User user = new User("gurami","abramishvili","gabra19@gmail.com","gabra",
                 "gurami2000","02/03/2000","male"
         , City.TBILISI,null);

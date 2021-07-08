@@ -12,12 +12,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserDao {
+public class UserDAO {
 
     private Connection con;
 
 
-    public UserDao(){
+    public UserDAO(){
         con = MyDatabase.getConnection();
     }
 
@@ -33,26 +33,11 @@ public class UserDao {
         User user = new User();
         ResultSet rs = pstmt.executeQuery(statement.toString());
         rs.next();
-        user.setName(rs.getString(2));
-        user.setSurname(rs.getString(3));
-        user.setEmail(rs.getString(4));
-        user.setUsername(rs.getString(5));
-        user.setPassword(rs.getString(6));
-        user.setDateOfBirth(rs.getString(7));
-        user.setAge(rs.getInt(8));
-        user.setCity(City.valueOf(rs.getString(9)));
-
-        /*
-        String hobs = rs.getString(8);
-        String[] hobslist = hobs.split(",");
-        Hobbies[] hobbies = new Hobbies[hobslist.length];
-        int k=0;
-        for(String str : hobslist){
-            hobbies[k] = Hobbies.valueOf(str);
-            k++;
-        }
-        user.setHobbies(hobbies);
-        */
+        user.setName(rs.getString(1));
+        user.setSurname(rs.getString(2));
+        user.setEmail(rs.getString(3));
+        user.setUsername(rs.getString(4));
+        user.setPassword(rs.getString(5));
 
         return user;
     }
@@ -66,17 +51,13 @@ public class UserDao {
         }else {
             pstmt.close();
             pstmt = con.prepareStatement("INSERT INTO user " +
-                    " (name , surname , email, username , password, dateOfBirth, age, city) " +
-                    "VALUES (?,?,?,?,?,?,?,?);");
+                    " (name , surname , email, username , password) " +
+                    "VALUES (?,?,?,?,?);");
             pstmt.setString(1, user.getName());
             pstmt.setString(2, user.getSurname());
             pstmt.setString(3, user.getEmail());
             pstmt.setString(4, user.getUsername());
             pstmt.setString(5, user.getPassword());
-            pstmt.setString(6, user.getDateOfBirth());
-            pstmt.setInt(7, user.getAge());
-            pstmt.setString(8, user.getCity().toString());
-
             pstmt.executeUpdate();
         }
     }

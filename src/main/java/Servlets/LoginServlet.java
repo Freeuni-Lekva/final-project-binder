@@ -1,7 +1,6 @@
 package Servlets;
 
-import DAO.UserDao;
-import Enums.City;
+import DAO.UserDAO;
 import Model.User;
 
 import javax.servlet.*;
@@ -21,7 +20,7 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("email");
         String password = String.valueOf(request.getParameter("password").hashCode());
-        UserDao userDao = new UserDao();
+        UserDAO userDao = new UserDAO();
         if(username != null && password != null){
             boolean isUser;
             isUser = (username.contains("@") ? false:true);
