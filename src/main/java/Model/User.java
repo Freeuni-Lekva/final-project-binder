@@ -14,46 +14,24 @@ public class User {
     private String email;
     private String username;
     private String password;
-    private String dateOfBirth;
     private String sex;
-    private int age;
-
-    private City city;
-   // private Hobbies[] hobbies;
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
+    private int user_profile_id;
 
     public User(String name, String surname,
                 String email, String username,
                 String password,
-                String dateOfBirth, String sex,
-                City city, Hobbies[] hobbies) {
+                String sex,
+                int user_profile_id) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.username = username;
         this.password = password; //hashed
-        this.dateOfBirth = dateOfBirth;
         this.sex = sex;
-        this.city = city;
-        //this.hobbies = hobbies;
-
-        this.age = getCurrentAge(dateOfBirth);
+        this.user_profile_id = user_profile_id;
     }
+
+
 
     public User(){
 
@@ -79,13 +57,7 @@ public class User {
         this.password = password;
     }
 
-    public void setCity(City city) {
-        this.city = city;
-    }
 
-    /*public void setHobbies(Hobbies[] hobbies) {
-        this.hobbies = hobbies;
-    }*/
 
     public String getSex() {
         return sex;
@@ -115,19 +87,13 @@ public class User {
         return password;
     }
 
-    public City getCity() {
-        return city;
+    public int getUser_profile_id() {
+        return user_profile_id;
     }
 
-    /*
-    public Hobbies[] getHobbies() {
-        return hobbies;
-    }*/
-
-    public int getCurrentAge(String date){
-        Date birthDate = new Date(date);
-        long age = System.currentTimeMillis() - birthDate.getTime();
-        return (int) (TimeUnit.DAYS.convert(age, TimeUnit.MILLISECONDS)/365);
+    public void setUser_profile_id(int user_profile_id) {
+        this.user_profile_id = user_profile_id;
     }
+
 
 }

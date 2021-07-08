@@ -1,7 +1,6 @@
 package Servlets;
 
-import DAO.UserDao;
-import Enums.City;
+import DAO.UserDAO;
 import Exceptions.RegistrationException;
 import Model.User;
 
@@ -18,8 +17,6 @@ public class RegisterServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        HttpSession httpSession = request.getSession();
-
 
         User user = new User();
         user.setName(request.getParameter("firstname"));
@@ -28,10 +25,10 @@ public class RegisterServlet extends HttpServlet {
         user.setEmail(request.getParameter("email"));
         user.setPassword(String.valueOf(request.getParameter("RegisterPassword").hashCode()));
         user.setSex(request.getParameter("gender"));
-        user.setCity(City.TBILISI);
-        UserDao userDAO = new UserDao();
+        UserDAO userDAO = new UserDAO();
         try {
             userDAO.setUser(user);
+            System.out.println(userDAO.getUser(user.getUsername(), true));
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
         } catch (RegistrationException | SQLException ex){
