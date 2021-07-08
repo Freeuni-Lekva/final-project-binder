@@ -3,6 +3,7 @@
 function toggleVisibility(inputId, eyeId){
      let currPassword = document.getElementById(inputId);
      let currEye = document.getElementById(eyeId);
+    console.log(currPassword + " " + currEye);
      if(currPassword.getAttribute('type') === 'Password'){
          currPassword.setAttribute('type', 'text');
          currEye.setAttribute('class', "fas fa-eye-slash eyeIcon");
@@ -10,6 +11,7 @@ function toggleVisibility(inputId, eyeId){
          currPassword.setAttribute('type', 'Password');
          currEye.setAttribute('class', "fas fa-eye");
      }
+
 }
 
 function toggleModal(modalId){

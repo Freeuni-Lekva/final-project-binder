@@ -5,9 +5,6 @@ Create table User(
                      email varchar(30) ,
                      username varchar (30),
                      password varchar(30) ,
-                     dateOfBirth varchar(30) ,
-                     age INT,
-                     city varchar(30) ,
-                     hobbies varchar(300),
-                     gender varchar(30)
+                     gender varchar(30)  ,
+                     user_profile_id int default 0
 );

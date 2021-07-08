@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="Content/LoginPageStyle.css">
     <script src="https://kit.fontawesome.com/9bff1b7661.js" crossorigin="anonymous"></script>
     <script src="Content/Scripts/LoginAndRegisterScript.js"></script>
+    <title>Binder</title>
 </head>
 <body>
 
@@ -33,7 +34,7 @@
                 </div>
                 <div class="userInputContainer">
                     <i style="color: white" class="fas fa-user"></i>
-                    <input class="userInputContainer__Input" name="email" type = "text" placeholder="Email">
+                    <input class="userInputContainer__Input" name="email" type = "text" placeholder="Email or Username">
                 </div>
                 <div class="userInputContainer">
                     <i style="color: white" class="fas fa-lock"></i>
@@ -61,18 +62,18 @@
 
                 <div class="userInputContainer">
                     <i style="color: white" class="fas fa-user"></i>
-                    <input class="userInputContainer__Input" name="email" placeholder="Email or Username">
+                    <input class="userInputContainer__Input" name="email" placeholder="Email">
                     <i style="color: white" class="far fa-envelope"></i>
                 </div>
                 <div class="userInputContainer">
                     <i style="color: white" class="fas fa-lock"></i>
-                    <input name="RegisterPassword" class="userInputContainer__Input" type="Password" placeholder="Password">
+                    <input id="RegisterPassword" name="RegisterPassword" class="userInputContainer__Input" type="Password" placeholder="Password">
                     <i id="RegisterEye" style="color: white" class="fas fa-eye" onclick="toggleVisibility('RegisterPassword', 'RegisterEye')"></i>
                 </div>
                 <div class="userInputContainer">
                     <i style="color: white" class="fas fa-lock"></i>
                     <input id="RegisterCnFmPassword" class="userInputContainer__Input" type="Password" placeholder="Confirm Password">
-                    <i id="RegisterCnfmEye" style="color: white" class="fas fa-eye" onclick="toggleVisibility('RegisterCnFmPassword', 'RegisterCnfmEye')"></i>
+                    <i id="RegisterCnFmEye" style="color: white" class="fas fa-eye" onclick="toggleVisibility('RegisterCnFmPassword', 'RegisterCnFmEye')"></i>
                 </div>
                 <div class="chooseSex">
                     <span>Choose Sex</span>

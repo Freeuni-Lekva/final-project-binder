@@ -33,12 +33,14 @@ public class UserDAO {
         User user = new User();
         ResultSet rs = pstmt.executeQuery(statement.toString());
         rs.next();
-        user.setName(rs.getString(1));
-        user.setSurname(rs.getString(2));
-        user.setEmail(rs.getString(3));
-        user.setUsername(rs.getString(4));
-        user.setPassword(rs.getString(5));
 
+        user.setName(rs.getString(2));
+        user.setSurname(rs.getString(3));
+        user.setEmail(rs.getString(4));
+        user.setUsername(rs.getString(5));
+        user.setPassword(rs.getString(6));
+        user.setSex(rs.getString(7));
+        user.setUser_profile_id(rs.getInt(8));
         return user;
     }
     public void setUser(User user) throws SQLException, RegistrationException {
@@ -51,17 +53,33 @@ public class UserDAO {
         }else {
             pstmt.close();
             pstmt = con.prepareStatement("INSERT INTO user " +
-                    " (name , surname , email, username , password) " +
-                    "VALUES (?,?,?,?,?);");
+                    " (name , surname , email, username , password , gender) " +
+                    "VALUES (?,?,?,?,?,?);");
+
             pstmt.setString(1, user.getName());
             pstmt.setString(2, user.getSurname());
             pstmt.setString(3, user.getEmail());
             pstmt.setString(4, user.getUsername());
             pstmt.setString(5, user.getPassword());
+            pstmt.setString(6, user.getSex());
             pstmt.executeUpdate();
         }
     }
+    public void updateUser(User user) throws SQLException {
+        PreparedStatement pstmt = con.prepareStatement("UPDATE user " +
+                " SET name = ? , surname = ? , email = ? , username = ? , password = ? , gender = ? , user_profile_id = ? "
+                );
+        pstmt.setString(1, user.getName());
+        pstmt.setString(2, user.getSurname());
+        pstmt.setString(3, user.getEmail());
+        pstmt.setString(4, user.getUsername());
+        pstmt.setString(5, user.getPassword());
+        pstmt.setString(6,user.getSex());
+        pstmt.setInt(7, user.getUser_profile_id());
+        pstmt.executeUpdate();
 
+
+    }
 
 
 }

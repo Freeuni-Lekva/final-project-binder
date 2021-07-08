@@ -32,11 +32,17 @@ public class LoginServlet extends HttpServlet {
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
                 requestDispatcher.forward(request, response);
             }
-            if(user.getPassword()==password){
+            if(user.getPassword().equals(password)){
                 // TODO: for home.jsp
                 request.setAttribute("user", user);
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
-                requestDispatcher.forward(request, response);
+                if(user.getUser_profile_id() != 0){
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
+                    requestDispatcher.forward(request, response);
+                }else{
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("Register.jsp");
+                    requestDispatcher.forward(request, response);
+                }
+
             }
         }else{
             request.setAttribute("loginNotFilled",new String("Please fill both fields"));

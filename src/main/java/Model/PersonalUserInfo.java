@@ -14,15 +14,17 @@ public class PersonalUserInfo {
     private int age;
     private City city;
     private Hobbies[] hobbies;
+    private int ID;
 
 
-    public PersonalUserInfo(String dateOfBirth, String phoneNumber, City city, Hobbies[] hobbies) {
+    public PersonalUserInfo(String username, String dateOfBirth, String phoneNumber, City city, Hobbies[] hobbies, int ID) {
+        this.username = username;
         this.dateOfBirth = dateOfBirth;
         this.phoneNumber = phoneNumber;
         this.city = city;
         this.hobbies = hobbies;
-
         this.age = getCurrentAge(dateOfBirth);
+        this.ID = ID;
     }
 
     public PersonalUserInfo(){
@@ -58,6 +60,17 @@ public class PersonalUserInfo {
         this.hobbies = hobbies;
     }
 
+    public void setHobbies(String hobbies) {
+        String[] hobbiesList = hobbies.split(",");
+        Hobbies[] res = new Hobbies[hobbiesList.length];
+        int k = 0;
+        for (String str : hobbiesList) {
+            res[k] = Hobbies.valueOf(str);
+            k++;
+        }
+        this.hobbies = res;
+    }
+
     public Hobbies[] getHobbies() {
         return hobbies;
     }
@@ -77,6 +90,14 @@ public class PersonalUserInfo {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public int getCurrentAge(String date){

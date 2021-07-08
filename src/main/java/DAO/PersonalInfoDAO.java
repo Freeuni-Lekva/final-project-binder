@@ -24,22 +24,22 @@ public class PersonalInfoDAO {
     public PersonalUserInfo getUserInfo(String key) throws SQLException {
         PreparedStatement pstmt = con.prepareStatement("Use binder; ");
         StringBuilder statement = new StringBuilder();
-        statement.append("Select * from User where username = \"" + key + "\"");
-
+        statement.append("Select * from User_profile where username = \"" + key + "\"");
         PersonalUserInfo userInfo = new PersonalUserInfo();
         ResultSet rs = pstmt.executeQuery(statement.toString());
         rs.next();
         userInfo.setUsername(key);
+        userInfo.setID(rs.getInt(1));
         userInfo.setCity(City.valueOf(rs.getString(2)));
         userInfo.setDateOfBirth(rs.getString(3));
         userInfo.setAge(rs.getInt(4));
         userInfo.setPhoneNumber(rs.getString(5));
 
         String hobs = rs.getString(6);
-        String[] hobslist = hobs.split(",");
-        Hobbies[] hobbies = new Hobbies[hobslist.length];
+        String[] hobbiesList = hobs.split(",");
+        Hobbies[] hobbies = new Hobbies[hobbiesList.length];
         int k=0;
-        for(String str : hobslist){
+        for(String str : hobbiesList){
             hobbies[k] = Hobbies.valueOf(str);
             k++;
         }

@@ -15,13 +15,14 @@ public class User {
     private String username;
     private String password;
     private String sex;
+    private int user_profile_id;
 
 
     public User(String name, String surname,
                 String email, String username,
                 String password,
-                String dateOfBirth, String sex,
-                City city, Hobbies[] hobbies) {
+                String sex,
+                int user_profile_id) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -29,7 +30,11 @@ public class User {
         this.password = password; //hashed
         this.sex = sex;
 
+        this.user_profile_id = user_profile_id;
+
     }
+
+
 
     public User(){
 
@@ -54,7 +59,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
 
 
@@ -84,6 +88,15 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+
+    public int getUser_profile_id() {
+        return user_profile_id;
+    }
+
+    public void setUser_profile_id(int user_profile_id) {
+        this.user_profile_id = user_profile_id;
     }
 
 
