@@ -29,8 +29,11 @@ function toggleSex(curr){
     if(curr == 'Male'){
         document.getElementById("MaleSex").style.background = "#FFF";
         document.getElementById("FemaleSex").style.background = 'none';
+        document.querySelector('.genderInput').setAttribute('value','male');
+        console.log(document.querySelector('.genderInput').attributes);
     }else{
         document.getElementById("FemaleSex").style.background = "#FFF";
         document.getElementById("MaleSex").style.background = 'none';
+        document.querySelector('.genderInput').setAttribute('value','female');
     }
 }

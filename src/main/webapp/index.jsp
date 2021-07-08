@@ -14,9 +14,14 @@
             <img src="Content/Images/heartLogo.png" width="30" height="30"/>
             <span class="navHeader__text">Binder</span>
         </div>
-        <div>
-            <button type="submit" onclick="toggleModal('LoginModal')">Login</button>
-            <button type="submit" onclick="toggleModal('RegisterModal')">register</button>
+        <div class="modalButtonsContainer">
+            <div onclick="toggleModal('LoginModal')" class="loginAndRegisterToggleContainer">
+                <i style="color: #F0A3FE" class="fas fa-heart"></i>
+                Login
+            </div>
+
+            <div  onclick="toggleModal('RegisterModal')" class="loginAndRegisterToggleContainer">
+                <i style="color: #F0A3FE" class="fas fa-heart"></i> Register</div>
         </div>
     </div>
     <form action="LoginServlet" name="loginForm" method="post">
