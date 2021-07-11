@@ -15,7 +15,6 @@
 </head>
 <body>
     <form action="PersonalInfoServlet" name="RegisterInfoForm" method="post">
-
             <div class="registerModalContainer">
                 <input style="width: 80%" name="username" class="userInputContainer__Input" placeholder="username">
                 <input style="width: 80%" name="dateOfBirth" class="userInputContainer__Input" placeholder="dateOfBirth">
@@ -25,7 +24,6 @@
 
                 <button type="submit" class="registerButton">Register</button>
             </div>
-
     </form>
 </body>
 </html>

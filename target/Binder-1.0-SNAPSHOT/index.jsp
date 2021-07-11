@@ -17,7 +17,7 @@
         </div>
         <div class="modalButtonsContainer">
             <div onclick="toggleModal('LoginModal')" class="loginAndRegisterToggleContainer">
-                <i style="color: #F0A3FE" class="fas fa-heart"></i>
+                <i  class="fas fa-heart"></i>
                 Login
             </div>
 
