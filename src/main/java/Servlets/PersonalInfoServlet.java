@@ -42,12 +42,12 @@ public class PersonalInfoServlet extends HttpServlet {
             userInfo = infoDao.getUserInfo(userInfo.getUsername());
             currUser.setUser_profile_id(userInfo.getID());
             userDAO.updateUser(currUser);
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
             requestDispatcher.forward(request, response);
         } catch (RegistrationException | SQLException ex){
             ex.printStackTrace();
             request.setAttribute("registrationFailed", true);
-            RequestDispatcher rd = request.getRequestDispatcher("Register.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("Home.jsp");
             rd.forward(request, response);
         }
     }

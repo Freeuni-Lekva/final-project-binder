@@ -36,10 +36,10 @@ public class LoginServlet extends HttpServlet {
                 // TODO: for home.jsp
                 request.setAttribute("user", user);
                 if(user.getUser_profile_id() != 0){
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
                     requestDispatcher.forward(request, response);
                 }else{
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("Register.jsp");
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
                     requestDispatcher.forward(request, response);
                 }
 

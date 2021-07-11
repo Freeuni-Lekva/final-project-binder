@@ -44,12 +44,14 @@ public class UserDAO {
         return user;
     }
     public void setUser(User user) throws SQLException, RegistrationException {
-        PreparedStatement pstmt = con.prepareStatement("Select count(id) from user where email = ?");
+        PreparedStatement pstmt = con.prepareStatement("Select count(id) from user " +
+                "where  email = ? OR username = ?");
         pstmt.setString(1,user.getEmail());
+        pstmt.setString(2,user.getUsername());
         ResultSet rs = pstmt.executeQuery();
         rs.next();
         if(rs.getInt(1) > 0){
-            throw new RegistrationException("Username with this email is already registered!");
+            throw new RegistrationException("User with this username or email is already registered!");
         }else {
             pstmt.close();
             pstmt = con.prepareStatement("INSERT INTO user " +

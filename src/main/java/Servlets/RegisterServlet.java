@@ -25,11 +25,20 @@ public class RegisterServlet extends HttpServlet {
         user.setEmail(request.getParameter("email"));
         user.setPassword(String.valueOf(request.getParameter("RegisterPassword").hashCode()));
         user.setSex(request.getParameter("gender"));
+        if(user.getName().isEmpty()  || user.getUsername().isEmpty() ||
+            user.getEmail().isEmpty()  || user.getSex().isEmpty()
+             ){
+                request.setAttribute("registrationFailed", true);
+                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+                rd.forward(request, response);
+                System.out.println("not filled");
+                return;
+        }
         UserDAO userDAO = new UserDAO();
         try {
             userDAO.setUser(user);
             System.out.println(userDAO.getUser(user.getUsername(), true));
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Register.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
             requestDispatcher.forward(request, response);
         } catch (RegistrationException | SQLException ex){
             ex.printStackTrace();
