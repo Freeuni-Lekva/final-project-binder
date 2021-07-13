@@ -108,3 +108,7 @@ html,body{
     padding: 4px 0;
     background: none;
 }
+
+.messageName{
+  color: white;
+}

@@ -28,7 +28,8 @@ public class RegisterServlet extends HttpServlet {
         if(user.getName().isEmpty()  || user.getUsername().isEmpty() ||
             user.getEmail().isEmpty()  || user.getSex().isEmpty()
              ){
-                request.setAttribute("registrationFailed", true);
+                //request.setAttribute("registrationFailed", true);
+                request.setAttribute("registrationFailed", new String("Please fill all forms"));
                 RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
                 rd.forward(request, response);
                 System.out.println("not filled");
@@ -42,7 +43,7 @@ public class RegisterServlet extends HttpServlet {
             requestDispatcher.forward(request, response);
         } catch (RegistrationException | SQLException ex){
             ex.printStackTrace();
-            request.setAttribute("registrationFailed", true);
+            request.setAttribute("registrationFailed", new String("user already exists"));
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
         }

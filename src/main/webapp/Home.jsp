@@ -5,6 +5,8 @@
   Time: 7:06 PM
   To change this template use File | Settings | File Templates.
 --%>
+
+<%@ page import="DAO.UserDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,11 +16,9 @@
     <script src="Content/Scripts/HomePage.js"></script>
 </head>
 <body>
-    <div class="chatsContainer">
-        <div class="chatContainer__Header">Chats</div>
-    </div>
+    <%UserDAO currUser = (UserDAO) request.getAttribute("user");%>
     <div class="navMainContainer">
-        <span class="navWelcome">Welcome vigaca</span>
+        <span class="navWelcome">Welcome <%=currUser.getUser("userName", true).getName()%></span></span>
         <div class="navEditProfile">
             <span>Edit Profile</span>
             <i style="color: white; margin-top: 2px" class="fas fa-bars"></i>

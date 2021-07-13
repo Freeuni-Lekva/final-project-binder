@@ -42,10 +42,9 @@ public class LoginServlet extends HttpServlet {
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
                     requestDispatcher.forward(request, response);
                 }
-
             }
         }else{
-            request.setAttribute("loginNotFilled",new String("Please fill both fields"));
+            request.setAttribute("loginWrong",new String("Please fill both fields"));
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
             requestDispatcher.forward(request, response);
         }
