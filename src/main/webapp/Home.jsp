@@ -7,6 +7,7 @@
 --%>
 
 <%@ page import="DAO.UserDAO" %>
+<%@ page import="Model.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,11 +15,14 @@
     <script src="https://kit.fontawesome.com/9bff1b7661.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="Content/HomePage.css">
     <script src="Content/Scripts/HomePage.js"></script>
+    <%UserDAO currDao = (UserDAO) request.getAttribute("user");
+        User currUser = currDao.getUser("userName", true);
+    %>
 </head>
 <body>
-    <%UserDAO currUser = (UserDAO) request.getAttribute("user");%>
+
     <div class="navMainContainer">
-        <span class="navWelcome">Welcome <%=currUser.getUser("userName", true).getName()%></span></span>
+        <span class="navWelcome">Welcome <%=currUser.getName()%></span></span>
         <div class="navEditProfile">
             <span>Edit Profile</span>
             <i style="color: white; margin-top: 2px" class="fas fa-bars"></i>
