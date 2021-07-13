@@ -16,13 +16,21 @@
     <link rel="stylesheet" href="Content/HomePage.css">
     <script src="Content/Scripts/HomePage.js"></script>
     <%UserDAO currDao = (UserDAO) request.getAttribute("user");
-        User currUser = currDao.getUser("userName", true);
+        User currUser = null;
+        String name = null;
+        if(currDao != null){
+            currUser = currDao.getUser("username", true);
+            name = currUser.getName();
+        }
     %>
 </head>
 <body>
+    <div class="chatsContainer">
+        <span class="chatContainer__Header">Chats</span>
+    </div>
 
     <div class="navMainContainer">
-        <span class="navWelcome">Welcome <%=currUser.getName()%></span></span>
+        <span class="navWelcome">Welcome <%=name%></span></span>
         <div class="navEditProfile">
             <span>Edit Profile</span>
             <i style="color: white; margin-top: 2px" class="fas fa-bars"></i>

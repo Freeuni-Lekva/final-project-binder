@@ -10,6 +10,13 @@
 <body>
 
 <div class="mainContainer">
+    <%String MessageLogin = (String) request.getAttribute("loginWrong");%>
+    <%String MessageRegister = (String) request.getAttribute("registrationFailed");%>
+    <span class="servletMessageLogin"><%=MessageLogin%></span>
+    <span class="servletRegisterMessage"><%=MessageRegister%></span>
+    <div  class="chatsContainer">
+        <div class="chatContainer__Header">Chats</div>
+    </div>
     <div class="navMainContainer">
         <div class="navHeader">
             <img src="Content/Images/heartLogo.png" width="30" height="30"/>
