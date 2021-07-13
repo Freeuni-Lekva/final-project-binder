@@ -4,6 +4,10 @@ html,body{
     overflow: hidden;
     background: #FAFCC3;
 }
+::placeholder {
+    color: #ffff;
+    opacity: 0.85;
+}
 
 .navMainContainer{
     padding-right: 20px;
@@ -12,7 +16,7 @@ html,body{
     top: 0;
     display: flex;
     flex-direction: row;
-    width: calc(100% - 424px);
+    width: calc(100% - 465px);
     height: 80px;
     padding-left: 40px;
     justify-content: space-between;
@@ -60,6 +64,7 @@ html,body{
 }
 
 .completeRegisterButton{
+    cursor: pointer;
     position: absolute;
     bottom: 5%;
     left: 50%;
@@ -89,20 +94,29 @@ html,body{
 }
 
 .registrationModalContainer{
+    padding: 10px;
+    border-radius: 8px;
     position: absolute;
     top: 25%;
-    left: calc(50% - 200px);
+    left: calc(50% - 150px) ;
     width: 400px;
     font-size: 12px;
     display: flex;
+    align-items: center;
     justify-content: center;
     background: #E67826;
     font-color: #ffffff;
     font-weight: 500;
-    flex-direction: column;;
+    flex-direction: column;
+
 }
 
 .forms{
+    margin-bottom: 10px;
+    border: none;
+    color: #ffffff;
+    font-size: 14px;
+    margin-bottom: 10px;
     width: 80%;
     border-bottom: 1px solid #ffffff;
     padding: 4px 0;
@@ -113,4 +127,118 @@ html,body{
   color: white;
 }
 
-.
+.dateOfBirthYearContainer{
+    margin-bottom: 10px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.elementContainer{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 10px;
+    color: #ffffff;
+    font-size: 12px;
+    align-items: center;
+}
+
+.elementDay{
+    font-weight: 800;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 8px;
+    background: white;
+    color: black;
+    border: 1px solid #E1E43F;
+}
+
+.elementMonth{
+    font-weight: 800;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border-radius: 8px;
+    background: white;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #E1E43F;
+}
+
+.elementYear{
+    padding-left: 8px;
+    border-radius: 8px;
+    font-weight: 500;
+    height: 20px;
+    border: none;
+    width: 50px;
+}
+
+.dropDownTrigger{
+    cursor: pointer;
+    height: 20px;
+    width: 100%;
+    background: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dropDown-content{
+    display: none;
+    position: absolute;
+    background: white;
+    border-bottom: 1px solid #E1E43F;
+    color: black;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    padding: 0 3px;
+    overflow: auto;
+    height: 100px;
+    top: 20px;
+    left: 0;
+    width: 100%;
+}
+.dropDownContentElement{
+    cursor: pointer;
+    height: 20px;
+    background: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+    padding: 2px;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #14212D;
+    box-shadow: 0px 0px 10px #000000;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #8693A5;
+    border-radius: 4px;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #8693A5;
+}
+
+

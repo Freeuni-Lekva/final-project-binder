@@ -79,9 +79,5 @@ public class UserDAO {
         pstmt.setString(6,user.getSex());
         pstmt.setInt(7, user.getUser_profile_id());
         pstmt.executeUpdate();
-
-
     }
-
-
 }

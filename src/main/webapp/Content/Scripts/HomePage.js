@@ -8,3 +8,25 @@ window.onclick = function (event){
     if(event.target == document.getElementById('CompleteRegistrationModal'))
         document.getElementById('CompleteRegistrationModal').style.display = 'none';
 }
+
+function toggleDropDown(dropDownId){
+    console.log('blalalal');
+    let currDrop = document.getElementById(dropDownId);
+    if(currDrop.style.display == 'none' || currDrop.style.display == "") currDrop.style.display = "block";
+    else currDrop.style.display = "none";
+}
+
+function changeDate(id, number){
+
+    document.getElementById(id).textContent = number;
+    if(id === 'userDay') document.getElementById('dayDropDown').style.display = "none";
+    else document.getElementById('MonthDropDown').style.display = "none";
+}
+
+function setDate(){
+    let date = "";
+    date+= document.getElementById('userDay') + '/';
+    date+= document.getElementById('userMonth') + '/';
+    date+= document.querySelector('elementYear').getAttribute('value');
+    document.getElementById('dateData').setAttribute('value',date);
+}
