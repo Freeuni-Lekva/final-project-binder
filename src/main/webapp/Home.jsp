@@ -15,11 +15,10 @@
     <script src="https://kit.fontawesome.com/9bff1b7661.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="Content/HomePage.css">
     <script src="Content/Scripts/HomePage.js"></script>
-    <%UserDAO currDao = (UserDAO) request.getAttribute("user");
-        User currUser = null;
+    <%
+        User currUser = (User) request.getAttribute("user");
         String name = null;
-        if(currDao != null){
-            currUser = currDao.getUser("username", true);
+        if(currUser != null){
             name = currUser.getName();
         }
     %>

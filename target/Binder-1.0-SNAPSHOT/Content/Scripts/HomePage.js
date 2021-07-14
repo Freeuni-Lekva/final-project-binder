@@ -22,3 +22,11 @@ function changeDate(id, number){
     if(id === 'userDay') document.getElementById('dayDropDown').style.display = "none";
     else document.getElementById('MonthDropDown').style.display = "none";
 }
+
+function setDate(){
+    let date = "";
+    date+= document.getElementById('userDay') + '/';
+    date+= document.getElementById('userMonth') + '/';
+    date+= document.querySelector('elementYear').getAttribute('value');
+    document.getElementById('dateData').setAttribute('value',date);
+}

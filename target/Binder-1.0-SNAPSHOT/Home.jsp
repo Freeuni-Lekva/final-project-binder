@@ -15,11 +15,10 @@
     <script src="https://kit.fontawesome.com/9bff1b7661.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="Content/HomePage.css">
     <script src="Content/Scripts/HomePage.js"></script>
-    <%UserDAO currDao = (UserDAO) request.getAttribute("user");
-        User currUser = null;
+    <%
+        User currUser = (User) request.getAttribute("user");
         String name = null;
-        if(currDao != null){
-            currUser = currDao.getUser("username", true);
+        if(currUser != null){
             name = currUser.getName();
         }
     %>
@@ -86,14 +85,13 @@
                     </div>
                     <div class="elementContainer">
                         <span>Year:</span>
-                        <input onkeydown="" class="elementYear" placeholder="2000">
+                        <input onkeydown="setDate()" class="elementYear" placeholder="2000">
                     </div>
                 </div>
-                <input style="display: none" name="dateOfBirth" class="forms">
+                <input id="dateData" style="display: none" name="dateOfBirth" class="forms">
                 <input style="width: 80%" name="phoneNumber" class="forms" placeholder="phoneNumber">
                 <input style="width: 80%" name="city" class="forms" placeholder="city">
                 <input style="width: 80%" name="hobbies" class="forms" placeholder="hobbies">
-
                 <button type="submit" class="registerButton">Register</button>
             </div>
         </div>

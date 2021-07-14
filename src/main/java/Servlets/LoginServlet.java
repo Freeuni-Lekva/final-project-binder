@@ -21,9 +21,9 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("email");
         String password = String.valueOf(request.getParameter("password").hashCode());
         UserDAO userDao = new UserDAO();
-        if(username != null && password != null){
+        if(!username.isEmpty() && !password.isEmpty()){
             boolean isUser;
-            isUser = (username.contains("@") ? false:true);
+            isUser = !username.contains("@");
             User user = null;
             try {
                 user = userDao.getUser(username,isUser);
