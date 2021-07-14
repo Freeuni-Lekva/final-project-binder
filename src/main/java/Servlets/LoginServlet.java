@@ -28,28 +28,27 @@ public class LoginServlet extends HttpServlet {
             try {
                 user = userDao.getUser(username,isUser);
                 if(user.getPassword().equals(password)){
-                    // TODO: for home.jsp
                     request.setAttribute("user", user);
                     if(user.getUser_profile_id() != 0){
-                        RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
-                        requestDispatcher.forward(request, response);
+                        request.setAttribute("fullyRegistered", "true");
                     }else{
-                        RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
-                        requestDispatcher.forward(request, response);
+                        request.setAttribute("fullyRegistered","false");
                     }
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
+                    requestDispatcher.forward(request, response);
                 }else{
-                    request.setAttribute("loginWrong",new String("User does not exist"));
+                    request.setAttribute("loginWrong", "Wrong password");
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
                     requestDispatcher.forward(request, response);
                 }
             } catch (SQLException throwables) {
-                request.setAttribute("loginWrong",new String("User does not exist"));
+                request.setAttribute("loginWrong", "User does not exist");
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
                 requestDispatcher.forward(request, response);
             }
 
         }else{
-            request.setAttribute("loginWrong",new String("Please fill both fields"));
+            request.setAttribute("loginWrong", "Please fill both fields");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
             requestDispatcher.forward(request, response);
         }
