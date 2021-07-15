@@ -25,15 +25,18 @@ function toggleVisibility(inputId, eyeId){
 
 function toggleModal(modalId){
     let currModal = document.getElementById(modalId);
-    console.log("displat aris", currModal.style.display);
-    if(currModal.style.display == 'none'|| currModal.style.display == "" ) currModal.style.display = "block"
+    console.log("display aris", currModal.style.display);
+    if(currModal.style.display == ""  || currModal.style.display == 'none') currModal.style.display = "block"
     else currModal.style.display = "none";
 }
-window.onclick = function (event){
-    if(event.target == document.getElementById('LoginModal'))
+window.onclick = function (event) {
+    if (event.target == document.getElementById('LoginModal')) {
         document.getElementById("LoginModal").style.display = 'none';
-    else if(event.target == document.getElementById('RegisterModal'))
+    } else if (event.target == document.getElementById('RegisterModal')){
         document.getElementById('RegisterModal').style.display = 'none';
+    } else if(event.target == document.getElementById("DontHaveAnAccount")) {
+    document.getElementById('RegisterModal').style.display = 'none';
+    };
 }
 
 function toggleSex(curr){

@@ -14,9 +14,6 @@
     <%String MessageRegister = (String) request.getAttribute("registrationFailed");%>
     <span class="servletMessageLogin"><%=MessageLogin%></span>
     <span class="servletRegisterMessage"><%=MessageRegister%></span>
-    <div  class="chatsContainer">
-        <div class="chatContainer__Header">Chats</div>
-    </div>
     <div class="navMainContainer">
         <div class="navHeader">
             <img src="Content/Images/heartLogo.png" width="30" height="30"/>
@@ -48,7 +45,10 @@
                     <input id="LoginPassword" name="password" class="userInputContainer__Input" type="Password" placeholder="Password">
                     <i id="loginEye" style="color: white" class="fas fa-eye" onclick="toggleVisibility('LoginPassword', 'loginEye')"></i>
                 </div>
-                <a href="#" class="redirectToRegister">Don't have an account? <br>click here to register</a>
+
+                <div onclick="toggleModal('DontHaveAnAccount')" class="loginAndRegisterToggleContainer">
+                    <i style="color: white" > Don't have an account?<br>click here to register </i>
+                </div>
 
                 <button type="submit" class="LoginButton">Login</button>
             </div>

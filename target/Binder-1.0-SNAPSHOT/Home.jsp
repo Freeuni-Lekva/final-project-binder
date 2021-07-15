@@ -89,9 +89,9 @@
                     </div>
                 </div>
                 <input id="dateData" style="display: none" name="dateOfBirth" class="forms">
-                <input style="width: 80%" name="phoneNumber" class="forms" placeholder="phoneNumber">
-                <input style="width: 80%" name="city" class="forms" placeholder="city">
-                <input style="width: 80%" name="hobbies" class="forms" placeholder="hobbies">
+                <input id="phoneNumber" style="width: 80%" name="phoneNumber" class="forms" placeholder="phoneNumber">
+                <input id="city"  style="width: 80%" name="city" class="forms" placeholder="city">
+                <input id="" style="width: 80%" name="hobbies" class="forms" placeholder="hobbies">
                 <button type="submit" class="registerButton">Register</button>
             </div>
         </div>

@@ -69,7 +69,8 @@ public class UserDAO {
     }
     public void updateUser(User user) throws SQLException {
         PreparedStatement pstmt = con.prepareStatement("UPDATE user " +
-                " SET name = ? , surname = ? , email = ? , username = ? , password = ? , gender = ? , user_profile_id = ? "
+                " SET name = ? , surname = ? , email = ? , username = ? , password = ? , gender = ? , user_profile_id = ? " +
+                        "where username = ?"
                 );
         pstmt.setString(1, user.getName());
         pstmt.setString(2, user.getSurname());
@@ -78,6 +79,7 @@ public class UserDAO {
         pstmt.setString(5, user.getPassword());
         pstmt.setString(6,user.getSex());
         pstmt.setInt(7, user.getUser_profile_id());
+        pstmt.setString(8,user.getUsername());
         pstmt.executeUpdate();
     }
 }

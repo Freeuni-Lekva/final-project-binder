@@ -67,6 +67,28 @@ public class PersonalInfoDAO {
     }
 
 
+    public void updateUserInfo(PersonalUserInfo userInfo) throws SQLException, RegistrationException {
+        PreparedStatement pstmt = con.prepareStatement("UPDATE user " +
+                " SET username = ? , city = ? , dateOfBirth = ? , age = ? , phoneNumber = ? , hobbies = ? "
+                + "where username = ?"
+        );
+        pstmt.setString(1, userInfo.getUsername());
+        pstmt.setString(2, userInfo.getCity().toString());
+        pstmt.setString(3, userInfo.getDateOfBirth());
+        pstmt.setInt(   4, userInfo.getAge());
+        pstmt.setString(5, userInfo.getPhoneNumber());
+
+        Hobbies[] hobbies = userInfo.getHobbies();
+        StringBuilder str = new StringBuilder();
+        for(int i=0; i<hobbies.length; i++){
+            str.append(hobbies[i].toString() + ",");
+        }
+        pstmt.setString(6, str.toString());
+        pstmt.setString(7,userInfo.getUsername());
+        pstmt.executeUpdate();
+    }
+
+
 
 
 

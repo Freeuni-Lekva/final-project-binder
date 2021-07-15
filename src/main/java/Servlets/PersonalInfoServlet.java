@@ -31,12 +31,15 @@ public class PersonalInfoServlet extends HttpServlet {
         userInfo.setUsername(request.getParameter("username"));
         userInfo.setCity(City.valueOf(request.getParameter("city")));
         userInfo.setPhoneNumber(request.getParameter("phoneNumber"));
-        userInfo.setDateOfBirth(request.getParameter("dateOfBirth"));
+        String day = (request.getParameter("userDay"));
+        String month = (request.getParameter("userMonth"));
+        String year = (request.getParameter("dateData"));
+        String dateOfBirth = day + "/" + month + "/" + year;
+        userInfo.setDateOfBirth(dateOfBirth);
         userInfo.setAge(userInfo.getCurrentAge(userInfo.getDateOfBirth()));
         Hobbies [] hobbies = new Hobbies[1];
         hobbies[0] = Hobbies.LONG_WALKS_ON_THE_BEACH;
         userInfo.setHobbies(hobbies);
-
         try {
             infoDao.setUserInfo(userInfo);
             userInfo = infoDao.getUserInfo(userInfo.getUsername());
