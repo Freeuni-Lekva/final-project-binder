@@ -26,15 +26,13 @@ public class PersonalInfoServlet extends HttpServlet {
         PersonalUserInfo userInfo = new PersonalUserInfo();
         PersonalInfoDAO infoDao = new PersonalInfoDAO();
         UserDAO userDAO = new UserDAO();
-        User currUser = (User) request.getAttribute("user");
+        User currUser ;
+
 
         userInfo.setUsername(request.getParameter("username"));
         userInfo.setCity(City.valueOf(request.getParameter("city")));
         userInfo.setPhoneNumber(request.getParameter("phoneNumber"));
-        String day = (request.getParameter("userDay"));
-        String month = (request.getParameter("userMonth"));
-        String year = (request.getParameter("dateData"));
-        String dateOfBirth = day + "/" + month + "/" + year;
+        String dateOfBirth = request.getParameter("dateOfBirth");
         userInfo.setDateOfBirth(dateOfBirth);
         userInfo.setAge(userInfo.getCurrentAge(userInfo.getDateOfBirth()));
         Hobbies [] hobbies = new Hobbies[1];
@@ -43,14 +41,21 @@ public class PersonalInfoServlet extends HttpServlet {
         try {
             infoDao.setUserInfo(userInfo);
             userInfo = infoDao.getUserInfo(userInfo.getUsername());
-            currUser.setUser_profile_id(userInfo.getID());
+            currUser = userDAO.getUser(request.getParameter("username"),true);
+            currUser.setUser_profile_id(userInfo.getId());
             userDAO.updateUser(currUser);
+            request.setAttribute("user", currUser);
+            if(currUser.getUser_profile_id() != 0){
+                request.setAttribute("fullyRegistered", "true");
+            }else{
+                request.setAttribute("fullyRegistered","false");
+            }
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
             requestDispatcher.forward(request, response);
         } catch (RegistrationException | SQLException ex){
             ex.printStackTrace();
             request.setAttribute("registrationFailed", true);
-            RequestDispatcher rd = request.getRequestDispatcher("Home.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
         }
     }

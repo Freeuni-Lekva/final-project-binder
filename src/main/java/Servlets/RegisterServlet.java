@@ -40,6 +40,9 @@ public class RegisterServlet extends HttpServlet {
             userDAO.setUser(user);
             System.out.println(userDAO.getUser(user.getUsername(), true));
             request.setAttribute("user" ,user);
+            Cookie cookie = new Cookie("usernameCookie",user.getUsername());
+            response.addCookie(cookie);
+            request.setAttribute("fullyRegistered","false");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
             requestDispatcher.forward(request, response);
         } catch (RegistrationException | SQLException ex){

@@ -1,5 +1,27 @@
+<%@ page import="DAO.UserDAO" %>
+<%@ page import="Model.User" %>
+<%@ page import="java.sql.SQLException" %>
+
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<% Cookie [] cookies = request.getCookies();
+    for(Cookie c : cookies){
+        if("usernameCookie".equals(c.getName())){
+            UserDAO userDAO = new UserDAO();
+            try {
+                User cookedUser = userDAO.getUser(c.getValue(),true);
+                c.setMaxAge(30);
+                request.setAttribute("user",cookedUser);
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
+                requestDispatcher.forward(request, response);
+                return;
+
+            } catch (SQLException throwables) {
+                c.setMaxAge(0);
+            }
+        }
+    }%>
 <!DOCTYPE html>
+
 <html>
 <head>
     <link rel="stylesheet" href="Content/LoginPageStyle.css">
@@ -7,6 +29,7 @@
     <script src="Content/Scripts/LoginAndRegisterScript.js"></script>
     <title>Binder</title>
 </head>
+
 <body>
 
 <div class="mainContainer">

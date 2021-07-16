@@ -29,13 +29,13 @@ public class PersonalInfoDAO {
         ResultSet rs = pstmt.executeQuery(statement.toString());
         rs.next();
         userInfo.setUsername(key);
-        userInfo.setID(rs.getInt(1));
-        userInfo.setCity(City.valueOf(rs.getString(2)));
-        userInfo.setDateOfBirth(rs.getString(3));
-        userInfo.setAge(rs.getInt(4));
-        userInfo.setPhoneNumber(rs.getString(5));
+        userInfo.setId(rs.getInt(1));
+        userInfo.setCity(City.valueOf(rs.getString(3)));
+        userInfo.setDateOfBirth(rs.getString(4));
+        userInfo.setAge(rs.getInt(5));
+        userInfo.setPhoneNumber(rs.getString(6));
 
-        String hobs = rs.getString(6);
+        String hobs = rs.getString(7);
         String[] hobbiesList = hobs.split(",");
         Hobbies[] hobbies = new Hobbies[hobbiesList.length];
         int k=0;
@@ -60,7 +60,10 @@ public class PersonalInfoDAO {
             StringBuilder str = new StringBuilder();
             Hobbies[] hobbies = userInfo.getHobbies();
             for(int i=0; i<hobbies.length; i++){
-                str.append(hobbies[i].toString() + ",");
+                if(i != 0){
+                    str.append( ",");
+                }
+                str.append(hobbies[i].toString());
             }
             pstmt.setString(6, str.toString());
             pstmt.executeUpdate();
@@ -81,8 +84,12 @@ public class PersonalInfoDAO {
         Hobbies[] hobbies = userInfo.getHobbies();
         StringBuilder str = new StringBuilder();
         for(int i=0; i<hobbies.length; i++){
-            str.append(hobbies[i].toString() + ",");
+            if(i != 0){
+                str.append( ",");
+            }
+            str.append(hobbies[i].toString());
         }
+
         pstmt.setString(6, str.toString());
         pstmt.setString(7,userInfo.getUsername());
         pstmt.executeUpdate();

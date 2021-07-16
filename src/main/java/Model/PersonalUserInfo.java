@@ -3,8 +3,10 @@ package Model;
 import Enums.City;
 import Enums.Hobbies;
 
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+
 
 public class PersonalUserInfo {
 
@@ -14,17 +16,16 @@ public class PersonalUserInfo {
     private int age;
     private City city;
     private Hobbies[] hobbies;
-    private int ID;
+    private int id;
 
-
-    public PersonalUserInfo(String username, String dateOfBirth, String phoneNumber, City city, Hobbies[] hobbies, int ID) {
+    public PersonalUserInfo(String username, String dateOfBirth, String phoneNumber, City city, Hobbies[] hobbies) {
         this.username = username;
         this.dateOfBirth = dateOfBirth;
         this.phoneNumber = phoneNumber;
         this.city = city;
         this.hobbies = hobbies;
         this.age = getCurrentAge(dateOfBirth);
-        this.ID = ID;
+
     }
 
     public PersonalUserInfo(){
@@ -92,18 +93,19 @@ public class PersonalUserInfo {
         this.username = username;
     }
 
-    public int getID() {
-        return ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public int getId() {
+        return id;
     }
 
     public int getCurrentAge(String date){
-        Date birthDate = new Date(date);
-        long age = System.currentTimeMillis() - birthDate.getTime();
-        return (int) (TimeUnit.DAYS.convert(age, TimeUnit.MILLISECONDS)/365);
+        LocalDate now = LocalDate.now();
+        LocalDate birthDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("d/M/yyyy"));
+        int age = Period.between(birthDate,now).getYears();
+        return age;
     }
 
 }
