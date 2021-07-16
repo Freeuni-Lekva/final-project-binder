@@ -85,7 +85,7 @@
                     </div>
                     <div class="elementContainer">
                         <span>Year:</span>
-                        <input onkeydown="setDate()" class="elementYear" placeholder="2000">
+                        <input oninput="setDate()"  class="elementYear" placeholder="2000">
                     </div>
                 </div>
                 <input id="dateData" style="display: none" name="dateOfBirth" class="forms">

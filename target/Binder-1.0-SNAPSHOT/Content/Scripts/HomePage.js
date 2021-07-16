@@ -10,7 +10,6 @@ window.onclick = function (event){
 }
 
 function toggleDropDown(dropDownId){
-    console.log('blalalal');
     let currDrop = document.getElementById(dropDownId);
     if(currDrop.style.display == 'none' || currDrop.style.display == "") currDrop.style.display = "block";
     else currDrop.style.display = "none";
@@ -25,8 +24,9 @@ function changeDate(id, number){
 
 function setDate(){
     let date = "";
-    date+= document.getElementById('userDay') + '/';
-    date+= document.getElementById('userMonth') + '/';
-    date+= document.querySelector('elementYear').getAttribute('value');
-    document.getElementById('dateData').setAttribute('value',date);
+    date+= document.getElementById('userDay').textContent+ "/";
+    date+= document.getElementById('userMonth').textContent + "/";
+    date+= document.querySelector('.elementYear').value.toString();
+    document.getElementById('dateData').value = date;
+
 }
