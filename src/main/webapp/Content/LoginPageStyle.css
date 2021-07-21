@@ -251,17 +251,18 @@ html{
 .servletMessageLogin{
     position: absolute;
     color: red;
-    top: calc(50% - 230px);
-    left: calc(50% - 200px);
+    top: 5px;
+    left: 40px;
     font-size: 14px;
+    display: none;
 }
 
 .servletRegisterMessage{
     position: absolute;
     color: red;
-    top: calc(50% - 250px);
-    left: calc(50% - 200px);
-    top: calc(10% - 30px);
+    top: 5px;
+    left: 40px;
+    display: none;
 }
 
 

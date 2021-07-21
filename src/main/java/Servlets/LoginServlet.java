@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
                 user = userDao.getUser(username,isUser);
                 if(user.getPassword().equals(password)){
                     request.setAttribute("user", user);
-                    Cookie cookie = new Cookie("usernameCookie",user.getUsername());
+                    Cookie cookie = new Cookie("userName",user.getUsername());
                     response.addCookie(cookie);
                     if(user.getUser_profile_id() != 0){
                         request.setAttribute("fullyRegistered", "true");
@@ -54,7 +54,5 @@ public class LoginServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
             requestDispatcher.forward(request, response);
         }
-
-
     }
 }

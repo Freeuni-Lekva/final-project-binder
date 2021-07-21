@@ -1,13 +1,18 @@
-function init(){
-    console.log("blablalala");
-    if(document.querySelector('.servletMessageLogin').textContent != null)
+function checkMessages(){
+    console.log(document.querySelector('.servletMessageLogin').textContent);
+    if(document.querySelector('.servletMessageLogin').textContent != 'null'){
         document.getElementById("LoginModal").style.display = 'block';
-    else if(document.querySelector('.servletRegisterMessage').textContent !=null &&
-        document.querySelector('.servletRegisterMessage').textContent!== "")
-            document.getElementById('RegisterModal').style.display = 'block';
+        document.querySelector('.servletMessageLogin').style.display ='block'
+    }
+    else if(document.querySelector('.servletRegisterMessage').textContent != 'null'){
+        document.getElementById('RegisterModal').style.display = 'block';
+        document.querySelector('.servletRegisterMessage').style.display ='block';
+    }
 }
 
-init();
+function init(){
+    setTimeout(checkMessages, 200);
+}
 
 function toggleVisibility(inputId, eyeId){
      let currPassword = document.getElementById(inputId);

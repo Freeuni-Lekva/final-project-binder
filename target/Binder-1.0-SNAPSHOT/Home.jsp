@@ -16,10 +16,14 @@
     <link rel="stylesheet" href="Content/HomePage.css">
     <script src="Content/Scripts/HomePage.js"></script>
     <%
-        User currUser = (User) request.getAttribute("user");
-        String name = null;
-        if(currUser != null){
-            name = currUser.getName();
+        String name = "";
+        Cookie[] cookies = request.getCookies();
+        for(Cookie c : cookies) {
+            if (c.getName().equals("userName"))
+                name = c.getValue();
+        }
+        if(name.isEmpty()){
+            response.sendRedirect("index.jsp");
         }
     %>
 </head>
@@ -42,7 +46,6 @@
     <form action="PersonalInfoServlet" name="RegisterInfoForm" method="post">
         <div id="CompleteRegistrationModal" class="modal ">
             <div class="registrationModalContainer">
-                <input name="username" class="forms" placeholder="username">
                 <div class="dateOfBirthYearContainer">
                     <div class="elementContainer">
                         <span>Day:</span>

@@ -3,25 +3,20 @@
 <%@ page import="java.sql.SQLException" %>
 
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<% Cookie [] cookies = request.getCookies();
-    for(Cookie c : cookies){
-        if("usernameCookie".equals(c.getName())){
-            UserDAO userDAO = new UserDAO();
-            try {
-                User cookedUser = userDAO.getUser(c.getValue(),true);
-                c.setMaxAge(30);
-                request.setAttribute("user",cookedUser);
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
-                requestDispatcher.forward(request, response);
-                return;
 
-            } catch (SQLException throwables) {
-                c.setMaxAge(0);
+<!DOCTYPE html>
+<%
+    Cookie[] cookies = request.getCookies();
+    if(cookies != null) {
+        for (Cookie c : cookies) {
+            if ("userName".equals(c.getName())) {
+                c.setMaxAge(30);
+                response.sendRedirect("Home.jsp");
+                return;
             }
         }
-    }%>
-<!DOCTYPE html>
-
+    }
+%>
 <html>
 <head>
     <link rel="stylesheet" href="Content/LoginPageStyle.css">
@@ -35,8 +30,8 @@
 <div class="mainContainer">
     <%String MessageLogin = (String) request.getAttribute("loginWrong");%>
     <%String MessageRegister = (String) request.getAttribute("registrationFailed");%>
-    <span class="servletMessageLogin"><%=MessageLogin%></span>
-    <span class="servletRegisterMessage"><%=MessageRegister%></span>
+    <span class="servletMessageLogin" onload="init()"><%=MessageLogin%></span>
+    <span class="servletRegisterMessage" onload="init()"><%=MessageRegister%></span>
     <div class="navMainContainer">
         <div class="navHeader">
             <img src="Content/Images/heartLogo.png" width="30" height="30"/>
@@ -55,6 +50,7 @@
     <form action="LoginServlet" name="loginForm" method="post">
         <div id="LoginModal" class="modal">
             <div  class="loginModalContainer">
+                <span class="servletMessageLogin"><%=MessageLogin%></span>
                 <div class="closeButton">
                     <i style="color: white" class="fas fa-times"
                     onclick="toggleModal('LoginModal')"></i>
@@ -80,6 +76,7 @@
     <form action="RegisterServlet" name="registerForm" method="post">
         <div class="modal" id="RegisterModal">
             <div class="registerModalContainer">
+                <span class="servletRegisterMessage"><%=MessageRegister%></span>
                 <div class="closeButton">
                     <i style="color: white" class="fas fa-times"
                        onclick="toggleModal('RegisterModal')"></i>

@@ -28,8 +28,15 @@ public class PersonalInfoServlet extends HttpServlet {
         UserDAO userDAO = new UserDAO();
         User currUser ;
 
+        String username = "";
+        for (Cookie c : request.getCookies()) {
+            if ("userName".equals(c.getName())) {
+                username = c.getValue();
+                break;
+            }
+        }
 
-        userInfo.setUsername(request.getParameter("username"));
+        userInfo.setUsername(username);
         userInfo.setCity(City.valueOf(request.getParameter("city")));
         userInfo.setPhoneNumber(request.getParameter("phoneNumber"));
         String dateOfBirth = request.getParameter("dateOfBirth");
