@@ -17,6 +17,7 @@
         }
     }
 %>
+
 <html>
 <head>
     <link rel="stylesheet" href="Content/LoginPageStyle.css">
@@ -30,8 +31,8 @@
 <div class="mainContainer">
     <%String MessageLogin = (String) request.getAttribute("loginWrong");%>
     <%String MessageRegister = (String) request.getAttribute("registrationFailed");%>
-    <span class="servletMessageLogin" onload="init()"><%=MessageLogin%></span>
-    <span class="servletRegisterMessage" onload="init()"><%=MessageRegister%></span>
+
+
     <div class="navMainContainer">
         <div class="navHeader">
             <img src="Content/Images/heartLogo.png" width="30" height="30"/>
@@ -53,7 +54,7 @@
                 <span class="servletMessageLogin"><%=MessageLogin%></span>
                 <div class="closeButton">
                     <i style="color: white" class="fas fa-times"
-                    onclick="toggleModal('LoginModal')"></i>
+                       onclick="toggleModal('LoginModal')"></i>
                 </div>
                 <div class="userInputContainer">
                     <i style="color: white" class="fas fa-user"></i>
@@ -122,6 +123,6 @@
         </div>
     </form>
 
-    </div>
+</div>
 </body>
 </html>

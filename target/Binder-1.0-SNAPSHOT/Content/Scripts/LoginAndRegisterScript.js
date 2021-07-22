@@ -9,22 +9,23 @@ function checkMessages(){
         document.querySelector('.servletRegisterMessage').style.display ='block';
     }
 }
-
 function init(){
     setTimeout(checkMessages, 200);
 }
+init();
+
 
 function toggleVisibility(inputId, eyeId){
-     let currPassword = document.getElementById(inputId);
-     let currEye = document.getElementById(eyeId);
+    let currPassword = document.getElementById(inputId);
+    let currEye = document.getElementById(eyeId);
     console.log(currPassword + " " + currEye);
-     if(currPassword.getAttribute('type') === 'Password'){
-         currPassword.setAttribute('type', 'text');
-         currEye.setAttribute('class', "fas fa-eye-slash eyeIcon");
-     }else{
-         currPassword.setAttribute('type', 'Password');
-         currEye.setAttribute('class', "fas fa-eye");
-     }
+    if(currPassword.getAttribute('type') === 'Password'){
+        currPassword.setAttribute('type', 'text');
+        currEye.setAttribute('class', "fas fa-eye-slash eyeIcon");
+    }else{
+        currPassword.setAttribute('type', 'Password');
+        currEye.setAttribute('class', "fas fa-eye");
+    }
 
 }
 
@@ -40,7 +41,7 @@ window.onclick = function (event) {
     } else if (event.target == document.getElementById('RegisterModal')){
         document.getElementById('RegisterModal').style.display = 'none';
     } else if(event.target == document.getElementById("DontHaveAnAccount")) {
-    document.getElementById('RegisterModal').style.display = 'none';
+        document.getElementById('RegisterModal').style.display = 'none';
     };
 }
 
