@@ -24,8 +24,6 @@ public class PersonalInfoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PersonalUserInfo userInfo = new PersonalUserInfo();
-        PersonalInfoDAO infoDao = new PersonalInfoDAO();
-        UserDAO userDAO = new UserDAO();
         User currUser ;
 
         String username = "";
@@ -45,12 +43,13 @@ public class PersonalInfoServlet extends HttpServlet {
         Hobbies [] hobbies = new Hobbies[1];
         hobbies[0] = Hobbies.LONG_WALKS_ON_THE_BEACH;
         userInfo.setHobbies(hobbies);
+        userInfo.setSex("MALE");
         try {
-            infoDao.setUserInfo(userInfo);
-            userInfo = infoDao.getUserInfo(userInfo.getUsername());
-            currUser = userDAO.getUser(request.getParameter("username"),true);
+            PersonalInfoDAO.setUserInfo(userInfo);
+            userInfo = PersonalInfoDAO.getUserInfo(userInfo.getUsername());
+            currUser = UserDAO.getUser(request.getParameter("username"),true);
             currUser.setUser_profile_id(userInfo.getId());
-            userDAO.updateUser(currUser);
+            UserDAO.updateUser(currUser);
             request.setAttribute("user", currUser);
             if(currUser.getUser_profile_id() != 0){
                 request.setAttribute("fullyRegistered", "true");

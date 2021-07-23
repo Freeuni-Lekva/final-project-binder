@@ -14,14 +14,10 @@ import java.sql.SQLException;
 
 public class PersonalInfoDAO {
 
-    private Connection con;
+    private static Connection con;
 
-
-    public PersonalInfoDAO(){
+    public static PersonalUserInfo getUserInfo(String key) throws SQLException {
         con = MyDatabase.getConnection();
-    }
-
-    public PersonalUserInfo getUserInfo(String key) throws SQLException {
         PreparedStatement pstmt = con.prepareStatement("Use binder; ");
         StringBuilder statement = new StringBuilder();
         statement.append("Select * from User_profile where username = \"" + key + "\"");
@@ -34,8 +30,8 @@ public class PersonalInfoDAO {
         userInfo.setDateOfBirth(rs.getString(4));
         userInfo.setAge(rs.getInt(5));
         userInfo.setPhoneNumber(rs.getString(6));
-
         String hobs = rs.getString(7);
+        userInfo.setSex(rs.getString(8));
         String[] hobbiesList = hobs.split(",");
         Hobbies[] hobbies = new Hobbies[hobbiesList.length];
         int k=0;
@@ -47,16 +43,16 @@ public class PersonalInfoDAO {
         return userInfo;
     }
 
-    public void setUserInfo(PersonalUserInfo userInfo) throws SQLException, RegistrationException {
+    public static void setUserInfo(PersonalUserInfo userInfo) throws SQLException, RegistrationException {
+            con = MyDatabase.getConnection();
             PreparedStatement pstmt = con.prepareStatement("INSERT INTO User_profile " +
-                    " (username,City, dateOfBirth, age, phone_number, hobbies) " +
-                    "VALUES (?,?,?,?,?,?);");
+                    " (username,City, dateOfBirth, age, phone_number, hobbies, sex) " +
+                    "VALUES (?,?,?,?,?,?,?);");
             pstmt.setString(1, userInfo.getUsername());
             pstmt.setString(2, userInfo.getCity().toString());
             pstmt.setString(3, userInfo.getDateOfBirth());
             pstmt.setInt(4, userInfo.getAge());
             pstmt.setString(5, userInfo.getPhoneNumber());
-
             StringBuilder str = new StringBuilder();
             Hobbies[] hobbies = userInfo.getHobbies();
             for(int i=0; i<hobbies.length; i++){
@@ -66,11 +62,13 @@ public class PersonalInfoDAO {
                 str.append(hobbies[i].toString());
             }
             pstmt.setString(6, str.toString());
+            pstmt.setString(7,userInfo.getSex());
             pstmt.executeUpdate();
     }
 
 
-    public void updateUserInfo(PersonalUserInfo userInfo) throws SQLException, RegistrationException {
+    public static void updateUserInfo(PersonalUserInfo userInfo) throws SQLException, RegistrationException {
+        con = MyDatabase.getConnection();
         PreparedStatement pstmt = con.prepareStatement("UPDATE user " +
                 " SET username = ? , city = ? , dateOfBirth = ? , age = ? , phoneNumber = ? , hobbies = ? "
                 + "where username = ?"

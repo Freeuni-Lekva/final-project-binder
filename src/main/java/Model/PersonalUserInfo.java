@@ -17,15 +17,16 @@ public class PersonalUserInfo {
     private City city;
     private Hobbies[] hobbies;
     private int id;
+    private String sex;
 
-    public PersonalUserInfo(String username, String dateOfBirth, String phoneNumber, City city, Hobbies[] hobbies) {
+    public PersonalUserInfo(String username, String dateOfBirth, String phoneNumber, City city, Hobbies[] hobbies, String sex) {
         this.username = username;
         this.dateOfBirth = dateOfBirth;
         this.phoneNumber = phoneNumber;
         this.city = city;
         this.hobbies = hobbies;
         this.age = getCurrentAge(dateOfBirth);
-
+        this.sex = sex;
     }
 
     public PersonalUserInfo(){
@@ -106,6 +107,14 @@ public class PersonalUserInfo {
         LocalDate birthDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("d/M/yyyy"));
         int age = Period.between(birthDate,now).getYears();
         return age;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
 }

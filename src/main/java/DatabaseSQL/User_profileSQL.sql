@@ -5,5 +5,6 @@ Create table User_profile(
                              dateOfBirth varchar(30),
                              age varchar(30),
                              phone_number varchar(30),
-                             hobbies varchar(300)
+                             hobbies varchar(300),
+                             sex varchar(7)
 );

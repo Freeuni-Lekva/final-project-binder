@@ -14,14 +14,10 @@ import java.sql.SQLException;
 
 public class UserDAO {
 
-    private Connection con;
+    private static Connection con;
 
-
-    public UserDAO(){
+    public static User getUser(String key,Boolean isUsername) throws  SQLException{
         con = MyDatabase.getConnection();
-    }
-
-    public User getUser(String key,Boolean isUsername) throws  SQLException{
         PreparedStatement pstmt = con.prepareStatement("Use binder; ");
         StringBuilder statement = new StringBuilder();
         if(isUsername){
@@ -43,7 +39,8 @@ public class UserDAO {
         user.setUser_profile_id(rs.getInt(8));
         return user;
     }
-    public void setUser(User user) throws SQLException, RegistrationException {
+    public static void setUser(User user) throws SQLException, RegistrationException {
+        con = MyDatabase.getConnection();
         PreparedStatement pstmt = con.prepareStatement("Select count(id) from user " +
                 "where  email = ? OR username = ?");
         pstmt.setString(1,user.getEmail());
@@ -67,7 +64,8 @@ public class UserDAO {
             pstmt.executeUpdate();
         }
     }
-    public void updateUser(User user) throws SQLException {
+    public static void updateUser(User user) throws SQLException {
+        con = MyDatabase.getConnection();
         PreparedStatement pstmt = con.prepareStatement("UPDATE user " +
                 " SET name = ? , surname = ? , email = ? , username = ? , password = ? , gender = ? , user_profile_id = ? " +
                         "where username = ?"

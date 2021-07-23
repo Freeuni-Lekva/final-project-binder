@@ -20,13 +20,12 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("email");
         String password = String.valueOf(request.getParameter("password").hashCode());
-        UserDAO userDao = new UserDAO();
         if(!username.isEmpty() && !password.isEmpty()){
             boolean isUser;
             isUser = !username.contains("@");
             User user;
             try {
-                user = userDao.getUser(username,isUser);
+                user = UserDAO.getUser(username,isUser);
                 if(user.getPassword().equals(password)){
                     request.setAttribute("user", user);
                     Cookie cookie = new Cookie("userName",user.getUsername());

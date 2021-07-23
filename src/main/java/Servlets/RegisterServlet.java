@@ -28,17 +28,15 @@ public class RegisterServlet extends HttpServlet {
         if(user.getName().isEmpty()  || user.getUsername().isEmpty() ||
             user.getEmail().isEmpty()  || user.getSex().isEmpty()
              ){
-                //request.setAttribute("registrationFailed", true);
                 request.setAttribute("registrationFailed", new String("Please fill all forms"));
                 RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
                 rd.forward(request, response);
                 System.out.println("not filled");
                 return;
         }
-        UserDAO userDAO = new UserDAO();
         try {
-            userDAO.setUser(user);
-            System.out.println(userDAO.getUser(user.getUsername(), true));
+            UserDAO.setUser(user);
+            System.out.println(UserDAO.getUser(user.getUsername(), true));
             request.setAttribute("user" ,user);
             Cookie cookie = new Cookie("usernameCookie",user.getUsername());
             response.addCookie(cookie);
