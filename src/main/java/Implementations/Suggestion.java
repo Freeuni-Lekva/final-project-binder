@@ -3,9 +3,7 @@ package Implementations;
 import DAO.ActionDAO;
 import DAO.PersonalInfoDAO;
 import DAO.SuggestionDataDAO;
-import DAO.UserDAO;
 import Model.PersonalUserInfo;
-import Model.User;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

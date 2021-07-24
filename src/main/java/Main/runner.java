@@ -1,5 +1,6 @@
 package Main;
 
+import DAO.CookiesDAO;
 import DAO.PersonalInfoDAO;
 import DAO.UserDAO;
 import Enums.City;
@@ -16,6 +17,7 @@ public class runner {
 
 
     public static void main(String[] args) throws SQLException, RegistrationException {
+        /*
         Hobbies hobbies = Hobbies.LONG_WALKS_ON_THE_BEACH;
         Hobbies [] ans = {hobbies};
         PersonalUserInfo usr = new PersonalUserInfo("Artsyom","01/02/2000","597580350"
@@ -37,7 +39,9 @@ public class runner {
         suggestion.Dislike();
         System.out.println(suggestion.getSuggestedUser().getUsername());
         suggestion.Dislike();
+        */
     }
+
 
 
 }

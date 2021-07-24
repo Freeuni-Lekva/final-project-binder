@@ -1,5 +1,6 @@
 package Servlets;
 
+import DAO.CookiesDAO;
 import DAO.PersonalInfoDAO;
 import DAO.UserDAO;
 import Enums.City;
@@ -27,11 +28,10 @@ public class PersonalInfoServlet extends HttpServlet {
         User currUser ;
 
         String username = "";
-        for (Cookie c : request.getCookies()) {
-            if ("userName".equals(c.getName())) {
-                username = c.getValue();
-                break;
-            }
+        try{
+            username = CookiesDAO.getUsername(request.getSession(false).getId());
+        }catch (SQLException ex){
+            ex.printStackTrace();
         }
 
         userInfo.setUsername(username);
@@ -47,7 +47,7 @@ public class PersonalInfoServlet extends HttpServlet {
         try {
             PersonalInfoDAO.setUserInfo(userInfo);
             userInfo = PersonalInfoDAO.getUserInfo(userInfo.getUsername());
-            currUser = UserDAO.getUser(request.getParameter("username"),true);
+            currUser = UserDAO.getUser(username,true);
             currUser.setUser_profile_id(userInfo.getId());
             UserDAO.updateUser(currUser);
             request.setAttribute("user", currUser);

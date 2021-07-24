@@ -1,6 +1,7 @@
 <%@ page import="DAO.UserDAO" %>
 <%@ page import="Model.User" %>
 <%@ page import="java.sql.SQLException" %>
+<%@ page import="DAO.CookiesDAO" %>
 
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
@@ -9,12 +10,19 @@
     Cookie[] cookies = request.getCookies();
     if(cookies != null) {
         for (Cookie c : cookies) {
-            if ("userName".equals(c.getName())) {
-                c.setMaxAge(30);
-                response.sendRedirect("Home.jsp");
-                return;
+            if ("JSESSIONID".equals(c.getName())) {
+                String username = CookiesDAO.getUsername(c.getValue());
+                if(username != null && !username.isEmpty())
+                    response.sendRedirect("Home.jsp");
+                else{
+                    c.setValue(session.getId());
+                }
+                break;
             }
         }
+    }else{
+        Cookie cookie = new Cookie("JSESSIONID",session.getId());
+        response.addCookie(cookie);
     }
 %>
 

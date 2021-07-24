@@ -1,13 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: luka
-  Date: 7/10/2021
-  Time: 7:06 PM
-  To change this template use File | Settings | File Templates.
---%>
-
 <%@ page import="DAO.UserDAO" %>
 <%@ page import="Model.User" %>
+<%@ page import="DAO.CookiesDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -16,13 +9,15 @@
     <link rel="stylesheet" href="Content/HomePage.css">
     <script src="Content/Scripts/HomePage.js"></script>
     <%
-        String name = "";
+        String name = null;
         Cookie[] cookies = request.getCookies();
         for(Cookie c : cookies) {
-            if (c.getName().equals("userName"))
-                name = c.getValue();
+            if (c.getName().equals("JSESSIONID")) {
+                name = CookiesDAO.getUsername(c.getValue());
+                break;
+            }
         }
-        if(name.isEmpty()){
+        if(name == null){
             response.sendRedirect("index.jsp");
         }
     %>

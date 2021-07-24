@@ -1,5 +1,6 @@
 package Servlets;
 
+import DAO.CookiesDAO;
 import DAO.UserDAO;
 import Model.User;
 
@@ -28,8 +29,9 @@ public class LoginServlet extends HttpServlet {
                 user = UserDAO.getUser(username,isUser);
                 if(user.getPassword().equals(password)){
                     request.setAttribute("user", user);
-                    Cookie cookie = new Cookie("userName",user.getUsername());
-                    response.addCookie(cookie);
+
+                    CookiesDAO.setCookie(request.getSession(false).getId(),username);
+
                     if(user.getUser_profile_id() != 0){
                         request.setAttribute("fullyRegistered", "true");
                     }else{
