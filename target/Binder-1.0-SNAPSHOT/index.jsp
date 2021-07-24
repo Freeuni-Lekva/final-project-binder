@@ -9,9 +9,10 @@
 <%
     Cookie[] cookies = request.getCookies();
     if(cookies != null) {
+        String username = null;
         for (Cookie c : cookies) {
             if ("JSESSIONID".equals(c.getName())) {
-                String username = CookiesDAO.getUsername(c.getValue());
+                username = CookiesDAO.getUsername(c.getValue());
                 if(username != null && !username.isEmpty())
                     response.sendRedirect("Home.jsp");
                 else{
@@ -19,6 +20,10 @@
                 }
                 break;
             }
+        }
+        if(username == null){
+            Cookie cookie = new Cookie("JSESSIONID",session.getId());
+            response.addCookie(cookie);
         }
     }else{
         Cookie cookie = new Cookie("JSESSIONID",session.getId());

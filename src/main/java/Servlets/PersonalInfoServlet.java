@@ -24,6 +24,7 @@ public class PersonalInfoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession httpSession = request.getSession(false);
         PersonalUserInfo userInfo = new PersonalUserInfo();
         User currUser ;
 
@@ -46,7 +47,7 @@ public class PersonalInfoServlet extends HttpServlet {
         userInfo.setSex("MALE");
         try {
             PersonalInfoDAO.setUserInfo(userInfo);
-            userInfo = PersonalInfoDAO.getUserInfo(userInfo.getUsername());
+            userInfo = PersonalInfoDAO.getUserInfo(username);
             currUser = UserDAO.getUser(username,true);
             currUser.setUser_profile_id(userInfo.getId());
             UserDAO.updateUser(currUser);
@@ -56,6 +57,7 @@ public class PersonalInfoServlet extends HttpServlet {
             }else{
                 request.setAttribute("fullyRegistered","false");
             }
+
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
             requestDispatcher.forward(request, response);
         } catch (RegistrationException | SQLException ex){

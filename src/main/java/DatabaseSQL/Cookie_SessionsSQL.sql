@@ -3,3 +3,7 @@ CREATE TABLE COOKIES(
     sessionID INT,
     username varchar(32)
 );
+
+
+,
+    expiryDate INT

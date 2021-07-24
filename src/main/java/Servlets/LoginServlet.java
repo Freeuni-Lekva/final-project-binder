@@ -21,6 +21,11 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("email");
         String password = String.valueOf(request.getParameter("password").hashCode());
+
+        if(request.getSession(false) == null){
+            request.getSession();
+        }
+        getServletContext().setAttribute("JSESSIONID",request.getSession(false));
         if(!username.isEmpty() && !password.isEmpty()){
             boolean isUser;
             isUser = !username.contains("@");

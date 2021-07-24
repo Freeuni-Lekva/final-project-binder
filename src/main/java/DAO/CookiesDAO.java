@@ -35,18 +35,18 @@ public class CookiesDAO {
         pstmt.setString(1,sessionID);
         pstmt.setString(2,username);
         pstmt.executeUpdate();
-
     }
 
 
-    public static void updateCookies(String sessionID, long date) throws SQLException{
+    public static void deleteCookie(String sessionID) throws SQLException{
         con = MyDatabase.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
-                "UPDATE COOKIES WHERE SESSIONID = ? SET (expireDate = ?)" );
+                "DELETE from COOKIES WHERE SESSIONID = ?" );
         pstmt.setString(1,sessionID);
-        pstmt.setLong(2,date);
         pstmt.executeUpdate();
     }
+
+
 
 
 }

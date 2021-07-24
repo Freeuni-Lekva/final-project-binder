@@ -11,16 +11,17 @@
     <%
         String name = null;
         Cookie[] cookies = request.getCookies();
-        for(Cookie c : cookies) {
-            if (c.getName().equals("JSESSIONID")) {
-                System.out.println("are we here?");
-                System.out.println(c.getValue());
-                name = CookiesDAO.getUsername(c.getValue());
-                System.out.println(name);
-                break;
+        if (cookies != null) {
+            for (Cookie c : cookies) {
+                if (c.getName().equals("JSESSIONID")) {
+                    name = CookiesDAO.getUsername(c.getValue());
+                    break;
+                }
             }
-        }
-        if(name == null){
+            if (name == null) {
+                response.sendRedirect("index.jsp");
+            }
+        }else{
             response.sendRedirect("index.jsp");
         }
     %>
