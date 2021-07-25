@@ -8,36 +8,35 @@ import java.util.concurrent.TimeUnit;
 
 
 public class User {
-
+    private int user_id;
     private String name;
     private String surname;
     private String email;
     private String username;
     private String password;
-    private String sex;
-    private int user_profile_id;
+    private boolean has_user_profile;
 
 
-    public User(String name, String surname,
+    public User(int user_id,
+                String name, String surname,
                 String email, String username,
                 String password,
-                String sex,
-                int user_profile_id) {
+                boolean has_user_profile) {
+        this.user_id = user_id;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.username = username;
         this.password = password; //hashed
-        this.sex = sex;
+        this.has_user_profile = has_user_profile;
 
-        this.user_profile_id = user_profile_id;
 
     }
-
-
-
     public User(){
 
+    }
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public void setName(String name) {
@@ -60,14 +59,13 @@ public class User {
         this.password = password;
     }
 
-
-
-    public String getSex() {
-        return sex;
+    public void setHas_user_profile(String has_user_profile){
+        this.has_user_profile = has_user_profile.equals("Y");
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+
+    public int getUser_id() {
+        return user_id;
     }
 
     public String getName() {
@@ -89,16 +87,8 @@ public class User {
     public String getPassword() {
         return password;
     }
-
-
-    public int getUser_profile_id() {
-        return user_profile_id;
+    public boolean getHas_user_profile(){
+        return has_user_profile;
     }
-
-    public void setUser_profile_id(int user_profile_id) {
-        this.user_profile_id = user_profile_id;
-    }
-
-
 
 }

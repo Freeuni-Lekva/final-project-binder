@@ -18,29 +18,29 @@ public class RegisterServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
+        if(request.getSession(false) == null ){
+            request.getSession();
+        }
+        getServletContext().setAttribute("JSESSIONID",request.getSession(false));
         User user = new User();
         user.setName(request.getParameter("firstname"));
         user.setSurname(request.getParameter("surname"));
         user.setUsername(request.getParameter("username"));
         user.setEmail(request.getParameter("email"));
         user.setPassword(String.valueOf(request.getParameter("RegisterPassword").hashCode()));
-        user.setSex(request.getParameter("gender"));
+        user.setHas_user_profile("N");
         if(user.getName().isEmpty()  || user.getUsername().isEmpty() ||
-            user.getEmail().isEmpty()  || user.getSex().isEmpty()
-             ){
-                request.setAttribute("registrationFailed", new String("Please fill all forms"));
-                RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-                rd.forward(request, response);
-                System.out.println("not filled");
-                return;
+                user.getEmail().isEmpty()
+        ){
+            request.setAttribute("registrationFailed", new String("Please fill all forms"));
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            rd.forward(request, response);
+            return;
         }
         try {
             UserDAO.setUser(user);
-            request.setAttribute("user" ,user);
-
             CookiesDAO.setCookie(request.getSession(false).getId(),user.getUsername());
-
+            request.setAttribute("user" ,user);
             request.setAttribute("fullyRegistered","false");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
             requestDispatcher.forward(request, response);

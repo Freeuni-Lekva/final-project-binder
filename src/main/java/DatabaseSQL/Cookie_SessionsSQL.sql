@@ -1,9 +1,6 @@
-CREATE TABLE COOKIES(
+CREATE TABLE Cookies(
     id int AUTO_INCREMENT primary key,
-    sessionID INT,
-    username varchar(32)
+    sessionID varchar(32),
+    username varchar(30),
+    foreign key (username) references user(username) on update cascade on delete cascade
 );
-
-
-,
-    expiryDate INT

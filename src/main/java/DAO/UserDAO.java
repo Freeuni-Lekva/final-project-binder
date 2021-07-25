@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 public class UserDAO {
 
-    private static Connection con;
+    private static Connection con = MyDatabase.getConnection();
 
     public static User getUser(String key,Boolean isUsername) throws  SQLException{
         con = MyDatabase.getConnection();
@@ -29,20 +29,37 @@ public class UserDAO {
         User user = new User();
         ResultSet rs = pstmt.executeQuery(statement.toString());
         rs.next();
-
+        user.setUser_id(rs.getInt(1));
         user.setName(rs.getString(2));
         user.setSurname(rs.getString(3));
         user.setEmail(rs.getString(4));
         user.setUsername(rs.getString(5));
         user.setPassword(rs.getString(6));
-        user.setSex(rs.getString(7));
-        user.setUser_profile_id(rs.getInt(8));
+        user.setHas_user_profile(rs.getString(7));
+        return user;
+    }
+    public static User getUserByID(int user_id) throws  SQLException{
+        PreparedStatement pstmt = con.prepareStatement("Use binder; ");
+        StringBuilder statement = new StringBuilder();
+
+        statement.append("Select * from User where user_id = \"" + user_id + "\"");
+
+
+        User user = new User();
+        ResultSet rs = pstmt.executeQuery(statement.toString());
+        rs.next();
+        user.setUser_id(rs.getInt(1));
+        user.setName(rs.getString(2));
+        user.setSurname(rs.getString(3));
+        user.setEmail(rs.getString(4));
+        user.setUsername(rs.getString(5));
+        user.setPassword(rs.getString(6));
+        user.setHas_user_profile(rs.getString(7));
         return user;
     }
     public static void setUser(User user) throws SQLException, RegistrationException {
-        con = MyDatabase.getConnection();
-        PreparedStatement pstmt = con.prepareStatement("Select count(id) from user " +
-                "where  email = ? OR username = ?");
+        PreparedStatement pstmt = con.prepareStatement("Select count(1) from user " +
+                "where  email = ? OR username = ? LIMIT 1 ");
         pstmt.setString(1,user.getEmail());
         pstmt.setString(2,user.getUsername());
         ResultSet rs = pstmt.executeQuery();
@@ -52,7 +69,7 @@ public class UserDAO {
         }else {
             pstmt.close();
             pstmt = con.prepareStatement("INSERT INTO user " +
-                    " (name , surname , email, username , password , gender) " +
+                    " (name , surname , email, username , password , has_user_profile ) " +
                     "VALUES (?,?,?,?,?,?);");
 
             pstmt.setString(1, user.getName());
@@ -60,24 +77,22 @@ public class UserDAO {
             pstmt.setString(3, user.getEmail());
             pstmt.setString(4, user.getUsername());
             pstmt.setString(5, user.getPassword());
-            pstmt.setString(6, user.getSex());
+            pstmt.setString(6,user.getHas_user_profile()?"Y":"N");
             pstmt.executeUpdate();
         }
     }
     public static void updateUser(User user) throws SQLException {
-        con = MyDatabase.getConnection();
         PreparedStatement pstmt = con.prepareStatement("UPDATE user " +
-                " SET name = ? , surname = ? , email = ? , username = ? , password = ? , gender = ? , user_profile_id = ? " +
-                        "where username = ?"
-                );
+                " SET name = ? , surname = ? , email = ? , username = ? , password = ? , has_user_profile = ? " +
+                "where user_id = ?"
+        );
         pstmt.setString(1, user.getName());
         pstmt.setString(2, user.getSurname());
         pstmt.setString(3, user.getEmail());
         pstmt.setString(4, user.getUsername());
         pstmt.setString(5, user.getPassword());
-        pstmt.setString(6,user.getSex());
-        pstmt.setInt(7, user.getUser_profile_id());
-        pstmt.setString(8,user.getUsername());
+        pstmt.setString(6, user.getHas_user_profile()?"Y":"N");
+        pstmt.setInt(7,user.getUser_id());
         pstmt.executeUpdate();
     }
 }

@@ -30,7 +30,7 @@ public class PersonalInfoServlet extends HttpServlet {
 
         String username = "";
         try{
-            username = CookiesDAO.getUsername(request.getSession(false).getId());
+            username = CookiesDAO.getUsername(request.getSession(false).getId()); // todo user_id gvinda aq username is magivrad
         }catch (SQLException ex){
             ex.printStackTrace();
         }
@@ -38,25 +38,20 @@ public class PersonalInfoServlet extends HttpServlet {
         userInfo.setUsername(username);
         userInfo.setCity(City.valueOf(request.getParameter("city")));
         userInfo.setPhoneNumber(request.getParameter("phoneNumber"));
-        String dateOfBirth = request.getParameter("dateOfBirth");
-        userInfo.setDateOfBirth(dateOfBirth);
+        userInfo.setDateOfBirth(request.getParameter("dateOfBirth"));
         userInfo.setAge(userInfo.getCurrentAge(userInfo.getDateOfBirth()));
         Hobbies [] hobbies = new Hobbies[1];
         hobbies[0] = Hobbies.LONG_WALKS_ON_THE_BEACH;
         userInfo.setHobbies(hobbies);
         userInfo.setSex("MALE");
         try {
-            PersonalInfoDAO.setUserInfo(userInfo);
-            userInfo = PersonalInfoDAO.getUserInfo(username);
             currUser = UserDAO.getUser(username,true);
-            currUser.setUser_profile_id(userInfo.getId());
+            currUser.setHas_user_profile("Y");
+            userInfo.setUser_id(currUser.getUser_id());
+            PersonalInfoDAO.setUserInfo(userInfo);
             UserDAO.updateUser(currUser);
             request.setAttribute("user", currUser);
-            if(currUser.getUser_profile_id() != 0){
-                request.setAttribute("fullyRegistered", "true");
-            }else{
-                request.setAttribute("fullyRegistered","false");
-            }
+            request.setAttribute("fullyRegistered", "true");
 
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
             requestDispatcher.forward(request, response);

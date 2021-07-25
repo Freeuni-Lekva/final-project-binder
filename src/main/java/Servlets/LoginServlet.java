@@ -37,7 +37,7 @@ public class LoginServlet extends HttpServlet {
 
                     CookiesDAO.setCookie(request.getSession(false).getId(),username);
 
-                    if(user.getUser_profile_id() != 0){
+                    if(user.getHas_user_profile()){
                         request.setAttribute("fullyRegistered", "true");
                     }else{
                         request.setAttribute("fullyRegistered","false");
