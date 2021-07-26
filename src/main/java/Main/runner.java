@@ -1,14 +1,6 @@
 package Main;
 
-import DAO.CookiesDAO;
-import DAO.PersonalInfoDAO;
-import DAO.UserDAO;
-import Enums.City;
-import Enums.Hobbies;
 import Exceptions.RegistrationException;
-import Implementations.Suggestion;
-import Model.PersonalUserInfo;
-import Model.User;
 
 import java.sql.SQLException;
 

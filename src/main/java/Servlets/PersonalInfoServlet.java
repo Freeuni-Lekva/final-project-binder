@@ -1,6 +1,6 @@
 package Servlets;
 
-import DAO.CookiesDAO;
+import DAO.SessionsDAO;
 import DAO.PersonalInfoDAO;
 import DAO.UserDAO;
 import Enums.City;
@@ -24,15 +24,20 @@ public class PersonalInfoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession httpSession = request.getSession(false);
+        if(request.getSession(false) == null ){
+            response.sendRedirect("index.jsp");
+        }
+
         PersonalUserInfo userInfo = new PersonalUserInfo();
         User currUser ;
 
         String username = "";
         try{
-            username = CookiesDAO.getUsername(request.getSession(false).getId()); // todo user_id gvinda aq username is magivrad
+            username = SessionsDAO.getUsername(request.getSession(false).getId()); // todo user_id gvinda aq username is magivrad
         }catch (SQLException ex){
-            ex.printStackTrace();
+            RequestDispatcher rd = request.getRequestDispatcher("/LogoutServlet");
+            rd.forward(request,response);
+            return;
         }
 
         userInfo.setUsername(username);
@@ -58,7 +63,7 @@ public class PersonalInfoServlet extends HttpServlet {
         } catch (RegistrationException | SQLException ex){
             ex.printStackTrace();
             request.setAttribute("registrationFailed", true);
-            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
             rd.forward(request, response);
         }
     }

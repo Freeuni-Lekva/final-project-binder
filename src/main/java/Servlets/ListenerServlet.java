@@ -1,13 +1,11 @@
 package Servlets;
 
-import DAO.CookiesDAO;
-import Model.User;
+import DAO.SessionsDAO;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import java.sql.SQLException;
@@ -15,7 +13,7 @@ import java.sql.SQLException;
 @WebListener
 public class ListenerServlet implements HttpSessionListener, ServletContextListener{
 
-    /*
+
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext context = sce.getServletContext();
@@ -23,14 +21,13 @@ public class ListenerServlet implements HttpSessionListener, ServletContextListe
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        System.out.println("rame");
         try {
-            CookiesDAO.deleteCookie((String)  sce.getServletContext().getAttribute("JSESSIONID"));
-        }catch (SQLException ex){
-            ex.printStackTrace();
+            SessionsDAO.deleteAllSessions();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         ServletContextListener.super.contextDestroyed(sce);
-    }*/
+    }
 
     @Override
     public void sessionCreated(HttpSessionEvent httpSessionEvent) {
@@ -40,7 +37,7 @@ public class ListenerServlet implements HttpSessionListener, ServletContextListe
     @Override
     public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
         try {
-            CookiesDAO.deleteCookie((String) httpSessionEvent.getSession().getAttribute("JSESSIONID"));
+            SessionsDAO.deleteSession(httpSessionEvent.getSession().getId());
         }catch (SQLException ex){
             ex.printStackTrace();
         }

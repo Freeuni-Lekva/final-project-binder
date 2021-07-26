@@ -1,6 +1,6 @@
 package Servlets;
 
-import DAO.CookiesDAO;
+import DAO.SessionsDAO;
 import DAO.UserDAO;
 import Model.User;
 
@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
         if(request.getSession(false) == null){
             request.getSession();
         }
-        getServletContext().setAttribute("JSESSIONID",request.getSession(false));
+
         if(!username.isEmpty() && !password.isEmpty()){
             boolean isUser;
             isUser = !username.contains("@");
@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
                 if(user.getPassword().equals(password)){
                     request.setAttribute("user", user);
 
-                    CookiesDAO.setCookie(request.getSession(false).getId(),username);
+                    SessionsDAO.setSession(request.getSession(false).getId(),username);
 
                     if(user.getHas_user_profile()){
                         request.setAttribute("fullyRegistered", "true");
@@ -50,6 +50,7 @@ public class LoginServlet extends HttpServlet {
                     requestDispatcher.forward(request, response);
                 }
             } catch (SQLException throwables) {
+                throwables.printStackTrace();
                 request.setAttribute("loginWrong", "User does not exist");
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
                 requestDispatcher.forward(request, response);

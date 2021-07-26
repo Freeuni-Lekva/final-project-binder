@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CookiesDAO {
+public class SessionsDAO {
 
     private static Connection con;
 
@@ -17,7 +17,7 @@ public class CookiesDAO {
         PreparedStatement pstmt = con.prepareStatement("Use binder; ");
         ResultSet rs = pstmt.executeQuery(
                 "SELECT username " +
-                        "FROM COOKIES " +
+                        "FROM SESSIONS " +
                         "WHERE sessionID = " + "\"" +  sessionID + "\""
                         ); //"AND expireDate > " + System.currentTimeMillis()
         if(!rs.next()){
@@ -27,10 +27,10 @@ public class CookiesDAO {
         return username;
     }
 
-    public static void setCookie(String sessionID, String username) throws SQLException {
+    public static void setSession(String sessionID, String username) throws SQLException {
         con = MyDatabase.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
-                "INSERT INTO COOKIES (sessionID,username)" +
+                "INSERT INTO SESSIONS (sessionID,username)" +
                 "VALUES(?,?) ");
         pstmt.setString(1,sessionID);
         pstmt.setString(2,username);
@@ -38,15 +38,20 @@ public class CookiesDAO {
     }
 
 
-    public static void deleteCookie(String sessionID) throws SQLException{
+    public static void deleteSession(String sessionID) throws SQLException{
         con = MyDatabase.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
-                "DELETE from COOKIES WHERE SESSIONID = ?" );
+                "DELETE from SESSIONS WHERE SESSIONID = ?" );
         pstmt.setString(1,sessionID);
         pstmt.executeUpdate();
     }
 
-
+    public static void deleteAllSessions() throws SQLException{
+        con = MyDatabase.getConnection();
+        PreparedStatement pstmt = con.prepareStatement(
+                "DELETE from SESSIONS" );
+        pstmt.executeUpdate();
+    }
 
 
 }

@@ -1,34 +1,21 @@
 <%@ page import="DAO.UserDAO" %>
 <%@ page import="Model.User" %>
 <%@ page import="java.sql.SQLException" %>
-<%@ page import="DAO.CookiesDAO" %>
+<%@ page import="DAO.SessionsDAO" %>
 
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
 <%
-    Cookie[] cookies = request.getCookies();
-    if(cookies != null) {
-        String username = null;
-        for (Cookie c : cookies) {
-            if ("JSESSIONID".equals(c.getName())) {
-                username = CookiesDAO.getUsername(c.getValue());
-                if(username != null && !username.isEmpty())
-                    response.sendRedirect("Home.jsp");
-                else{
-                    c.setValue(session.getId());
-                }
-                break;
-            }
-        }
-        if(username == null){
-            Cookie cookie = new Cookie("JSESSIONID",session.getId());
-            response.addCookie(cookie);
-        }
-    }else{
-        Cookie cookie = new Cookie("JSESSIONID",session.getId());
-        response.addCookie(cookie);
+    if(request.getSession(false) == null){
+        request.getSession();
     }
+    application.setAttribute("JSESSIONID",session.getId());
+
+    if(SessionsDAO.getUsername(session.getId()) != null){
+        response.sendRedirect("Home.jsp");
+    }
+
 %>
 
 <html>

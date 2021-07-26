@@ -1,6 +1,6 @@
 <%@ page import="DAO.UserDAO" %>
 <%@ page import="Model.User" %>
-<%@ page import="DAO.CookiesDAO" %>
+<%@ page import="DAO.SessionsDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -9,21 +9,14 @@
     <link rel="stylesheet" href="Content/HomePage.css">
     <script src="Content/Scripts/HomePage.js"></script>
     <%
-        String name = null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie c : cookies) {
-                if (c.getName().equals("JSESSIONID")) {
-                    name = CookiesDAO.getUsername(c.getValue());
-                    break;
-                }
-            }
-            if (name == null) {
-                response.sendRedirect("index.jsp");
-            }
-        }else{
+        if(session == null){
             response.sendRedirect("index.jsp");
         }
+        String name = SessionsDAO.getUsername(session.getId());
+        if(name == null){
+            response.sendRedirect("index.jsp");
+        }
+
     %>
 </head>
 <body>

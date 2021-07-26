@@ -1,6 +1,6 @@
 package Servlets;
 
-import DAO.CookiesDAO;
+import DAO.SessionsDAO;
 import DAO.UserDAO;
 import Exceptions.RegistrationException;
 import Model.User;
@@ -21,7 +21,7 @@ public class RegisterServlet extends HttpServlet {
         if(request.getSession(false) == null ){
             request.getSession();
         }
-        getServletContext().setAttribute("JSESSIONID",request.getSession(false));
+
         User user = new User();
         user.setName(request.getParameter("firstname"));
         user.setSurname(request.getParameter("surname"));
@@ -39,7 +39,7 @@ public class RegisterServlet extends HttpServlet {
         }
         try {
             UserDAO.setUser(user);
-            CookiesDAO.setCookie(request.getSession(false).getId(),user.getUsername());
+            SessionsDAO.setSession(request.getSession(false).getId(),user.getUsername());
             request.setAttribute("user" ,user);
             request.setAttribute("fullyRegistered","false");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");

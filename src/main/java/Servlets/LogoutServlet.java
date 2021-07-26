@@ -1,8 +1,6 @@
 package Servlets;
 
-import DAO.CookiesDAO;
-import DAO.UserDAO;
-import Model.User;
+import DAO.SessionsDAO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,19 +22,8 @@ public class LogoutServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Cookie[] cookies = request.getCookies();
-        RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-        for(Cookie c : cookies){
-            if(c.getName().equals("JSESSIONID")){
-                try {
-                    CookiesDAO.deleteCookie(c.getValue());
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-                request.getSession(false).invalidate();
-                rd.forward(request,response);
-            }
-        }
+        request.getSession(false).invalidate();
+        response.sendRedirect("index.jsp");
     }
 
 
