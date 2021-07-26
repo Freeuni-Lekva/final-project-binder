@@ -66,7 +66,7 @@
                     <i id="loginEye" style="color: white" class="fas fa-eye" onclick="toggleVisibility('LoginPassword', 'loginEye')"></i>
                 </div>
 
-                <div onclick="toggleModal('DontHaveAnAccount')" class="loginAndRegisterToggleContainer">
+                <div onclick="toggleModal('LoginModal'); toggleModal('RegisterModal')" class="loginAndRegisterToggleContainer">
                     <i style="color: white" > Don't have an account?<br>click here to register </i>
                 </div>
 
@@ -102,19 +102,6 @@
                     <i style="color: white" class="fas fa-lock"></i>
                     <input id="RegisterCnFmPassword" class="userInputContainer__Input" type="Password" placeholder="Confirm Password">
                     <i id="RegisterCnFmEye" style="color: white" class="fas fa-eye" onclick="toggleVisibility('RegisterCnFmPassword', 'RegisterCnFmEye')"></i>
-                </div>
-                <div class="chooseSex">
-                    <span>Choose Sex</span>
-                </div>
-                <div class="registerSexToggleContainer">
-                    <div class="registerSexToggle">
-                        <div onclick="toggleSex('Male')" id="MaleSex" class="sexToggle"></div>
-                        <span>Male</span>
-                    </div>
-                    <div class="registerSexToggle">
-                        <div onclick="toggleSex('Female')" id="FemaleSex" class="sexToggle"></div>
-                        <span>Female</span>
-                    </div>
                 </div>
                 <input name = "gender" class = "genderInput" >
                 <button type="submit" class="registerButton">Register</button>

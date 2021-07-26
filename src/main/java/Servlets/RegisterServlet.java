@@ -42,8 +42,9 @@ public class RegisterServlet extends HttpServlet {
             SessionsDAO.setSession(request.getSession(false).getId(),user.getUsername());
             request.setAttribute("user" ,user);
             request.setAttribute("fullyRegistered","false");
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
-            requestDispatcher.forward(request, response);
+            response.sendRedirect("Home.jsp");
+           /* RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
+            requestDispatcher.forward(request, response);*/
         } catch (RegistrationException | SQLException ex){
             ex.printStackTrace();
             request.setAttribute("registrationFailed", new String("user already exists"));

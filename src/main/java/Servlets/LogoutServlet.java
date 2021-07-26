@@ -22,7 +22,11 @@ public class LogoutServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession(false).invalidate();
+        try {
+            SessionsDAO.deleteSession(request.getSession(false).getId());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         response.sendRedirect("index.jsp");
     }
 

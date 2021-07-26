@@ -15,6 +15,7 @@ function init(){
 init();
 
 
+
 function toggleVisibility(inputId, eyeId){
     let currPassword = document.getElementById(inputId);
     let currEye = document.getElementById(eyeId);
@@ -42,18 +43,6 @@ window.onclick = function (event) {
         document.getElementById('RegisterModal').style.display = 'none';
     } else if(event.target == document.getElementById("DontHaveAnAccount")) {
         document.getElementById('RegisterModal').style.display = 'none';
-    };
-}
-
-function toggleSex(curr){
-    if(curr == 'Male'){
-        document.getElementById("MaleSex").style.background = "#FFF";
-        document.getElementById("FemaleSex").style.background = 'none';
-        document.querySelector('.genderInput').setAttribute('value','male');
-        console.log(document.querySelector('.genderInput').attributes);
-    }else{
-        document.getElementById("FemaleSex").style.background = "#FFF";
-        document.getElementById("MaleSex").style.background = 'none';
-        document.querySelector('.genderInput').setAttribute('value','female');
     }
 }
+
