@@ -214,22 +214,28 @@ html{
     display: none;
 }
 .servletMessageLogin{
+    display: none;
     font-size: 18px;
-    color: white;
+    color: purple;
+    padding: 5px 10px;
+    border: 3px solid #cc0099;
     position: absolute;
-    color: red;
     top: 5px;
     left: 40px;
-    font-size: 14px;
-    display: none;
+    border-radius: 10px;
+
 }
 
 .servletRegisterMessage{
+    display: none;
+    font-size: 18px;
+    color: purple;
+    padding: 5px 10px;
+    border: 3px solid #cc0099;
     position: absolute;
-    color: red;
     top: 5px;
     left: 40px;
-    display: none;
+    border-radius: 10px;
 }
 
 

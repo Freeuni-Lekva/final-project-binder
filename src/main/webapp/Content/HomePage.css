@@ -360,6 +360,11 @@ html,body{
     gap: 10px;
 }
 
+.signOutButton{
+    background: none;
+    border: none;
+}
+
 ::-webkit-scrollbar {
     width: 3px;
     height: 3px;

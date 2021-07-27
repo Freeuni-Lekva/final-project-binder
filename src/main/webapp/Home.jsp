@@ -14,6 +14,7 @@
             response.sendRedirect("index.jsp");
         }
         String name = SessionsDAO.getUsername(session.getId());
+
         if(name == null){
             response.sendRedirect("index.jsp");
         }
@@ -29,10 +30,11 @@
     <span class="navWelcome">Welcome <%=name%></span></span>
     <div class="navEditProfile">
         <form action="LogoutServlet" method="post">
-            <span>Edit Profile</span>
-            <button type="submit">
-                <i style="color: white; margin-top: 2px" class="fas fa-bars"></i>
+            <span>Options</span>
+            <button class="signOutButton" type="submit">
+                <i class="fas fa-sign-out-alt"></i>
             </button>
+            <i style="color: white; margin-top: 2px" class="fas fa-bars"></i>
         </form>
 
     </div>
@@ -69,13 +71,13 @@
                     <div id="MUSIC" class="hobbieElement" onclick="chooseHobbie('MUSIC')">
                         Music
                     </div>
-                    <div  class="hobbieElement" onclick="chooseHobbie()">
+                    <div id="ROCK_N_ROLL" class="hobbieElement" onclick="chooseHobbie('ROCK_N_ROLL')">
                         Rock n Roll
                     </div>
-                    <div class="hobbieElement" onclick="chooseHobbie()">
+                    <div id='COUNTRY_MUSIC'class="hobbieElement" onclick="chooseHobbie('COUNTRY_MUSIC')">
                         Country Music
                     </div>
-                    <div class="hobbieElement" onclick="chooseHobbie()">
+                    <div id="METAL" class="hobbieElement" onclick="chooseHobbie('METAL')">
                         Metal
                     </div>
                 </div>

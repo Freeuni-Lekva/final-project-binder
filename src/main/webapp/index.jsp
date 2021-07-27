@@ -53,17 +53,17 @@
             <div  class="loginModalContainer">
                 <span class="servletMessageLogin"><%=MessageLogin%></span>
                 <div class="closeButton">
-                    <i style="color: white" class="fas fa-times"
+                    <i style="color: white; cursor: pointer" class="fas fa-times"
                        onclick="toggleModal('LoginModal')"></i>
                 </div>
                 <div class="userInputContainer">
-                    <i style="color: white" class="fas fa-user"></i>
+                    <i style="color: white; cursor: pointer" class="fas fa-user"></i>
                     <input class="userInputContainer__Input" name="email" type = "text" placeholder="Email or Username">
                 </div>
                 <div class="userInputContainer">
-                    <i style="color: white" class="fas fa-lock"></i>
+                    <i style="color: white; cursor: pointer" class="fas fa-lock"></i>
                     <input id="LoginPassword" name="password" class="userInputContainer__Input" type="Password" placeholder="Password">
-                    <i id="loginEye" style="color: white" class="fas fa-eye" onclick="toggleVisibility('LoginPassword', 'loginEye')"></i>
+                    <i id="loginEye" style="color: white; cursor: pointer" class="fas fa-eye" onclick="toggleVisibility('LoginPassword', 'loginEye')"></i>
                 </div>
 
                 <div onclick="toggleModal('LoginModal'); toggleModal('RegisterModal')" class="loginAndRegisterToggleContainer">

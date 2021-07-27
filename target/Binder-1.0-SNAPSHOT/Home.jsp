@@ -69,13 +69,13 @@
                     <div id="MUSIC" class="hobbieElement" onclick="chooseHobbie('MUSIC')">
                         Music
                     </div>
-                    <div  class="hobbieElement" onclick="chooseHobbie()">
+                    <div id="ROCK_N_ROLL" class="hobbieElement" onclick="chooseHobbie('ROCK_N_ROLL')">
                         Rock n Roll
                     </div>
-                    <div class="hobbieElement" onclick="chooseHobbie()">
+                    <div id='COUNTRY_MUSIC'class="hobbieElement" onclick="chooseHobbie('COUNTRY_MUSIC')">
                         Country Music
                     </div>
-                    <div class="hobbieElement" onclick="chooseHobbie()">
+                    <div id="METAL" class="hobbieElement" onclick="chooseHobbie('METAL')">
                         Metal
                     </div>
                 </div>
