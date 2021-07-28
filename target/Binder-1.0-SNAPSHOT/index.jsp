@@ -105,7 +105,6 @@
                 </div>
                 <input name = "gender" class = "genderInput" >
                 <button type="submit" class="registerButton">Register</button>
-
             </div>
         </div>
     </form>

@@ -1,12 +1,32 @@
+const hobbieNum = 5;
+let hobbies = [];
+
+
+function init(){
+    setTimeout(checkMessages, 200);
+
+}
+init();
+
+
+function checkMessages(){
+    console.log(document.getElementById('isFullyRegistered').textContent);
+    if(document.getElementById('isFullyRegistered').textContent == "Options"){
+        console.log("Fully Registered");
+        document.querySelector('.signOutButton').style.display = 'none';
+        document.querySelector('.completeRegisterButton').style.display = 'none';
+    }else{
+        console.log("");
+        document.getElementById('AccountInfo').style.display = 'none';
+    }
+
+}
+
 function toggleModal(modalId){
     let currModal = document.getElementById(modalId);
     if(currModal.style.display === 'none'|| currModal.style.display === "" ) currModal.style.display = "flex"
     else currModal.style.display = "none";
 }
-const hobbieNum = 5;
-let hobbies = [];
-
-
 
 function hobbiesAppear(){
     document.querySelector('.hobbieContainer').style.display = 'block';
@@ -95,4 +115,28 @@ function setHobbies(){
     document.getElementById('OutputHobbies').value = hobbies.join(',');
     console.log(document.getElementById('OutputHobbies').value);
 }
+
+function displayAccountInfo(){
+    let content = document.querySelector('.accountInfoContent');
+    let bars = document.getElementById('AccountInfo');
+    content.style.display = 'flex';
+
+    bars.style.color = '#E67826';
+    bars.style.background = 'white';
+    bars.style.borderRadius = "4px 4px 0 0";
+    bars.style.marginTop = "-10px";
+    bars.style.padding = "10px 8px";
+
+}
+
+function dismissAccountModal(){
+    let content = document.querySelector('.accountInfoContent');
+    let bars = document.getElementById('AccountInfo');
+    content.style.display = "none";
+    bars.style.color = "white";
+    bars.style.background = "none";
+    bars.style.marginTop = "0";
+    bars.style.padding = "0";
+}
+
 

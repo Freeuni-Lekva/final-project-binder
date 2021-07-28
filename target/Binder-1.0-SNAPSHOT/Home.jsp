@@ -22,6 +22,10 @@
     %>
 </head>
 <body>
+<%String isRegistered = (String) request.getAttribute("fullyRegistered");
+    if(isRegistered == "true") isRegistered = "Options";
+    else isRegistered = "Log Out";
+%>
 <div class="chatsContainer">
     <span class="chatContainer__Header">Chats</span>
 </div>
@@ -30,11 +34,17 @@
     <span class="navWelcome">Welcome <%=name%></span></span>
     <div class="navEditProfile">
         <form action="LogoutServlet" method="post">
-            <span>Options</span>
+            <span id="isFullyRegistered"><%=isRegistered%></span>
             <button class="signOutButton" type="submit">
-                <i class="fas fa-sign-out-alt"></i>
+                <i style="color: white"   class="fas fa-sign-out-alt"></i>
             </button>
-            <i style="color: white; margin-top: 2px" class="fas fa-bars"></i>
+            <div onmouseover="displayAccountInfo()" onmouseout="dismissAccountModal()" class="AccountInfoTrigger">
+                <i  id="AccountInfo" style="color: white; margin-top: 2px" class="fas fa-bars"></i>
+                <div class="accountInfoContent">
+                    ragaca ragaca
+                </div>
+            </div>
+
         </form>
 
     </div>
@@ -221,8 +231,6 @@
                     </div>
                     <input  class="genderInput"  style="display: none" name="sex" class="forms">
                 </div>
-
-
                 <button class="submitButton" type="submit" class="registerButton">
                     Complete Registration</button>
             </div>

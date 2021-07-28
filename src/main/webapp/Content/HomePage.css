@@ -36,6 +36,8 @@ html,body{
     gap: 20px;
     font-size: 20px;
     color: white;
+    position: relative;
+    width: 100px;
 }
 .chatsContainer{
     width: 400px;
@@ -365,8 +367,27 @@ html,body{
 }
 
 .signOutButton{
+    cursor: pointer;
     background: none;
     border: none;
+}
+.AccountInfoTrigger{
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+
+
+.accountInfoContent{
+    display: none;
+    position: absolute;
+    background: #ffffff;
+    color: #E67826;
+    right: 0;
+    width: 200px;
+    height: 200px;
+    border-radius: 8px 0 8px 8px;
 }
 
 ::-webkit-scrollbar {
