@@ -209,10 +209,7 @@ html{
     gap: 10px;
 }
 
-.genderInput{
-    background:none;
-    display: none;
-}
+
 .servletMessageLogin{
     display: none;
     font-size: 18px;

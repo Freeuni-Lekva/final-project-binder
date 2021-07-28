@@ -37,20 +37,19 @@ function chooseHobbie(element){
 }
 
 function toggleSex(curr){
+    console.log('shemovida');
     if(curr === 'Male'){
         document.getElementById('MaleSex').style.background = "#FFF";
         document.getElementById('FemaleSex').style.background = 'none';
-       // document.querySelector('.genderInput').setAttribute("value","male");    //TODO <- es DOM ebi ar arsebobs
-      //  console.log(document.querySelector('.genderInput').attributes);
-        setSex("MALE");
+        document.querySelector('.genderInput').setAttribute("value","MALE");
+        console.log(document.querySelector('.genderInput').getAttribute('value'));
+
     }else{
         document.getElementById('FemaleSex').style.background = "#FFF";
         document.getElementById('MaleSex').style.background = 'none';
-      //  document.querySelector('.genderInput').setAttribute("value","female");  //TODO <-
-      //  console.log(document.querySelector('.genderInput').attributes);
-        setSex("FEMALE");
+        document.querySelector('.genderInput').setAttribute("value","FEMALE");
+        console.log(document.querySelector('.genderInput').getAttribute('value'));
     }
-
 }
 
 function removeHobbie(element){
@@ -97,7 +96,4 @@ function setHobbies(){
     document.getElementById('OutputHobbies').value = hobbies.join(',');
     console.log(document.getElementById('OutputHobbies').value);
 }
-function setSex(sex){
-    document.getElementById('OutputSex').value = sex ;
-    console.log(document.getElementById('OutputSex').value);
-}
+

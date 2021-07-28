@@ -219,8 +219,9 @@
                         <div onclick="toggleSex('Female')" id="FemaleSex" class="sexToggle"></div>
                         <span>Female</span>
                     </div>
-                    <input id="OutputSex"  style="display: none" name="sex" class="forms">
+                    <input  class="genderInput"  style="display: none" name="sex" class="forms">
                 </div>
+
 
                 <button class="submitButton" type="submit" class="registerButton">
                     Complete Registration</button>

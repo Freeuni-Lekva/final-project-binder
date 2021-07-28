@@ -359,6 +359,10 @@ html,body{
     align-items: center;
     gap: 10px;
 }
+.genderInput{
+    background:none;
+    display: none;
+}
 
 .signOutButton{
     background: none;
