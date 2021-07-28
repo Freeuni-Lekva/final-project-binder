@@ -42,7 +42,8 @@ public class LoginServlet extends HttpServlet {
                     }else{
                         request.setAttribute("fullyRegistered","false");
                     }
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
+
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("CompleteRegister.jsp");
                     requestDispatcher.forward(request, response);
                 }else{
                     request.setAttribute("loginWrong", "Wrong password");

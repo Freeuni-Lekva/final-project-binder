@@ -42,8 +42,8 @@ public class RegisterServlet extends HttpServlet {
             SessionsDAO.setSession(request.getSession(false).getId(),user.getUsername());
             request.setAttribute("user" ,user);
             request.setAttribute("fullyRegistered","false");
-            response.sendRedirect("Home.jsp");
-           /* RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
+            response.sendRedirect("CompleteRegister.jsp");
+           /* RequestDispatcher requestDispatcher = request.getRequestDispatcher("CompleteRegister.jsp");
             requestDispatcher.forward(request, response);*/
         } catch (RegistrationException | SQLException ex){
             ex.printStackTrace();

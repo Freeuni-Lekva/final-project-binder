@@ -24,8 +24,10 @@ public class PersonalInfoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(request.getSession(false) == null ){
-            response.sendRedirect("index.jsp");
+        if(request.getSession(false) == null ) {
+            request.getSession();
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            rd.forward(request,response);
         }
 
         PersonalUserInfo userInfo = new PersonalUserInfo();
@@ -56,12 +58,12 @@ public class PersonalInfoServlet extends HttpServlet {
             request.setAttribute("user", currUser);
             request.setAttribute("fullyRegistered", "true");
 
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("CompleteRegister.jsp");
             requestDispatcher.forward(request, response);
         } catch (RegistrationException | SQLException ex){
             ex.printStackTrace();
             request.setAttribute("registrationFailed", true);
-            response.sendRedirect("Home.jsp");
+            response.sendRedirect("CompleteRegister.jsp");
         }
     }
 }

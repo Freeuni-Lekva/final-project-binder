@@ -13,7 +13,7 @@
     application.setAttribute("JSESSIONID",session.getId());
 
     if(SessionsDAO.getUsername(session.getId()) != null){
-        response.sendRedirect("Home.jsp");
+        response.sendRedirect("CompleteRegister.jsp");
     }
 
 %>
