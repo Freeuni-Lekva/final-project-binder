@@ -52,36 +52,37 @@
                     <i class="far fa-window-close closeToggle" onclick="disMissHobbies()" ></i>
                 </div>
                 <div class="hobbieContainerBody">
-                    <div id="LONG_WALKS_ON_BEACH" class="hobbieElement"
-                         onclick="chooseHobbie('LONG_WALKS_ON_BEACH')" >
+                    <div id="LONG_WALKS_ON_THE_BEACH" class="hobbieElement" onclick="chooseHobbie('LONG_WALKS_ON_THE_BEACH')" >
                         Long walks on beach
                     </div>
-                    <div id="AHAGEO" class="hobbieElement" onclick="chooseHobbie('AHAGEO')">
-                        Ahageo
+                    <div id="HOBBY2" class="hobbieElement" onclick="chooseHobbie('HOBBY2')">
+                        HOBBY2
                     </div>
-                    <div id="FURRY" class="hobbieElement" onclick="chooseHobbie('FURRY')">
-                        Furry
+                    <div id="HOBBY3" class="hobbieElement" onclick="chooseHobbie('HOBBY3')">
+                        HOBBY3
                     </div>
-                    <div id="PRON" class="hobbieElement" onclick="chooseHobbie('PRON')">
-                        Big titty milf porn
+                    <div id="HOBBY4" class="hobbieElement" onclick="chooseHobbie('HOBBY4')">
+                        HOBBY4
                     </div>
-                    <div id="FUTANARI" class="hobbieElement" onclick="chooseHobbie('FUTANARI')">
-                        futanari
+                    <div id="HOBBY5" class="hobbieElement" onclick="chooseHobbie('HOBBY5')">
+                        HOBBY5
                     </div>
-                    <div id="MUSIC" class="hobbieElement" onclick="chooseHobbie('MUSIC')">
-                        Music
+                    <div id="HOBBY6" class="hobbieElement" onclick="chooseHobbie('HOBBY6')">
+                        HOBBY6
                     </div>
-                    <div id="ROCK_N_ROLL" class="hobbieElement" onclick="chooseHobbie('ROCK_N_ROLL')">
-                        Rock n Roll
+                    <div id="HOBBY7" class="hobbieElement" onclick="chooseHobbie('HOBBY7')">
+                        HOBBY7
                     </div>
-                    <div id='COUNTRY_MUSIC'class="hobbieElement" onclick="chooseHobbie('COUNTRY_MUSIC')">
-                        Country Music
+                    <div id='HOBBY8'class="hobbieElement" onclick="chooseHobbie('HOBBY8')">
+                        HOBBY8
                     </div>
-                    <div id="METAL" class="hobbieElement" onclick="chooseHobbie('METAL')">
-                        Metal
+                    <div id="HOBBY9" class="hobbieElement" onclick="chooseHobbie('HOBBY9')">
+                        HOBBY9
                     </div>
                 </div>
+                <input id="OutputHobbies"  style="display: none" name="hobbies" class="forms">
             </div>
+
             <div class="registerBody">
                 <div class="dateOfBirthYearContainer">
                     <div class="elementContainer">
@@ -140,7 +141,7 @@
                 <div onmouseover="disPlayDropDown('Cities')"  style="width: 80%"  class="forms"
                      onmouseout="dataDismiss('Cities')" >
                     <div class="dropDownTrigger">
-                        <span id="city" name="city">city</span>
+                        <span id="city" >city</span>
                         <div id="Cities" class = "dropDown-content"  onclick="dataDismiss('Cities')">
                             <div class="dropDownContentElement" onclick="changeDate('city','TBILISI')">
                                 Tbilisi
@@ -202,7 +203,8 @@
                         </div>
                     </div>
                 </div>
-                <div onclick="hobbiesAppear()"  name="hobbies" class="hobbieButton">
+                <input id="OutputCity"  style="display: none" name="city" class="forms">
+                <div onclick="hobbiesAppear()"   class="hobbieButton">
                     Hobbies
                 </div>
                 <div class="chooseSex">
@@ -217,7 +219,9 @@
                         <div onclick="toggleSex('Female')" id="FemaleSex" class="sexToggle"></div>
                         <span>Female</span>
                     </div>
+                    <input id="OutputSex"  style="display: none" name="sex" class="forms">
                 </div>
+
                 <button class="submitButton" type="submit" class="registerButton">
                     Complete Registration</button>
             </div>

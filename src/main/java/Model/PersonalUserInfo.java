@@ -3,9 +3,12 @@ package Model;
 import Enums.City;
 import Enums.Hobbies;
 
+import java.awt.*;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 
 public class PersonalUserInfo {
@@ -26,7 +29,7 @@ public class PersonalUserInfo {
         this.phoneNumber = phoneNumber;
         this.city = city;
         this.hobbies = hobbies;
-        this.age = getCurrentAge(dateOfBirth);
+        this.age = getCurrentAge(dateOfBirth, "d/M/yyyy");
         this.sex = sex;
         this.user_id = user_id;
     }
@@ -49,21 +52,21 @@ public class PersonalUserInfo {
         return phoneNumber;
     }
 
-    public City getCity() {
+    public String  getCity() {
+        if(city == null){
+            return "";
+        }
+        return city.toString();
+    }
+    public City getCityEnum(){
         return city;
     }
-
     public Hobbies[] getHobbies() {
         return hobbies;
     }
+    public int getAge() { return age; }
 
-    public int getAge() {
-        return age;
-    }
-
-    public String getSex() {
-        return sex;
-    }
+    public String getSex() { return sex; }
 
     public int getUser_id(){return user_id;}
 
@@ -82,13 +85,19 @@ public class PersonalUserInfo {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setCity(City city) {
-        this.city = city;
+    public void setCity(String city) {
+        if(city.isEmpty()){
+            this.city = null;
+        }else {
+            this.city = City.valueOf(city);
+        }
     }
 
     public void setHobbies(Hobbies[] hobbies) {
         this.hobbies = hobbies;
     }
+
+    public void setHobbies(String hobbies){ this.hobbies = StringToHobbies(hobbies);}
 
     public void setAge(int age) {
         this.age = age;
@@ -100,24 +109,25 @@ public class PersonalUserInfo {
 
     public void setUser_id(int user_id){this.user_id = user_id;}
 
-
-
-
-    public void setHobbies(String hobbies) {
-        String[] hobbiesList = hobbies.split(",");
-        Hobbies[] res = new Hobbies[hobbiesList.length];
-        int k = 0;
-        for (String str : hobbiesList) {
-            res[k] = Hobbies.valueOf(str);
-            k++;
+    public static String HobbiesToString(Hobbies[] hobbies) {
+        if(hobbies == null){
+            return "";
         }
-        this.hobbies = res;
+        Stream<Hobbies> stream = Arrays.stream(hobbies);
+        return String.join(",",stream.map(Enum::toString).toArray(String[]::new));
+    }
+    public static Hobbies[] StringToHobbies(String str){
+        if(str.isEmpty()){
+            return null;
+        }
+        String[] strArray = str.split(",");
+        Stream<String> stream = Arrays.stream(strArray);
+        return stream.map(Hobbies::valueOf).toArray(Hobbies[]::new);
     }
 
-
-    public int getCurrentAge(String date){
+    public static int getCurrentAge(String date , String format){
         LocalDate now = LocalDate.now();
-        LocalDate birthDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("d/M/yyyy"));
+        LocalDate birthDate = LocalDate.parse(date, DateTimeFormatter.ofPattern(format));
         int age = Period.between(birthDate,now).getYears();
         return age;
     }

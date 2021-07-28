@@ -41,15 +41,13 @@ public class PersonalInfoServlet extends HttpServlet {
         }
 
         userInfo.setUsername(username);
-        userInfo.setCity(City.valueOf(request.getParameter("city")));
+        userInfo.setCity(request.getParameter("city"));
         userInfo.setPhoneNumber(request.getParameter("phoneNumber"));
         userInfo.setDateOfBirth(request.getParameter("dateOfBirth"));
-        userInfo.setAge(userInfo.getCurrentAge(userInfo.getDateOfBirth()));
-        Hobbies [] hobbies = new Hobbies[1];
-        hobbies[0] = Hobbies.LONG_WALKS_ON_THE_BEACH;
-        userInfo.setHobbies(hobbies);
-        userInfo.setSex("MALE");
+        userInfo.setHobbies(request.getParameter("hobbies"));
+        userInfo.setSex(request.getParameter("sex"));
         try {
+            userInfo.setAge(PersonalUserInfo.getCurrentAge(userInfo.getDateOfBirth(),"d/M/yyyy"));
             currUser = UserDAO.getUser(username,true);
             currUser.setHas_user_profile("Y");
             userInfo.setUser_id(currUser.getUser_id());
@@ -63,8 +61,7 @@ public class PersonalInfoServlet extends HttpServlet {
         } catch (RegistrationException | SQLException ex){
             ex.printStackTrace();
             request.setAttribute("registrationFailed", true);
-            RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
-            rd.forward(request, response);
+            response.sendRedirect("Home.jsp");
         }
     }
 }

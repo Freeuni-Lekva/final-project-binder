@@ -24,7 +24,7 @@ public class SuggestionDataDAO {
                         "AND CITY = ? ");
         pstmt.setString(1,user.getSex());
         pstmt.setString(2,user.getUsername());
-        pstmt.setString(3,user.getCity().toString());
+        pstmt.setString(3,user.getCity());
         ResultSet rs = pstmt.executeQuery();
         while(rs.next()){
             result.add(rs.getString(1));
