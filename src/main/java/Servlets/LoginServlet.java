@@ -36,14 +36,15 @@ public class LoginServlet extends HttpServlet {
                     request.setAttribute("user", user);
 
                     SessionsDAO.setSession(request.getSession(false).getId(),username);
+                    RequestDispatcher requestDispatcher;
 
                     if(user.getHas_user_profile()){
-                        request.setAttribute("fullyRegistered", "true");
+                        requestDispatcher = request.getRequestDispatcher("home.jsp");
                     }else{
-                        request.setAttribute("fullyRegistered","false");
+                        requestDispatcher = request.getRequestDispatcher("CompleteRegister.jsp");
                     }
 
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("CompleteRegister.jsp");
+
                     requestDispatcher.forward(request, response);
                 }else{
                     request.setAttribute("loginWrong", "Wrong password");
