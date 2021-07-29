@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.stream.Stream;
 
 
@@ -29,6 +30,18 @@ public class PersonalUserInfo {
         this.phoneNumber = phoneNumber;
         this.city = city;
         this.hobbies = hobbies;
+        this.age = getCurrentAge(dateOfBirth, "d/M/yyyy");
+        this.sex = sex;
+        this.user_id = user_id;
+    }
+
+    public PersonalUserInfo(String username, String dateOfBirth, String phoneNumber,
+                            String city, String hobbies, String sex, int user_id ) {
+        this.username = username;
+        this.dateOfBirth = dateOfBirth;
+        this.phoneNumber = phoneNumber;
+        this.city = City.valueOf(city.toUpperCase(Locale.ROOT));
+        this.hobbies = StringToHobbies(hobbies);
         this.age = getCurrentAge(dateOfBirth, "d/M/yyyy");
         this.sex = sex;
         this.user_id = user_id;

@@ -21,38 +21,29 @@ public class RegisterServlet extends HttpServlet {
         if(request.getSession(false) == null ){
             request.getSession();
         }
+        RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+        String name = request.getParameter("firstname");
+        String surname = request.getParameter("surname");
+        String username = request.getParameter("username");
+        String password = String.valueOf(request.getParameter("RegisterPassword").hashCode());
+        String email = request.getParameter("email");
 
-        User user = new User();
-        user.setName(request.getParameter("firstname"));
-        user.setSurname(request.getParameter("surname"));
-        user.setUsername(request.getParameter("username"));
-        user.setEmail(request.getParameter("email"));
-        user.setPassword(String.valueOf(request.getParameter("RegisterPassword").hashCode()));
-        user.setHas_user_profile("N");
-        if(user.getName().isEmpty()  || user.getUsername().isEmpty() ||
-                user.getEmail().isEmpty()
+        if(name.isEmpty()  || username.isEmpty() || email.isEmpty()
         ){
             request.setAttribute("registrationFailed", new String("Please fill all forms"));
-            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
-            return;
         }
+        User user = new User(0,name,surname,email,username,password,false);
+
         try {
             UserDAO.setUser(user);
             SessionsDAO.setSession(request.getSession(false).getId(),user.getUsername());
-            request.setAttribute("user" ,user);
-            request.setAttribute("fullyRegistered","false");
-            response.sendRedirect("CompleteRegister.jsp");
-           /* RequestDispatcher requestDispatcher = request.getRequestDispatcher("CompleteRegister.jsp");
-            requestDispatcher.forward(request, response);*/
+            rd = request.getRequestDispatcher("CompleteRegister.jsp");
+            rd.forward(request, response);
         } catch (RegistrationException | SQLException ex){
             ex.printStackTrace();
             request.setAttribute("registrationFailed", new String("user already exists"));
-            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
         }
-
-    }
-    public void destroy() {
     }
 }

@@ -14,11 +14,9 @@
             response.sendRedirect("index.jsp");
         }
         String name = SessionsDAO.getUsername(session.getId());
-
         if(name == null){
             response.sendRedirect("index.jsp");
         }
-
     %>
 </head>
 <body>

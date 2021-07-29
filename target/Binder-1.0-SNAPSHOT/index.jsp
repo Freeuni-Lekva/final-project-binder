@@ -11,9 +11,13 @@
         request.getSession();
     }
     application.setAttribute("JSESSIONID",session.getId());
-
     if(SessionsDAO.getUsername(session.getId()) != null){
-        response.sendRedirect("Home.jsp");
+        User user = UserDAO.getUser(SessionsDAO.getUsername(session.getId()), true);
+        if(user.getHas_user_profile() == true){
+            response.sendRedirect("Home.jsp");
+        }else{
+            response.sendRedirect("CompleteRegister.jsp");
+        }
     }
 
 %>

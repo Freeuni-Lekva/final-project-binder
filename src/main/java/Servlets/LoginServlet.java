@@ -19,49 +19,37 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("email");
-        String password = String.valueOf(request.getParameter("password").hashCode());
-
         if(request.getSession(false) == null){
             request.getSession();
         }
+        RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+        String username = request.getParameter("email");
+        String password = String.valueOf(request.getParameter("password").hashCode());
 
-        if(!username.isEmpty() && !password.isEmpty()){
-            boolean isUser;
-            isUser = !username.contains("@");
-            User user;
+        if(username.isEmpty() || password.isEmpty()) {
+            request.setAttribute("loginWrong", "Please fill both fields");
+            rd.forward(request, response);
+        }else{
+            boolean isUser = !username.contains("@");
             try {
-                user = UserDAO.getUser(username,isUser);
+                User user = UserDAO.getUser(username,isUser);
                 if(user.getPassword().equals(password)){
-                    request.setAttribute("user", user);
-
                     SessionsDAO.setSession(request.getSession(false).getId(),username);
-                    RequestDispatcher requestDispatcher;
-
                     if(user.getHas_user_profile()){
-                        requestDispatcher = request.getRequestDispatcher("home.jsp");
+                        rd = request.getRequestDispatcher("Home.jsp");
                     }else{
-                        requestDispatcher = request.getRequestDispatcher("CompleteRegister.jsp");
+                        rd = request.getRequestDispatcher("CompleteRegister.jsp");
                     }
-
-
-                    requestDispatcher.forward(request, response);
+                    rd.forward(request, response);
                 }else{
                     request.setAttribute("loginWrong", "Wrong password");
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
-                    requestDispatcher.forward(request, response);
+                    rd.forward(request, response);
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
                 request.setAttribute("loginWrong", "User does not exist");
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
-                requestDispatcher.forward(request, response);
+                rd.forward(request, response);
             }
-
-        }else{
-            request.setAttribute("loginWrong", "Please fill both fields");
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
-            requestDispatcher.forward(request, response);
         }
     }
 }

@@ -24,46 +24,42 @@ public class PersonalInfoServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher rd = request.getRequestDispatcher("CompleteRegister.jsp");
+
         if(request.getSession(false) == null ) {
-            request.getSession();
-            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+            rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request,response);
         }
 
-        PersonalUserInfo userInfo = new PersonalUserInfo();
-        User currUser ;
 
         String username = "";
+        String city = request.getParameter("city");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String dateOfBirth = request.getParameter("dateOfBirth");
+        String hobbies = request.getParameter("hobbies");
+        String sex = request.getParameter("sex");
+
         try{
             username = SessionsDAO.getUsername(request.getSession(false).getId()); // todo user_id gvinda aq username is magivrad
         }catch (SQLException ex){
-            RequestDispatcher rd = request.getRequestDispatcher("/LogoutServlet");
+            rd = request.getRequestDispatcher("/LogoutServlet");
             rd.forward(request,response);
-            return;
         }
 
-        userInfo.setUsername(username);
-        userInfo.setCity(request.getParameter("city"));
-        userInfo.setPhoneNumber(request.getParameter("phoneNumber"));
-        userInfo.setDateOfBirth(request.getParameter("dateOfBirth"));
-        userInfo.setHobbies(request.getParameter("hobbies"));
-        userInfo.setSex(request.getParameter("sex"));
+        PersonalUserInfo userInfo = new PersonalUserInfo(username,dateOfBirth,phoneNumber,city,hobbies,sex,0);
+
         try {
+            User currUser;
             userInfo.setAge(PersonalUserInfo.getCurrentAge(userInfo.getDateOfBirth(),"d/M/yyyy"));
             currUser = UserDAO.getUser(username,true);
             currUser.setHas_user_profile("Y");
             userInfo.setUser_id(currUser.getUser_id());
             PersonalInfoDAO.setUserInfo(userInfo);
             UserDAO.updateUser(currUser);
-            request.setAttribute("user", currUser);
-            request.setAttribute("fullyRegistered", "true");
-
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("CompleteRegister.jsp");
-            requestDispatcher.forward(request, response);
+            rd.forward(request, response);
         } catch (RegistrationException | SQLException ex){
             ex.printStackTrace();
-            request.setAttribute("registrationFailed", true);
-            response.sendRedirect("CompleteRegister.jsp");
+            rd.forward(request,response);
         }
     }
 }
