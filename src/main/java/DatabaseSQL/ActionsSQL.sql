@@ -11,7 +11,9 @@ delimiter //
 Create trigger Actions_trigger_before_insert before insert
     on binder.Actions
     for each row
-    set new.last_modified = sysdate()
+    if new.last_modified is null then
+	    set new.last_modified = sysdate();
+end if;
 //
 delimiter ;
 
