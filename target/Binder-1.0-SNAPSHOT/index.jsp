@@ -107,7 +107,6 @@
                     <input id="RegisterCnFmPassword" class="userInputContainer__Input" type="Password" placeholder="Confirm Password">
                     <i id="RegisterCnFmEye" style="color: white" class="fas fa-eye" onclick="toggleVisibility('RegisterCnFmPassword', 'RegisterCnFmEye')"></i>
                 </div>
-                <input name = "gender" class = "genderInput" >
                 <button type="submit" class="registerButton">Register</button>
             </div>
         </div>

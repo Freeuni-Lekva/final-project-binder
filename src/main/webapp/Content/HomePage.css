@@ -33,11 +33,12 @@ html,body{
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    align-items: center;
     gap: 20px;
     font-size: 20px;
     color: white;
     position: relative;
-    width: 100px;
+    width: 110px;
 }
 .chatsContainer{
     width: 400px;
@@ -367,6 +368,7 @@ html,body{
 }
 
 .signOutButton{
+    margin-top: 20px;
     cursor: pointer;
     background: none;
     border: none;
@@ -380,6 +382,7 @@ html,body{
 
 
 .accountInfoContent{
+    cursor: auto;
     display: none;
     position: absolute;
     background: #ffffff;
@@ -389,6 +392,63 @@ html,body{
     height: 200px;
     border-radius: 8px 0 8px 8px;
 }
+
+.accountLogOutPos{
+    cursor: pointer;
+    display: flex;
+    position: absolute;
+    bottom: 3px;
+    left: 45px;
+    width: 100px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: #E67826;
+    border: none;
+    background: none;
+}
+
+.uploadImageTrigger{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px;
+    border: 2px solid #E67826;
+    font-size: 14px;
+    border-radius: 10px;
+    background: none;
+    width: 100px;
+    position: absolute;
+    top: 15px;
+    left: 40px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.uploadImageContainer{
+    display: block;
+    position: absolute;
+    top: 30px;
+    left: calc(50% - 300px);
+    width: 600px;
+    background: white;
+    height: 500px;
+    border-radius: 10px;
+}
+
+.uploadImageHeader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    border-radius: 10px 10px 0 0 ;
+    background: #E1E43F;
+    color: white;
+    height: 40px;
+}
+
 
 ::-webkit-scrollbar {
     width: 3px;

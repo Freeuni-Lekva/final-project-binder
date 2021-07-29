@@ -20,6 +20,16 @@
     %>
 </head>
 <body>
+<div id="uploadImageContainer" class="modal">
+    <div  class="uploadImageContainer">
+        <div class="uploadImageHeader">
+            <div>
+                upload Image
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="chatsContainer">
     <span class="chatContainer__Header">Chats</span>
 </div>
@@ -30,7 +40,20 @@
             <div onmouseover="displayAccountInfo()" onmouseout="dismissAccountModal()" class="AccountInfoTrigger">
                 <i  id="AccountInfo" style="color: white; margin-top: 2px" class="fas fa-bars"></i>
                 <div class="accountInfoContent">
-                    ragaca ragaca
+                    <div class="uploadImageTrigger" onclick="toggleModal('uploadImageContainer')">
+                        Upload Image
+                    </div>
+                    <div class="accountLogOutPos">
+                        <form action="LogoutServlet" method="post">
+                            <button type="submit" class="accountLogOutPos">
+                                <span>Log Out</span>
+                                <div style="margin-top: 0px" class="signOutButton" t>
+                                    <i style="color: #E67826"   class="fas fa-sign-out-alt"></i>
+                                </div>
+                            </button>
+                        </form>
+                    </div>
+
                 </div>
             </div>
         </div>

@@ -41,6 +41,8 @@ function disMissHobbies(){
 window.onclick = function (event){
     if(event.target == document.getElementById('CompleteRegistrationModal'))
         document.getElementById('CompleteRegistrationModal').style.display = 'none';
+    if(event.target == document.getElementById('uploadImageContainer'))
+        document.getElementById('uploadImageContainer').style.display = 'none';
 }
 
 function chooseHobbie(element){
