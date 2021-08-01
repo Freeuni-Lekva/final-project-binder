@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-    <form action="UploadDownloadFileServlet" method="post" enctype="multipart/form-data">
+    <form action="ImageDownloadServlet" method="post" enctype="multipart/form-data">
         Select File to Upload:<input type="file" name="fileName">
         <input type="submit" value="Upload">
     </form>

@@ -1,5 +1,7 @@
 const hobbieNum = 5;
 let hobbies = [];
+let currentDisplayUserModalID = -1;
+let userInfoModalsContainer = ['changePassword', 'changeEmail','changeUsername', 'changeLocation'];
 
 
 function init(){
@@ -43,6 +45,10 @@ window.onclick = function (event){
         document.getElementById('CompleteRegistrationModal').style.display = 'none';
     if(event.target == document.getElementById('uploadImageContainer'))
         document.getElementById('uploadImageContainer').style.display = 'none';
+    for(let i = 0; i < userInfoModalsContainer.length; i++){
+        if(event.target == document.getElementById(userInfoModalsContainer[i]))
+            document.getElementById(userInfoModalsContainer[i]).style.display = 'none';
+    }
 }
 
 function chooseHobbie(element){
@@ -139,6 +145,14 @@ function dismissAccountModal(){
     bars.style.background = "none";
     bars.style.marginTop = "0";
     bars.style.padding = "0";
+   // document.getElementById(userInfoModalsContainer[currentDisplayUserModalID]).style.display = 'none';
+}
+
+function displayInfoModal(id){
+    if(currentDisplayUserModalID != -1)
+        document.getElementById(userInfoModalsContainer[currentDisplayUserModalID]).style.display = 'none';
+    document.getElementById(userInfoModalsContainer[id]).style.display = 'flex';
+    currentDisplayUserModalID = id;
 }
 
 

@@ -8,13 +8,14 @@ import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
-import org.apache.commons.io.FileUtils;
+//import org.apache.commons.io.FileUtils;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
+/*
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,4 +44,4 @@ public class ImageDownloadServlet extends HttpServlet {
         FileUtils.copyInputStreamToFile(fileContent, targetFile);
     }
 
-}
+}*/

@@ -382,14 +382,17 @@ html,body{
 
 
 .accountInfoContent{
-    cursor: auto;
     display: none;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    cursor: auto;
     position: absolute;
     background: #ffffff;
     color: #E67826;
     right: 0;
     width: 200px;
-    height: 200px;
+    height: 295px;
     border-radius: 8px 0 8px 8px;
 }
 
@@ -420,9 +423,7 @@ html,body{
     border-radius: 10px;
     background: none;
     width: 100px;
-    position: absolute;
-    top: 15px;
-    left: 40px;
+    margin-top: 10px;
     font-weight: 600;
     cursor: pointer;
 }
@@ -439,7 +440,7 @@ html,body{
 }
 
 .uploadImageHeader{
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     gap: 20px;
@@ -448,6 +449,34 @@ html,body{
     color: white;
     height: 40px;
 }
+
+.userInfoModal{
+    color: white;
+    display: flex;
+    width: 400px;
+    position: absolute;
+    flex-direction: column;
+    top: 25px;
+    justify-content: center;
+    align-items: center;
+    left: calc(50% - 200px);
+    padding: 10px;
+    background: #E67826;
+    border-radius: 10px;
+    border: 2px solid orange;
+    gap:10px;
+}
+
+.userInfoInput{
+    outline: none;
+    background: none;
+    color: #ffff;
+    border: none;
+    font-size:20px;
+    height: 40px;
+    border-bottom: 2px solid #E1E43F;
+}
+
 
 
 ::-webkit-scrollbar {
