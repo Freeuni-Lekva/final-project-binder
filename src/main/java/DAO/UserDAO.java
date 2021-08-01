@@ -28,7 +28,9 @@ public class UserDAO {
 
         User user = new User();
         ResultSet rs = pstmt.executeQuery(statement.toString());
-        rs.next();
+        if(!rs.next()){
+         return null;
+        }
         user.setUser_id(rs.getInt(1));
         user.setName(rs.getString(2));
         user.setSurname(rs.getString(3));

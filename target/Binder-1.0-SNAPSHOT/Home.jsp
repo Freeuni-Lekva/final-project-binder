@@ -22,11 +22,10 @@
 <body>
 <div id="uploadImageContainer" class="modal">
     <div  class="uploadImageContainer">
-        <div class="uploadImageHeader">
-            <div>
-                upload Image
-            </div>
-        </div>
+        <form action="ImageDownloadServlet" method="post" enctype="multipart/form-data">
+            Select File to Upload:<input type="file" name="fileName">
+            <input type="submit" value="Upload">
+        </form>
     </div>
 </div>
 
@@ -34,37 +33,45 @@
     <span class="chatContainer__Header">Chats</span>
 </div>
     <div class="navMainContainer">
-        <div class="modal" id="changePassword">
-            <div  class="userInfoModal">
-                <span>Change Password</span>
-                <div class="closeToggle">
-                    <i style="color: white; cursor: pointer" class="fas fa-times"
-                       onclick="dataDismiss('changePassword')"></i>
+        <form action="ChangePasswordServlet" name="changePasswordForm" method="post">
+            <div class="modal" id="changePassword">
+                <div  class="userInfoModal">
+                    <span>Change Password</span>
+                    <div class="closeToggle">
+                        <i style="color: white; cursor: pointer" class="fas fa-times"
+                           onclick="dataDismiss('changePassword')"></i>
+                    </div>
+                    <input class="userInfoInput" id = "oldPassword" name = "oldPassword" placeholder="old Password">
+                    <input class="userInfoInput" id = "newPassword" name = "newPassword" placeholder="new Password">
+                    <input class="userInfoInput" id = "newPasswordRepeat" name = "newPasswordRepeat" placeholder="repeat new Password">
+                    <%if(request.getAttribute("PassChangeFailed") != null)
+                        out.write("<p style=\"color:red;\" >" + request.getAttribute("PassChangeFailed") +"<p>"); %>
+                    <button class="submitButton" type="submit">
+                        submit
+                    </button>
                 </div>
-                <input class="userInfoInput" placeholder="old Password">
-                <input class="userInfoInput" placeholder="new Password">
-                <input class="userInfoInput" placeholder="repeat new Password">
-                <button class="submitButton" type="submit">
-                    submit
-                </button>
             </div>
-        </div>
-        <div class="modal" id="changeEmail">
-            <div  class="userInfoModal">
-                <span>Change Password</span>
-                <div class="closeToggle">
-                    <i style="color: white; cursor: pointer" class="fas fa-times"
-                       onclick="dataDismiss('changeEmail')"></i>
+        </form>
+        <form action="ChangeEmailServlet" name="ChangeEmailServlet" method="post">
+            <div class="modal" id="changeEmail">
+                <div  class="userInfoModal">
+                    <span>Change Email</span>
+                    <div class="closeToggle">
+                        <i style="color: white; cursor: pointer" class="fas fa-times"
+                           onclick="dataDismiss('changeEmail')"></i>
+                    </div>
+                    <input name = "email" id = "email" class="userInfoInput" placeholder="New Email">
+                    <%if(request.getAttribute("EmailChangeFailed") != null)
+                        out.write("<p style=\"color:red;\">" + request.getAttribute("EmailChangeFailed") +"<p>");%>
+                    <button class="submitButton" type="submit">
+                        submit
+                    </button>
                 </div>
-                <input class="userInfoInput" placeholder="newEmail">
-                <button class="submitButton" type="submit">
-                    submit
-                </button>
             </div>
-        </div>
+        </form>
         <div class="modal" id="changeUsername">
             <div  class="userInfoModal">
-                <span>Change Password</span>
+                <span>Change Username</span>
                 <div class="closeToggle">
                     <i style="color: white; cursor: pointer" class="fas fa-times"
                        onclick="dataDismiss('changeUsername')"></i>
@@ -77,7 +84,7 @@
         </div>
         <div class="modal" id="changeLocation">
             <div  class="userInfoModal">
-                <span>Change Password</span>
+                <span>Change Location</span>
                 <div class="closeToggle">
                     <i style="color: white; cursor: pointer" class="fas fa-times"
                        onclick="dataDismiss('changeLocation')"></i>

@@ -56,6 +56,7 @@ public class PersonalInfoServlet extends HttpServlet {
             userInfo.setUser_id(currUser.getUser_id());
             PersonalInfoDAO.setUserInfo(userInfo);
             UserDAO.updateUser(currUser);
+            rd = request.getRequestDispatcher("Home.jsp");
             rd.forward(request, response);
         } catch (RegistrationException | SQLException ex){
             ex.printStackTrace();
