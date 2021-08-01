@@ -69,8 +69,8 @@ public class PersonalInfoDAO {
 
 
     public static void updateUserInfo(PersonalUserInfo userInfo) throws SQLException, RegistrationException {
-        PreparedStatement pstmt = con.prepareStatement("UPDATE user " +
-                " SET username = ? , city = ? , dateOfBirth = ? , age = ? , phoneNumber = ? , hobbies = ?, sex = ? , user_id = ? "
+        PreparedStatement pstmt = con.prepareStatement("UPDATE user_profile " +
+                " SET username = ? , city = ? , dateOfBirth = ? , age = ? , phone_number = ? , hobbies = ?, sex = ? , user_id = ? "
                 + "where user_profile_id = ?"
         );
         pstmt.setString(1, userInfo.getUsername());

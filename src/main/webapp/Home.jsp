@@ -69,96 +69,103 @@
                 </div>
             </div>
         </form>
-        <div class="modal" id="changeUsername">
-            <div  class="userInfoModal">
-                <span>Change Username</span>
-                <div class="closeToggle">
-                    <i style="color: white; cursor: pointer" class="fas fa-times"
-                       onclick="dataDismiss('changeUsername')"></i>
+        <form action="ChangeUsernameServlet" name="ChangeUsernameForm" method="post">
+            <div class="modal" id="changeUsername">
+                <div  class="userInfoModal">
+                    <span>Change Username</span>
+                    <div class="closeToggle">
+                        <i style="color: white; cursor: pointer" class="fas fa-times"
+                           onclick="dataDismiss('changeUsername')"></i>
+                    </div>
+                    <input class="userInfoInput" name="username" placeholder="newUsername">
+                    <button class="submitButton" type="submit">
+                        submit
+                    </button>
                 </div>
-                <input class="userInfoInput" placeholder="newEmail">
-                <button class="submitButton" type="submit">
-                    submit
-                </button>
             </div>
-        </div>
-        <div class="modal" id="changeLocation">
-            <div  class="userInfoModal">
-                <span>Change Location</span>
-                <div class="closeToggle">
-                    <i style="color: white; cursor: pointer" class="fas fa-times"
-                       onclick="dataDismiss('changeLocation')"></i>
-                </div>
-                <div onmouseover="disPlayDropDown('Cities')"  style="width: 80%"  class="forms"
-                     onmouseout="dataDismiss('Cities')" >
-                    <div class="dropDownTrigger">
-                        <span id="city" >city</span>
-                        <div id="Cities" class = "dropDown-content"  onclick="dataDismiss('Cities')">
-                            <div class="dropDownContentElement" onclick="changeDate('city','TBILISI')">
-                                Tbilisi
-                            </div>
-                            <div class="dropDownContentElement" onclick="changeDate('city','BATUMI')">
-                                Batumi
-                            </div>
-                            <div class="dropDownContentElement" onclick="changeDate('city','KUTAISI')">
-                                Kutaisi
-                            </div>
-                            <div class="dropDownContentElement" onclick="changeDate('city','RUSTAVI')">
-                                Rustavi
-                            </div>
-                            <div class="dropDownContentElement" onclick="changeDate('city','MTSKHETA')">
-                                Mtskheta
-                            </div>
-                            <div class="dropDownContentElement" onclick="changeDate('city','POTI')">
-                                Poti
-                            </div>
-                            <div class="dropDownContentElement" onclick="changeDate('city','GORI')">
-                                Gori
-                            </div>
-                            <div class="dropDownContentElement" onclick="changeDate('city','ZUGDIDI')">
-                                Zugdidi
-                            </div>
-                            <div class="dropDownContentElement" onclick="changeDate('city','TELAVI')">
-                                Telavi
-                            </div>
-                            <div class="dropDownContentElement" onclick="changeDate('city','KHASURI')">
-                                Khasuri
-                            </div>
-                            <div class="dropDownContentElement" onclick="changeDate('city','AKHALTSIKHE')">
-                                Akhaltsikhe
-                            </div>
-                            <div class="dropDownContentElement" onclick="changeDate('city','OZURGETI')">
-                                Ozurgeti
-                            </div>
-                            <div class="dropDownContentElement" onclick="changeDate('city','BORJOMI')">
-                                Borjomi
-                            </div>
-                            <div class="dropDownContentElement" onclick="changeDate('city','AMBROLAURI')">
-                                Ambrolauri
-                            </div>
-                            <div class="dropDownContentElement" onclick="changeDate('city','SIGHNAGI')">
-                                Sighnagi
-                            </div>
-                            <div class="dropDownContentElement" onclick="changeDate('city','USHGULI')">
-                                Ushguli
-                            </div>
-                            <div class="dropDownContentElement" onclick="changeDate('city','AKHALKALAKI')">
-                                Akhalkalaki
-                            </div>
-                            <div class="dropDownContentElement" onclick="changeDate('city','AKHMETA')">
-                                Akhmeta
-                            </div>
-                            <div class="dropDownContentElement" onclick="changeDate('city','SOKHUMI')">
-                                Sokhumi
+        </form>
+        <form action="ChangeLocationServlet" name="ChangeLocationForm" method="post">
+            <div class="modal" id="changeLocation">
+                <div  class="userInfoModal">
+                    <span>Change Location</span>
+                    <div class="closeToggle">
+                        <i style="color: white; cursor: pointer" class="fas fa-times"
+                           onclick="dataDismiss('changeLocation')"></i>
+                    </div>
+                    <div onmouseover="disPlayDropDown('Cities')"  style="width: 80%"  class="forms"
+                         onmouseout="dataDismiss('Cities')" >
+                        <div class="dropDownTrigger">
+                            <span id="city" >city</span>
+                            <div id="Cities" class = "dropDown-content"  onclick="dataDismiss('Cities')">
+                                <div class="dropDownContentElement" onclick="changeDate('city','TBILISI')">
+                                    Tbilisi
+                                </div>
+                                <div class="dropDownContentElement" onclick="changeDate('city','BATUMI')">
+                                    Batumi
+                                </div>
+                                <div class="dropDownContentElement" onclick="changeDate('city','KUTAISI')">
+                                    Kutaisi
+                                </div>
+                                <div class="dropDownContentElement" onclick="changeDate('city','RUSTAVI')">
+                                    Rustavi
+                                </div>
+                                <div class="dropDownContentElement" onclick="changeDate('city','MTSKHETA')">
+                                    Mtskheta
+                                </div>
+                                <div class="dropDownContentElement" onclick="changeDate('city','POTI')">
+                                    Poti
+                                </div>
+                                <div class="dropDownContentElement" onclick="changeDate('city','GORI')">
+                                    Gori
+                                </div>
+                                <div class="dropDownContentElement" onclick="changeDate('city','ZUGDIDI')">
+                                    Zugdidi
+                                </div>
+                                <div class="dropDownContentElement" onclick="changeDate('city','TELAVI')">
+                                    Telavi
+                                </div>
+                                <div class="dropDownContentElement" onclick="changeDate('city','KHASURI')">
+                                    Khasuri
+                                </div>
+                                <div class="dropDownContentElement" onclick="changeDate('city','AKHALTSIKHE')">
+                                    Akhaltsikhe
+                                </div>
+                                <div class="dropDownContentElement" onclick="changeDate('city','OZURGETI')">
+                                    Ozurgeti
+                                </div>
+                                <div class="dropDownContentElement" onclick="changeDate('city','BORJOMI')">
+                                    Borjomi
+                                </div>
+                                <div class="dropDownContentElement" onclick="changeDate('city','AMBROLAURI')">
+                                    Ambrolauri
+                                </div>
+                                <div class="dropDownContentElement" onclick="changeDate('city','SIGHNAGI')">
+                                    Sighnagi
+                                </div>
+                                <div class="dropDownContentElement" onclick="changeDate('city','USHGULI')">
+                                    Ushguli
+                                </div>
+                                <div class="dropDownContentElement" onclick="changeDate('city','AKHALKALAKI')">
+                                    Akhalkalaki
+                                </div>
+                                <div class="dropDownContentElement" onclick="changeDate('city','AKHMETA')">
+                                    Akhmeta
+                                </div>
+                                <div class="dropDownContentElement" onclick="changeDate('city','SOKHUMI')">
+                                    Sokhumi
+                                </div>
                             </div>
                         </div>
+                        <input id="OutputCity"  style="display: none" name="city" class="forms">
+
                     </div>
+                    <button class="submitButton" type="submit">
+                        submit
+                    </button>
+                </div>
+
             </div>
-                <button class="submitButton" type="submit">
-                    submit
-                </button>
-        </div>
-        </div>
+        </form>
 
 
 

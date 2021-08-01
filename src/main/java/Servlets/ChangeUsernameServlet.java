@@ -1,0 +1,49 @@
+package Servlets;
+
+import DAO.PersonalInfoDAO;
+import DAO.SessionsDAO;
+import DAO.UserDAO;
+import Exceptions.RegistrationException;
+import Model.PersonalUserInfo;
+import Model.User;
+import Exceptions.RegistrationException;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.*;
+import java.io.IOException;
+import java.sql.SQLException;
+
+@WebServlet(name = "ChangeUsernameServlet", value = "/ChangeUsernameServlet")
+public class ChangeUsernameServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
+        if(request.getSession(false) == null ) {
+            requestDispatcher = request.getRequestDispatcher("index.jsp");
+            requestDispatcher.forward(request,response);
+        }
+        String username;
+        try {
+            username = SessionsDAO.getUsername(request.getSession(false).getId());
+            User user = UserDAO.getUser(username,true);
+            PersonalUserInfo userInfo ;
+            userInfo = PersonalInfoDAO.getUserInfo(user.getUser_id());
+            userInfo.setUsername( request.getParameter("username"));
+            PersonalInfoDAO.updateUserInfo(userInfo);
+        } catch (SQLException | RegistrationException ex){
+            ex.printStackTrace();
+            requestDispatcher = request.getRequestDispatcher("/LogoutServlet");
+            requestDispatcher.forward(request,response);
+        }
+        requestDispatcher.forward(request,response);
+
+
+
+
+    }
+}
