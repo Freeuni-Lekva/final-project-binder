@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
             try {
                 User user = UserDAO.getUser(username,isUser);
                 if(user.getPassword().equals(password)){
-                    SessionsDAO.setSession(request.getSession(false).getId(),username);
+                    SessionsDAO.setSession(request.getSession(false).getId(),user.getUser_id());
                     if(user.getHas_user_profile()){
                         rd = request.getRequestDispatcher("Home.jsp");
                     }else{

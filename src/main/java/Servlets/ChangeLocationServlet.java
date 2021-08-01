@@ -30,10 +30,9 @@ public class ChangeLocationServlet extends HttpServlet {
         String username;
 
         try {
-            username = SessionsDAO.getUsername(request.getSession(false).getId());
-            User user = UserDAO.getUser(username,true);
+            int user_id = SessionsDAO.getUser_id(request.getSession(false).getId());
             PersonalUserInfo userInfo ;
-            userInfo = PersonalInfoDAO.getUserInfo(user.getUser_id());
+            userInfo = PersonalInfoDAO.getUserInfo(user_id);
             userInfo.setCity( request.getParameter("city"));
             PersonalInfoDAO.updateUserInfo(userInfo);
         } catch (SQLException | RegistrationException ex){

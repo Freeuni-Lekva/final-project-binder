@@ -17,12 +17,11 @@ public class User {
     private boolean has_user_profile;
 
 
-    public User(int user_id,
+    public User(
                 String name, String surname,
                 String email, String username,
                 String password,
                 boolean has_user_profile) {
-        this.user_id = user_id;
         this.name = name;
         this.surname = surname;
         this.email = email;

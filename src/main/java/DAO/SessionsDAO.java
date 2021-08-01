@@ -11,34 +11,34 @@ public class SessionsDAO {
 
     private static Connection con;
 
-    public static String getUsername (String sessionID) throws SQLException {
+    public static int getUser_id (String sessionID) throws SQLException {
         con = MyDatabase.getConnection();
-        String username = "";
+        int user_id = -1;
         PreparedStatement pstmt = con.prepareStatement("Use binder; ");
         ResultSet rs = pstmt.executeQuery(
-                "SELECT username " +
+                "SELECT user_id " +
                         "FROM SESSIONS " +
                         "WHERE sessionID = " + "\"" +  sessionID + "\""
-                        ); //"AND expireDate > " + System.currentTimeMillis()
+                        );
         if(!rs.next()){
-            return null;
+            return user_id;
         }
-        username = rs.getString(1);
-        return username;
+        user_id = rs.getInt(1);
+        return user_id;
     }
 
-    public static void setSession(String sessionID, String username) throws SQLException {
+    public static void setSession(String sessionID, int user_id) throws SQLException {
         con = MyDatabase.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
-                "INSERT INTO SESSIONS (sessionID,username)" +
+                "INSERT INTO SESSIONS (sessionID,user_id)" +
                 "VALUES(?,?) ");
         pstmt.setString(1,sessionID);
-        pstmt.setString(2,username);
+        pstmt.setInt(2,user_id);
         pstmt.executeUpdate();
     }
 
 
-    public static void deleteSession(String sessionID) throws SQLException{
+    public static void deleteSession(String sessionID) throws SQLException{ // todo
         con = MyDatabase.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
                 "DELETE from SESSIONS WHERE SESSIONID = ?" );

@@ -23,17 +23,6 @@ public class PersonalUserInfo {
     private String sex;
     private int user_id;
 
-    public PersonalUserInfo(String username, String dateOfBirth, String phoneNumber,
-                            City city, Hobbies[] hobbies, String sex, int user_id ) {
-        this.username = username;
-        this.dateOfBirth = dateOfBirth;
-        this.phoneNumber = phoneNumber;
-        this.city = city;
-        this.hobbies = hobbies;
-        this.age = getCurrentAge(dateOfBirth, "d/M/yyyy");
-        this.sex = sex;
-        this.user_id = user_id;
-    }
 
     public PersonalUserInfo(String username, String dateOfBirth, String phoneNumber,
                             String city, String hobbies, String sex, int user_id ) {

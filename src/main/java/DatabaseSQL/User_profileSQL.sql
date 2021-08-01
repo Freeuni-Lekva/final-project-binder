@@ -7,7 +7,7 @@ Create table User_profile(
     phone_number varchar(30),
     hobbies varchar(300),
     sex varchar(7) check(sex in ('MALE','FEMALE') or sex is null),
-    user_id int ,
+    user_id int unique,
     foreign key  (user_id) references binder.user(user_id) on update cascade on delete cascade
 );
 delimiter //

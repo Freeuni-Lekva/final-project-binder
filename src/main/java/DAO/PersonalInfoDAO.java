@@ -33,10 +33,10 @@ public class PersonalInfoDAO {
         userInfo.setSex(rs.getString(8));
         return userInfo;
     }
-    public static PersonalUserInfo getUserInfo(int user_profile_id) throws SQLException {
+    public static PersonalUserInfo getUserInfo(int user_id) throws SQLException {
         PreparedStatement pstmt = con.prepareStatement("Use binder; ");
         StringBuilder statement = new StringBuilder();
-        statement.append("Select * from User_profile where user_profile_id = \"" + user_profile_id + "\"");
+        statement.append("Select * from User_profile where user_id = \"" + user_id + "\"");
         PersonalUserInfo userInfo = new PersonalUserInfo();
         ResultSet rs = pstmt.executeQuery(statement.toString());
         rs.next();

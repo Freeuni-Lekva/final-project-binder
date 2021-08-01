@@ -33,11 +33,11 @@ public class RegisterServlet extends HttpServlet {
             request.setAttribute("registrationFailed", new String("Please fill all forms"));
             rd.forward(request, response);
         }
-        User user = new User(0,name,surname,email,username,password,false);
+        User user = new User(name,surname,email,username,password,false);
 
         try {
-            UserDAO.setUser(user);
-            SessionsDAO.setSession(request.getSession(false).getId(),user.getUsername());
+            User userWithID = UserDAO.setUser(user);
+            SessionsDAO.setSession(request.getSession(false).getId(),userWithID.getUser_id());
             rd = request.getRequestDispatcher("CompleteRegister.jsp");
             rd.forward(request, response);
         } catch (RegistrationException | SQLException ex){

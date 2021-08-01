@@ -39,8 +39,8 @@ public class ChangePasswordServlet extends HttpServlet {
         }
 
         try {
-            String username = SessionsDAO.getUsername(request.getSession(false).getId());
-            User user = UserDAO.getUser(username,true);
+            int user_id = SessionsDAO.getUser_id(request.getSession(false).getId());
+            User user = UserDAO.getUserByID(user_id);
             if(!user.getPassword().equals(oldPassword)){
                 request.setAttribute("PassChangeFailed","Please enter your current password correctly");
                 rd.forward(request,response);

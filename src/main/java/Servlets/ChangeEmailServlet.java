@@ -36,18 +36,14 @@ public class ChangeEmailServlet extends HttpServlet {
         }
 
         try {
-            String username = SessionsDAO.getUsername(request.getSession(false).getId());
-            User user = UserDAO.getUser(username,true);
-            User user1 = UserDAO.getUser(newEmail,false);
-            if(user1 != null){
-                request.setAttribute("EmailChangeFailed","This email is already in use");
-                rd.forward(request,response);
-            }
+            int user_id = SessionsDAO.getUser_id(request.getSession(false).getId());
+            User user = UserDAO.getUserByID(user_id);
             user.setEmail(newEmail);
             UserDAO.updateUser(user);
             rd.forward(request,response);
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            request.setAttribute("EmailChangeFailed","This email is already in use");
+            rd.forward(request,response);
         }
     }
 

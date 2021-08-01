@@ -1,6 +1,7 @@
 <%@ page import="DAO.UserDAO" %>
 <%@ page import="Model.User" %>
 <%@ page import="DAO.SessionsDAO" %>
+<%@ page import="java.sql.SQLException" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,10 +14,15 @@
             request.getSession();
             response.sendRedirect("index.jsp");
         }
-        String name = SessionsDAO.getUsername(session.getId());
-        if(name == null){
+        String name = "";
+        try {
+            User user = UserDAO.getUserByID(SessionsDAO.getUser_id(session.getId()));
+            name = user.getUsername();
+        } catch (SQLException ex) {
             response.sendRedirect("index.jsp");
         }
+
+
     %>
 </head>
 <body>
