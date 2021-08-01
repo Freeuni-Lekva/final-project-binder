@@ -51,7 +51,7 @@
         </div>
         <div class="modal" id="changeEmail">
             <div  class="userInfoModal">
-                <span>Change Password</span>
+                <span>Change Email</span>
                 <div class="closeToggle">
                     <i style="color: white; cursor: pointer" class="fas fa-times"
                        onclick="dataDismiss('changeEmail')"></i>
@@ -64,7 +64,7 @@
         </div>
         <div class="modal" id="changeUsername">
             <div  class="userInfoModal">
-                <span>Change Password</span>
+                <span>Change Username</span>
                 <div class="closeToggle">
                     <i style="color: white; cursor: pointer" class="fas fa-times"
                        onclick="dataDismiss('changeUsername')"></i>
@@ -77,7 +77,7 @@
         </div>
         <div class="modal" id="changeLocation">
             <div  class="userInfoModal">
-                <span>Change Password</span>
+                <span>Change Location</span>
                 <div class="closeToggle">
                     <i style="color: white; cursor: pointer" class="fas fa-times"
                        onclick="dataDismiss('changeLocation')"></i>
