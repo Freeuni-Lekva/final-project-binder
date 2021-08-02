@@ -2,6 +2,8 @@
 <%@ page import="Model.User" %>
 <%@ page import="DAO.SessionsDAO" %>
 <%@ page import="java.sql.SQLException" %>
+<%@ page import="DAO.PersonalInfoDAO" %>
+<%@ page import="Model.PersonalUserInfo" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -17,6 +19,8 @@
         String name = "";
         try {
             User user = UserDAO.getUserByID(SessionsDAO.getUser_id(session.getId()));
+            PersonalUserInfo userInfo = PersonalInfoDAO.getUserInfo(user.getUser_id());
+            request.setAttribute("userInfo",userInfo);
             name = user.getUsername();
         } catch (SQLException ex) {
             response.sendRedirect("index.jsp");
@@ -29,7 +33,7 @@
 <div id="uploadImageContainer" class="modal">
     <div  class="uploadImageContainer">
         <form action="ImageDownloadServlet" method="post" enctype="multipart/form-data">
-            Select File to Upload:<input type="file" name="fileName">
+            Select Files to Upload:<input type="file" name="fileName" multiple>
             <input type="submit" value="Upload">
         </form>
     </div>

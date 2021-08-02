@@ -85,7 +85,16 @@ public class PersonalInfoDAO {
         pstmt.executeUpdate();
     }
 
-
+    public static int GetUserProfileID(int userID) throws SQLException{
+        PreparedStatement pstmt = con.prepareStatement("SELECT user_profile_id " +
+                " from user_profile "
+                + "where user_id = ?"
+        );
+        pstmt.setInt(userID,1);
+        ResultSet rs = pstmt.executeQuery();
+        rs.next();
+        return rs.getInt(1);
+    }
 
 
 

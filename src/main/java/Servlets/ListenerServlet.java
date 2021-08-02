@@ -1,6 +1,7 @@
 package Servlets;
 
 import DAO.SessionsDAO;
+import Model.PersonalUserInfo;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
