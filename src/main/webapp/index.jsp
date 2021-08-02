@@ -11,13 +11,17 @@
         request.getSession();
     }
     application.setAttribute("JSESSIONID",session.getId());
-    if(SessionsDAO.getUser_id(session.getId()) != -1){
-        User user = UserDAO.getUserByID(SessionsDAO.getUser_id(session.getId()));
-        if(user.getHas_user_profile() == true){
-            response.sendRedirect("Home.jsp");
-        }else{
-            response.sendRedirect("CompleteRegister.jsp");
+    try{
+        if(SessionsDAO.getUser_id(session.getId()) != -1){
+            User user = UserDAO.getUserByID(SessionsDAO.getUser_id(session.getId()));
+            if(user.getHas_user_profile() == true){
+                response.sendRedirect("Home.jsp");
+            }else{
+                response.sendRedirect("CompleteRegister.jsp");
+            }
         }
+    }catch (SQLException ex){
+        ex.printStackTrace();
     }
 
 %>
@@ -55,7 +59,7 @@
     <form action="LoginServlet" name="loginForm" method="post">
         <div id="LoginModal" class="modal">
             <div  class="loginModalContainer">
-                <span class="servletMessageLogin"><%=MessageLogin%></span>
+               <span class="servletMessageLogin"><%=MessageLogin%></span>
                 <div class="closeButton">
                     <i style="color: white; cursor: pointer" class="fas fa-times"
                        onclick="toggleModal('LoginModal')"></i>

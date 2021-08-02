@@ -19,43 +19,51 @@ public class ActionDAO{
     public static final int ACTION_DISLIKE = -1;
 
     //get list of users who liked/disliked this user
-    public static HashSet<String> getActors(String username, int action) throws SQLException {
+    public static HashSet<String> getActors(int userID, int action) throws SQLException {
         con = MyDatabase.getConnection();
         result = new HashSet<>();
-        PreparedStatement pstmt = con.prepareStatement("Use binder; ");
-        ResultSet rs = pstmt.executeQuery(
-                "SELECT username_actor " +
+        PreparedStatement pstmt = con.prepareStatement("SELECT actor_id " +
                         "FROM Actions " +
-                        "WHERE username_subject = " + "\"" + username + "\" " +
-                        "AND relation =" + action);
+                        "WHERE subject_id = ?" +
+                        "AND relation = ?");
+        pstmt.setInt(userID,1);
+        pstmt.setInt(action,2);
+        ResultSet rs = pstmt.executeQuery();
+        int count = 0;
         while(rs.next()){
             result.add(rs.getString(1));
+            count++;
+            if(count == 10) break;
         }
         return result;
     }
 
     //get list of users liked/disliked by this user
-    public static HashSet<String> getSubjects(String username,int action) throws SQLException {
+    public static HashSet<String> getSubjects(int userID,int action) throws SQLException {
         con = MyDatabase.getConnection();
         result = new HashSet<>();
-        PreparedStatement pstmt = con.prepareStatement("Use binder; ");
-        ResultSet rs = pstmt.executeQuery(
-                "SELECT username_subject " +
-                        "FROM Actions " +
-                        "WHERE username_actor = " + "\"" + username + "\" " +
-                        "AND relation =" + action);
+        PreparedStatement pstmt = con.prepareStatement("SELECT subject_id " +
+                "FROM Actions " +
+                "WHERE actor_id = ?" +
+                "AND relation = ?");
+        pstmt.setInt(userID,1);
+        pstmt.setInt(action,2);
+        ResultSet rs = pstmt.executeQuery();
+        int count = 0;
         while(rs.next()){
             result.add(rs.getString(1));
+            count++;
+            if(count == 10) break;
         }
         return result;
     }
 
     //add relation of these users in DB
-    public static void Action(String actor, String subject, int action) throws SQLException{
+    public static void Action(int actorID, int subjectID, int action) throws SQLException{
         con = MyDatabase.getConnection();
-        PreparedStatement pstmt = con.prepareStatement("INSERT INTO Actions (username_actor,username_subject,relation) VALUES (?,?,?)");
-        pstmt.setString( 1,actor);
-        pstmt.setString(2,subject);
+        PreparedStatement pstmt = con.prepareStatement("INSERT INTO Actions (actor_id,subject_id,relation) VALUES (?,?,?)");
+        pstmt.setInt( 1,actorID);
+        pstmt.setInt(2,subjectID);
         pstmt.setInt(3,action);
         pstmt.executeUpdate();
     }

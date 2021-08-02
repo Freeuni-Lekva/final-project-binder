@@ -11,17 +11,19 @@ import java.util.Random;
 
 public class Suggestion {
 
-    private String username;
+    private int userID;
     private PersonalUserInfo userInfo;
     private PersonalUserInfo suggestedUser;
-    private ArrayList<String> validUsers;
+    private ArrayList<Integer> validUsers;
     private Random rand;
+
     public Suggestion(PersonalUserInfo userInfo){
         this.userInfo = userInfo;
-        this.username = userInfo.getUsername();
+        this.userID = userInfo.getUser_id();
         this.rand = new Random();
     try {
             Generate();
+            next();
     }catch (SQLException ex){
             ex.printStackTrace();
         }
@@ -29,7 +31,6 @@ public class Suggestion {
 
     public void Generate() throws SQLException {
         this.validUsers = SuggestionDataDAO.getSuggestions(userInfo);
-        suggestedUser = PersonalInfoDAO.getUserInfo(validUsers.get(rand.nextInt(validUsers.size())));
     }
 
     public PersonalUserInfo getSuggestedUser(){
@@ -38,21 +39,22 @@ public class Suggestion {
 
     public void next(){
         try {
-            Generate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            suggestedUser = PersonalInfoDAO.getUserInfo(validUsers.get(rand.nextInt(validUsers.size())));
+            validUsers.remove((Integer) suggestedUser.getUser_id());
+            if(validUsers.size() == 0) Generate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            suggestedUser = null;
         }
     }
 
     public void Like() throws SQLException{
-        ActionDAO.Action(username,suggestedUser.getUsername(),ActionDAO.ACTION_LIKE);
+        ActionDAO.Action(userID,suggestedUser.getUser_id(),ActionDAO.ACTION_LIKE);
         next();
     }
     public void Dislike() throws SQLException{
-        ActionDAO.Action(username,suggestedUser.getUsername(),ActionDAO.ACTION_DISLIKE);
+        ActionDAO.Action(userID,suggestedUser.getUser_id(),ActionDAO.ACTION_DISLIKE);
         next();
     }
-
-
 
 }

@@ -3,6 +3,7 @@ package Servlets;
 import DAO.PersonalInfoDAO;
 import DAO.SessionsDAO;
 import DAO.UserDAO;
+import Enums.City;
 import Exceptions.RegistrationException;
 import Model.PersonalUserInfo;
 import Model.User;
@@ -22,24 +23,30 @@ public class ChangeLocationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("Home.jsp");
         if(request.getSession(false) == null ) {
-            requestDispatcher = request.getRequestDispatcher("index.jsp");
-            requestDispatcher.forward(request,response);
+            rd = request.getRequestDispatcher("index.jsp");
+            rd.forward(request,response);
         }
-        String username;
 
         try {
             int user_id = SessionsDAO.getUser_id(request.getSession(false).getId());
-            PersonalUserInfo userInfo ;
+            PersonalUserInfo userInfo;
             userInfo = PersonalInfoDAO.getUserInfo(user_id);
+
+            String city = request.getParameter("city");
+            if(userInfo.getCity().equals(city)){
+                request.setAttribute("LocationUpdateFailed","New location must differ from the current one");
+                rd.forward(request,response);
+            }
+
             userInfo.setCity( request.getParameter("city"));
             PersonalInfoDAO.updateUserInfo(userInfo);
         } catch (SQLException | RegistrationException ex){
             ex.printStackTrace();
-            requestDispatcher = request.getRequestDispatcher("/LogoutServlet");
-            requestDispatcher.forward(request,response);
+            rd = request.getRequestDispatcher("/LogoutServlet");
+            rd.forward(request,response);
         }
-        requestDispatcher.forward(request,response);
+        rd.forward(request,response);
     }
 }

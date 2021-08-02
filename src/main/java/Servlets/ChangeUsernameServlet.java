@@ -22,12 +22,17 @@ public class ChangeUsernameServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("Home.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("Home.jsp");
         if(request.getSession(false) == null ) {
-            requestDispatcher = request.getRequestDispatcher("index.jsp");
-            requestDispatcher.forward(request,response);
+            rd = request.getRequestDispatcher("index.jsp");
+            rd.forward(request,response);
         }
-        String username;
+
+        String username = request.getParameter("username");
+        if(username.length() < 4){
+            request.setAttribute("UsernameChangeFailed","Username must consist of at least 4 characters");
+            rd.forward(request,response);
+        }
         try {
             int user_id = SessionsDAO.getUser_id(request.getSession(false).getId());
             PersonalUserInfo userInfo ;
@@ -36,10 +41,10 @@ public class ChangeUsernameServlet extends HttpServlet {
             PersonalInfoDAO.updateUserInfo(userInfo);
         } catch (SQLException | RegistrationException ex){
             ex.printStackTrace();
-            requestDispatcher = request.getRequestDispatcher("/LogoutServlet");
-            requestDispatcher.forward(request,response);
+            rd = request.getRequestDispatcher("/LogoutServlet");
+            rd.forward(request,response);
         }
-        requestDispatcher.forward(request,response);
+        rd.forward(request,response);
 
 
 

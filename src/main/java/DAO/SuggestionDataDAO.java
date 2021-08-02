@@ -14,20 +14,20 @@ public class SuggestionDataDAO {
 
     private static Connection con;
 
-    public static ArrayList<String> getSuggestions(PersonalUserInfo user) throws SQLException {
+    public static ArrayList<Integer> getSuggestions(PersonalUserInfo user) throws SQLException {
         con = MyDatabase.getConnection();
-        ArrayList<String> result = new ArrayList<>();
+        ArrayList<Integer> result = new ArrayList<>();
         PreparedStatement pstmt = con.prepareStatement(
-                    "SELECT username FROM User_profile " +
+                    "SELECT user_id FROM User_profile " +
                         "WHERE sex  != " + "?" +" " +
-                        "AND username not in (SELECT username_subject from ACTIONS where username_actor =  ? )" +
+                        "AND user_id not in (SELECT subject_id from ACTIONS where actor_id =  ? )" +
                         "AND CITY = ? ");
         pstmt.setString(1,user.getSex());
-        pstmt.setString(2,user.getUsername());
+        pstmt.setInt(2,user.getUser_id());
         pstmt.setString(3,user.getCity());
         ResultSet rs = pstmt.executeQuery();
         while(rs.next()){
-            result.add(rs.getString(1));
+            result.add(rs.getInt(1));
         }
         return result;
     }

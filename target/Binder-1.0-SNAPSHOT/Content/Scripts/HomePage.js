@@ -2,17 +2,34 @@ const hobbieNum = 5;
 let hobbies = [];
 let currentDisplayUserModalID = -1;
 let userInfoModalsContainer = ['changePassword', 'changeEmail','changeUsername', 'changeLocation'];
+let pictures = [];
+
+function addPicturesTimeOut(){
+    let uploadFileInput = document.getElementById('fileUploadInputId');
+    let imagePreview = document.getElementById('ImagePreview');
+    const Reader = new FileReader();
+    uploadFileInput.addEventListener('change', function (){
+        Reader.readAsDataURL(this.files[0])
+
+
+        Reader.addEventListener('load', () => {
+            console.log(Reader.result);
+            imagePreview.setAttribute('src', Reader.result);
+            uploadFileInput.setAttribute('value', pictures);
+        })
+        console.log(pictures.length);
+    });
+}
 
 
 function init(){
     setTimeout(checkMessages, 200);
-
+    setTimeout(addPicturesTimeOut, 200);
 }
 init();
 
 
 function checkMessages(){
-    console.log(document.getElementById('isFullyRegistered').textContent);
     if(document.getElementById('isFullyRegistered').textContent == "Options"){
         console.log("Fully Registered");
         document.querySelector('.signOutButton').style.display = 'none';
@@ -145,7 +162,7 @@ function dismissAccountModal(){
     bars.style.background = "none";
     bars.style.marginTop = "0";
     bars.style.padding = "0";
-   // document.getElementById(userInfoModalsContainer[currentDisplayUserModalID]).style.display = 'none';
+    // document.getElementById(userInfoModalsContainer[currentDisplayUserModalID]).style.display = 'none';
 }
 
 function displayInfoModal(id){
@@ -153,6 +170,13 @@ function displayInfoModal(id){
         document.getElementById(userInfoModalsContainer[currentDisplayUserModalID]).style.display = 'none';
     document.getElementById(userInfoModalsContainer[id]).style.display = 'flex';
     currentDisplayUserModalID = id;
+}
+
+function addPicturesToProfile(){
+    if(pictures.length < 3){
+        pictures.push(uploadFileInput.value);
+    }
+
 }
 
 
