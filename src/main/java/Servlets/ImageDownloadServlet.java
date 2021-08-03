@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
 
 import DAO.PersonalInfoDAO;
@@ -53,21 +54,31 @@ public class ImageDownloadServlet extends HttpServlet {
             String username = userInfo.getUsername();
             user_id = userInfo.getUser_profile_id();
 
+            int imageCount = UserImagesDAO.getUserImages(user_id).size();
+            if(imageCount >= 3){
+                request.setAttribute("ImageUploadFailed","You can upload at most 3 images");
+                rd.forward(request,response);
+            }
+
             Collection<Part> parts = request.getParts();
-            int imageNum = 0;
+
             for(Part p : parts){
                 InputStream fileContent = p.getInputStream();
 
                 String fileName = Paths.get(p.getSubmittedFileName()).getFileName().toString();
                 String fileExtension = fileName.split("\\.")[1];
+                if(!"jpg,png,gif,jpeg".contains(fileExtension)){
+                    request.setAttribute("ImageUploadFailed","The image must be .jpg .png .jpeg or .gif file");
+                    rd.forward(request,response);
+                }
 
-                File targetFile = new File("./User_Files/" + username + imageNum + "." + fileExtension);
+                File targetFile = new File("./User_Files/" + username + imageCount + "." + fileExtension);
                 FileUtils.copyInputStreamToFile(fileContent, targetFile);
-                UserImagesDAO.setUserImage(user_id,targetFile.getPath());
-                imageNum++;
+                UserImagesDAO.setUserImage(user_id, targetFile.getPath());
             }
             rd.forward(request,response);
         }catch (SQLException ex){
+            ex.printStackTrace();
             rd = request.getRequestDispatcher("/LogoutServlet");
             rd.forward(request,response);
         }

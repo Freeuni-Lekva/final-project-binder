@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UserImagesDAO {
 
@@ -56,5 +57,27 @@ public class UserImagesDAO {
         return rs.getString(1);
     }
 
+    public static ArrayList<String> getUserImages(int user_profile_ID) throws SQLException{
+        ArrayList<String> result = new ArrayList<>();
+        PreparedStatement pstmt = con.prepareStatement(
+                "Select Image_path from image where user_profile_id = ?");
+        pstmt.setInt(1, user_profile_ID);
+        ResultSet rs = pstmt.executeQuery();
+        while(rs.next()){
+            result.add(rs.getString(1));
+        }
+        return result;
+    }
+
+    public static void deleteImage(int user_profile_ID,String image_path) throws SQLException{
+        PreparedStatement pstmt = con.prepareStatement(
+                "DELETE from image where user_profile_id = ? AND image_path = ? ");
+        pstmt.setInt(1, user_profile_ID);
+        pstmt.setString(2,image_path);
+        pstmt.executeUpdate();
+
+        File f = new File(image_path);
+        f.delete();
+    }
 
 }

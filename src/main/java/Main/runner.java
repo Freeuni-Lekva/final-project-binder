@@ -2,6 +2,7 @@ package Main;
 
 import DAO.PersonalInfoDAO;
 import DAO.UserDAO;
+import DAO.UserImagesDAO;
 import Exceptions.RegistrationException;
 import Implementations.Suggestion;
 import Model.PersonalUserInfo;
@@ -15,7 +16,8 @@ public class runner {
 
     public static void main(String[] args) throws SQLException, RegistrationException {
         //generate suggestions
-        /*for(int i=1; i<=20; i++){
+        /*
+        for(int i=1; i<=20; i++){
             User male = new User("gurami" + i,"abra","a@gmail.com" + i,"gurami" + i,String.valueOf("gurami2000".hashCode()),
                     true);
             UserDAO.setUser(male);
@@ -28,15 +30,17 @@ public class runner {
             PersonalInfoDAO.setUserInfo(femaleInfo);
         }*/
 
-        /* test action
-        PersonalUserInfo sample = PersonalInfoDAO.getUserInfo(287);
+        /*
+        PersonalUserInfo sample = PersonalInfoDAO.getUserInfo(328);
+        Suggestion suggestion = new Suggestion(sample);
         for(int i=0; i<20; i++) {
             System.out.println(sample.getUsername());
-            Suggestion suggestion = new Suggestion(sample);
-            if(suggestion == null) break;
+            if(suggestion.getSuggestedUser() == null) break;
             System.out.println(suggestion.getSuggestedUser().getUsername());
             suggestion.Like();
         }*/
+
+        //UserImagesDAO.deleteImage(325,".\\User_Files\\gabra0.PNG");
     }
 
 

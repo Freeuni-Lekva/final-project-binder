@@ -39,6 +39,7 @@ public class Suggestion {
 
     public void next(){
         try {
+            if(validUsers.size() == 0) throw new SQLException("There are no more valid suggestions");
             suggestedUser = PersonalInfoDAO.getUserInfo(validUsers.get(rand.nextInt(validUsers.size())));
             validUsers.remove((Integer) suggestedUser.getUser_id());
             if(validUsers.size() == 0) Generate();

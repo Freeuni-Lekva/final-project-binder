@@ -36,6 +36,8 @@
         <form action="ImageDownloadServlet" method="post" enctype="multipart/form-data">
 
             <input id="fileUploadInputId"  type="file" name="fileName">
+            <%if(request.getAttribute("ImageUploadFailed") != null)
+                out.write("<p style=\"color:red;\" >" + request.getAttribute("ImageUploadFailed") +"<p>"); %>
             <button type="submit" value="Upload"></button>
         </form>
         <img class="imagePreviewContainer" id="ImagePreview" src="" alt="Picture Previwe">

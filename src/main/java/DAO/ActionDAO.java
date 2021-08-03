@@ -26,8 +26,8 @@ public class ActionDAO{
                         "FROM Actions " +
                         "WHERE subject_id = ?" +
                         "AND relation = ?");
-        pstmt.setInt(userID,1);
-        pstmt.setInt(action,2);
+        pstmt.setInt(1,userID);
+        pstmt.setInt(2,action);
         ResultSet rs = pstmt.executeQuery();
         int count = 0;
         while(rs.next()){
@@ -46,8 +46,8 @@ public class ActionDAO{
                 "FROM Actions " +
                 "WHERE actor_id = ?" +
                 "AND relation = ?");
-        pstmt.setInt(userID,1);
-        pstmt.setInt(action,2);
+        pstmt.setInt(1,userID);
+        pstmt.setInt(2,action);
         ResultSet rs = pstmt.executeQuery();
         int count = 0;
         while(rs.next()){

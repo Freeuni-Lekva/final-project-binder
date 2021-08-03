@@ -4,6 +4,7 @@
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="DAO.PersonalInfoDAO" %>
 <%@ page import="Model.PersonalUserInfo" %>
+<%@ page import="Implementations.Suggestion" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -17,16 +18,20 @@
             response.sendRedirect("index.jsp");
         }
         String name = "";
+        PersonalUserInfo userInfo = null;
+        User user = null;
         try {
-            User user = UserDAO.getUserByID(SessionsDAO.getUser_id(session.getId()));
-            PersonalUserInfo userInfo = PersonalInfoDAO.getUserInfo(user.getUser_id());
+            user = UserDAO.getUserByID(SessionsDAO.getUser_id(session.getId()));
+            userInfo = PersonalInfoDAO.getUserInfo(user.getUser_id());
             request.setAttribute("userInfo",userInfo);
             name = user.getUsername();
         } catch (SQLException ex) {
             response.sendRedirect("index.jsp");
         }
 
-
+        //Suggestion suggestion = new Suggestion(userInfo);
+        //ArrayList<string> imagePaths = UserImagesDAO.getUserImages(userInfo.getUser_profile_id)
+        //if(suggestion.getSuggestedUser == null) -> no suggested more users
     %>
 </head>
 <body>
@@ -36,6 +41,8 @@
         <form action="ImageDownloadServlet" method="post" enctype="multipart/form-data">
 
             <input id="fileUploadInputId"  type="file" name="fileName">
+            <%if(request.getAttribute("ImageUploadFailed") != null)
+                out.write("<p style=\"color:red;\" >" + request.getAttribute("ImageUploadFailed") +"<p>"); %>
             <button type="submit" value="Upload"></button>
         </form>
         <img class="imagePreviewContainer" id="ImagePreview" src="" alt="Picture Previwe">

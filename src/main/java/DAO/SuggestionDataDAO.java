@@ -21,7 +21,8 @@ public class SuggestionDataDAO {
                     "SELECT user_id FROM User_profile " +
                         "WHERE sex  != " + "?" +" " +
                         "AND user_id not in (SELECT subject_id from ACTIONS where actor_id =  ? )" +
-                        "AND CITY = ? ");
+                        "AND CITY = ? " +
+                            "LIMIT 20");
         pstmt.setString(1,user.getSex());
         pstmt.setInt(2,user.getUser_id());
         pstmt.setString(3,user.getCity());
