@@ -11,7 +11,9 @@
     <title>Binder</title>
     <script src="https://kit.fontawesome.com/9bff1b7661.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="Content/HomePage.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="Content/Scripts/HomePage.js"></script>
+
     <%
         if(session == null){
             request.getSession();
@@ -29,7 +31,7 @@
             response.sendRedirect("index.jsp");
         }
 
-        //Suggestion suggestion = new Suggestion(userInfo);
+        Suggestion suggestion = new Suggestion(userInfo);
         //ArrayList<string> imagePaths = UserImagesDAO.getUserImages(userInfo.getUser_profile_id)
         //if(suggestion.getSuggestedUser == null) -> no suggested more users
     %>
@@ -193,7 +195,7 @@
     <div class="navEditProfile">
         <span>Options</span>
         <div onmouseover="displayAccountInfo()" onmouseout="dismissAccountModal()" class="AccountInfoTrigger">
-            <i  id="AccountInfo" style="color: white; margin-top: 2px" class="fas fa-bars"></i>
+            <i onclick="requestSent()"  id="AccountInfo" style="color: white; margin-top: 2px" class="fas fa-bars"></i>
             <div class="accountInfoContent">
                 <div class="uploadImageTrigger" onclick="toggleModal('uploadImageContainer')">
                     Upload Image

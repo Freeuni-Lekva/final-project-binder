@@ -4,6 +4,23 @@ let currentDisplayUserModalID = -1;
 let userInfoModalsContainer = ['changePassword', 'changeEmail','changeUsername', 'changeLocation'];
 let pictures = [];
 
+
+
+function requestSent(){
+    let xhr = new XMLHttpRequest();
+    console.log('blalala');
+
+    xhr.open('GET','AsyncServlet', true);
+
+    xhr.onload = function (){
+        const ragacSurati = JSON.parse(this.responseText).toString();
+        console.log(ragacSurati);
+        console.log(typeof (ragacSurati));
+        document.getElementById('ragacasurati').setAttribute('src',ragacSurati);
+
+    }
+    xhr.send();
+}
 function addPicturesTimeOut(){
     let uploadFileInput = document.getElementById('fileUploadInputId');
     let imagePreview = document.getElementById('ImagePreview');
