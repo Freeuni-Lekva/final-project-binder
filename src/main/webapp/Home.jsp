@@ -11,6 +11,7 @@
     <title>Binder</title>
     <script src="https://kit.fontawesome.com/9bff1b7661.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="Content/HomePage.css">
+    <link rel="stylesheet" href="Content/Suggestion.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="Content/Scripts/HomePage.js"></script>
 
@@ -37,7 +38,22 @@
     %>
 </head>
 <body>
+<div class="suggestionBoxContainer">
+    <%--img src="<%=System.getProperty("catalina.home") + "/bin/User_Files/ragaca0.jpg"%>" >--%>
+    <div class="suggestionContainer">
+        <span class="suggestionName">viagaca</span>
+        <img class="suggestionImage" src="Content/UserImages/d65n3vh-cf16163a-ad52-461b-b0a1-d41b04c10a8b.jpg">
+        <div class="suggestionButtonsContainer">
+            <div style="background: #2AFE14" class="suggestionToggleButton">
+                <i style="color: white" class="fas fa-check fa-2x"></i>
+            </div>
+            <div style="background: #FE3014" class="suggestionToggleButton">
+                <i style="color: white" class="fas fa-times fa-2x"></i>
+            </div>
+        </div>
+    </div>
 
+</div>
 <div id="uploadImageContainer" class="modal">
     <div  class="uploadImageContainer">
         <form action="ImageDownloadServlet" method="post" enctype="multipart/form-data">
@@ -53,6 +69,7 @@
 
 <div class="chatsContainer">
     <span class="chatContainer__Header">Chats</span>
+
 </div>
 <div class="navMainContainer">
     <span class="navWelcome">Welcome <%=name%></span>

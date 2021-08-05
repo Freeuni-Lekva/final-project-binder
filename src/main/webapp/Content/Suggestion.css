@@ -1,0 +1,56 @@
+
+.suggestionBoxContainer{
+    position: absolute;
+    top: 90px;
+    left: 408px;
+    width: calc(100% - 409px);
+    height: calc(100% - 98px);
+    display: flex;
+    background: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.suggestionImage{
+    width: 300px;
+    height: 400px;
+}
+
+.suggestionContainer{
+    padding: 10px;
+    height: 100%;
+    background: #E67826;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.suggestionName{
+    font-size: 20px;
+    color: #ffffff;
+    font-weight: 300;
+}
+
+.suggestionButtonsContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.suggestionToggleButton{
+    display: block;
+    width: 60px;
+    height: 60px;
+    border-radius: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+

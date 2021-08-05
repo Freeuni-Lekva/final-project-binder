@@ -17,9 +17,10 @@ function requestSent(){
         console.log(ragacSurati);
         console.log(typeof (ragacSurati));
         document.getElementById('ragacasurati').setAttribute('src',ragacSurati);
-
     }
     xhr.send();
+
+
 }
 function addPicturesTimeOut(){
     let uploadFileInput = document.getElementById('fileUploadInputId');
