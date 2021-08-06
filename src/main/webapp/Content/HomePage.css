@@ -435,19 +435,56 @@ html,body{
     left: calc(50% - 300px);
     width: 600px;
     background: white;
-    height: 500px;
+    height: 550px;
     border-radius: 10px;
 }
 
 .uploadImageHeader{
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px;
     gap: 20px;
     border-radius: 10px 10px 0 0 ;
     background: #E1E43F;
     color: white;
     height: 40px;
+}
+
+.uploadImageSubmitButton{
+    background: none;
+    border: 2px solid white;
+    border-radius: 10px;
+    width: 70px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+
+.uploadImageImageChooser{
+    width: 120px;
+    background: none;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.uploadImageImageChooser::-webkit-file-upload-button{
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: white;
+    width: 110px;
+    border-radius: 10px;
+    border: 2px solid #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
 }
 
 .userInfoModal{
@@ -510,4 +547,6 @@ html,body{
     background: #E1E43F;
 }
 
-
+input[type="file"]{
+    background: none;
+}

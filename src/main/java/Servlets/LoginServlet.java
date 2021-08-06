@@ -22,6 +22,7 @@ public class LoginServlet extends HttpServlet {
         if(request.getSession(false) == null){
             request.getSession();
         }
+        System.out.println(getServletContext().getAttribute("Path"));
         RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
         String username = request.getParameter("email");
         String password = String.valueOf(request.getParameter("password").hashCode());

@@ -19,9 +19,83 @@ function requestSent(){
         document.getElementById('ragacasurati').setAttribute('src',ragacSurati);
     }
     xhr.send();
-
-
 }
+
+$(document).ready(function() {
+    function bs_input_file() {
+        $(".input-file").before(
+            function() {
+                if ( ! $(this).prev().hasClass('input-ghost') ) {
+                    var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0'>");
+                    element.attr("name",$(this).attr("name"));
+                    element.change(function(){
+                        element.next(element).find('input').val((element.val()).split('\\').pop());
+                    });
+                    $(this).find("button.btn-choose").click(function(){
+                        element.click();
+                    });
+                    $(this).find("button.btn-reset").click(function(){
+                        element.val(null);
+                        $(this).parents(".input-file").find('input').val('');
+                    });
+                    $(this).find('input').css("cursor","pointer");
+                    $(this).find('input').mousedown(function() {
+                        $(this).parents('.input-file').prev().click();
+                        return false;
+                    });
+                    return element;
+                }
+            }
+        );
+    }
+
+    bs_input_file();
+
+    $("#uploadBtn").on("click", function() {
+        var url = "ImageDownloadServlet";
+        var form = $("#sampleUploadFrm")[0];
+        var data = new FormData(form);
+        $.ajax({
+            type : "POST",
+            encType : "multipart/form-data",
+            url : url,
+            cache : false,
+            processData : false,
+            contentType : false,
+            data : data,
+            success : function(msg) {
+                var response = JSON.parse(msg);
+                var status = response.status;
+                if (status == 1) {
+                    $("#errorMessage").text("You can upload at most 3 images");
+                } else if (status == 2){
+                    $("#errorMessage").text("The image must be .jpg .png .jpeg or .gif file")
+                }else if(status == 3){
+                    $("#errorMessage").text("The image was uploaded successfully")
+                }else{
+                    $("#errorMessage").text("Couldn't upload file")
+                }
+            },
+            error : function(msg) {
+                $("#errorMessage").text("Couldn't upload file");
+            }
+        });
+    });
+});
+
+/*
+$(function() {
+    $('#imageUpload').ajaxForm({
+        success: function(msg) {
+            alert("File has been uploaded successfully");
+        },
+        error: function(msg) {
+            $("#upload-error").text("Couldn't upload file");
+        }
+    });
+});*/
+
+
 function addPicturesTimeOut(){
     let uploadFileInput = document.getElementById('fileUploadInputId');
     let imagePreview = document.getElementById('ImagePreview');

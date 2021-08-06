@@ -32,7 +32,7 @@ public class ListenerServlet implements HttpSessionListener, ServletContextListe
 
     @Override
     public void sessionCreated(HttpSessionEvent httpSessionEvent) {
-        httpSessionEvent.getSession().setAttribute("JSESSIONID", httpSessionEvent.getSession().getId());
+        httpSessionEvent.getSession().setAttribute("Path",new String());
     }
 
     @Override

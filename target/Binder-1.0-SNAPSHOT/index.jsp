@@ -2,6 +2,7 @@
 <%@ page import="Model.User" %>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="DAO.SessionsDAO" %>
+<%@ page import="java.io.File" %>
 
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
@@ -10,7 +11,7 @@
     if(request.getSession(false) == null){
         request.getSession();
     }
-    application.setAttribute("JSESSIONID",session.getId());
+    session.setAttribute("JSESSIONID",session.getId());
     try{
         if(SessionsDAO.getUser_id(session.getId()) != -1){
             User user = UserDAO.getUserByID(SessionsDAO.getUser_id(session.getId()));

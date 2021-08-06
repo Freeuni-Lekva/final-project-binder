@@ -20,19 +20,20 @@
             request.getSession();
             response.sendRedirect("index.jsp");
         }
+        Suggestion suggestion = null;
         String name = "";
-        PersonalUserInfo userInfo = null;
-        User user = null;
         try {
-            user = UserDAO.getUserByID(SessionsDAO.getUser_id(session.getId()));
-            userInfo = PersonalInfoDAO.getUserInfo(user.getUser_id());
+            User user = UserDAO.getUserByID(SessionsDAO.getUser_id(session.getId()));
+            PersonalUserInfo userInfo = PersonalInfoDAO.getUserInfo(user.getUser_id());
             request.setAttribute("userInfo",userInfo);
             name = user.getUsername();
+            suggestion = new Suggestion(userInfo);
         } catch (SQLException ex) {
+            ex.printStackTrace();
             response.sendRedirect("index.jsp");
         }
 
-        Suggestion suggestion = new Suggestion(userInfo);
+
         //ArrayList<string> imagePaths = UserImagesDAO.getUserImages(userInfo.getUser_profile_id)
         //if(suggestion.getSuggestedUser == null) -> no suggested more users
     %>
@@ -41,7 +42,7 @@
 <div class="suggestionBoxContainer">
     <%--img src="<%=System.getProperty("catalina.home") + "/bin/User_Files/ragaca0.jpg"%>" >--%>
     <div class="suggestionContainer">
-        <span class="suggestionName">viagaca</span>
+        <span class="suggestionName">ragaca</span>
         <img class="suggestionImage" src="Content/UserImages/d65n3vh-cf16163a-ad52-461b-b0a1-d41b04c10a8b.jpg">
         <div class="suggestionButtonsContainer">
             <div style="background: #2AFE14" class="suggestionToggleButton">
@@ -56,13 +57,23 @@
 </div>
 <div id="uploadImageContainer" class="modal">
     <div  class="uploadImageContainer">
-        <form action="ImageDownloadServlet" method="post" enctype="multipart/form-data">
+        <form id="sampleUploadFrm" method="POST" action="#" enctype="multipart/form-data">
+            <div class="form-group">
+                <div class="input-group input-file" name="file">
+						<span class="input-group-btn">
+							<button class="uploadImageImageChooser btn btn-default btn-choose" type="button">Choose</button>
+						</span>
+                    <input type="text" class="form-control" placeholder='Choose a file...' />
 
-            <input id="fileUploadInputId"  type="file" name="fileName">
-            <%if(request.getAttribute("ImageUploadFailed") != null)
-                out.write("<p style=\"color:red;\" >" + request.getAttribute("ImageUploadFailed") +"<p>"); %>
-            <button type="submit" value="Upload"></button>
+                    <span class="input-group-btn">
+							<button class="btn btn-warning btn-reset" type="button">Reset</button>
+					</span>
+                    <button type="button" class = "uploadImageSubmitButton" id="uploadBtn">Submit</button>
+                    <p id = "errorMessage" value = ""></p>
+                </div>
+            </div>
         </form>
+
         <img class="imagePreviewContainer" id="ImagePreview" src="" alt="Picture Previwe">
     </div>
 </div>
@@ -72,7 +83,7 @@
 
 </div>
 <div class="navMainContainer">
-    <span class="navWelcome">Welcome <%=name%></span>
+    <span class="navWelcome"><%out.write("Welcome " + name);%></span>
     <form action="ChangePasswordServlet" name="changePasswordForm" method="post">
         <div class="modal" id="changePassword">
             <div  class="userInfoModal">

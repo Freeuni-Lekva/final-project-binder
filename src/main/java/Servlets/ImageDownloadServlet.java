@@ -6,10 +6,12 @@ import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collection;
+import java.util.List;
 
 import DAO.PersonalInfoDAO;
 import DAO.SessionsDAO;
@@ -17,6 +19,8 @@ import DAO.UserDAO;
 import DAO.UserImagesDAO;
 import Model.PersonalUserInfo;
 import Model.User;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.io.FileUtils;
 
 import javax.imageio.ImageIO;
@@ -42,55 +46,45 @@ public class ImageDownloadServlet extends HttpServlet {
         if(!ServletFileUpload.isMultipartContent(request)){
             throw new ServletException("Content type is not multipart/form-data");
         }
-        RequestDispatcher rd = request.getRequestDispatcher("Home.jsp");
         if(request.getSession(false) == null ) {
-            rd = request.getRequestDispatcher("index.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request,response);
         }
 
-        try{
-            int user_id = SessionsDAO.getUser_id(request.getSession(false).getId());
-            PersonalUserInfo userInfo = PersonalInfoDAO.getUserInfo(user_id);
-            String username = userInfo.getUsername();
-            user_id = userInfo.getUser_profile_id();
+        if(ServletFileUpload.isMultipartContent(request)) {
+            try {
+                int user_id = SessionsDAO.getUser_id(request.getSession(false).getId());
+                PersonalUserInfo userInfo = PersonalInfoDAO.getUserInfo(user_id);
+                String username = userInfo.getUsername();
+                user_id = userInfo.getUser_profile_id();
 
-            int imageCount = UserImagesDAO.getUserImages(user_id).size();
-            if(imageCount >= 3){
-                request.setAttribute("ImageUploadFailed","You can upload at most 3 images");
-                rd.forward(request,response);
-            }
-
-            Collection<Part> parts = request.getParts();
-
-            for(Part p : parts){
-                InputStream fileContent = p.getInputStream();
-
-                String fileName = Paths.get(p.getSubmittedFileName()).getFileName().toString();
-                String fileExtension = fileName.split("\\.")[1];
-                if(!"jpg,png,gif,jpeg".contains(fileExtension)){
-                    request.setAttribute("ImageUploadFailed","The image must be .jpg .png .jpeg or .gif file");
-                    rd.forward(request,response);
+                int imageCount = UserImagesDAO.getUserImages(user_id).size();
+                if(imageCount >= 3){
+                    PrintWriter out = response.getWriter();
+                    out.print("{\"status\":1}");
+                    return;
                 }
 
-                File targetFile = new File("./User_Files/" + username + imageCount + "." + fileExtension);
-                FileUtils.copyInputStreamToFile(fileContent, targetFile);
-                UserImagesDAO.setUserImage(user_id, targetFile.getPath());
+                Collection<Part> parts = request.getParts();
+                for(Part p : parts){
+                    InputStream fileContent = p.getInputStream();
+
+                    String fileName = Paths.get(p.getSubmittedFileName()).getFileName().toString();
+                    String fileExtension = fileName.split("\\.")[1];
+                    if(!"jpg,png,gif,jpeg".contains(fileExtension)){
+                        PrintWriter out = response.getWriter();
+                        out.print("{\"status\":2}");
+                        return;
+                    }
+                    File targetFile = new File("./User_Files/" + username + imageCount + "." + fileExtension);
+                    FileUtils.copyInputStreamToFile(fileContent, targetFile);
+                    UserImagesDAO.setUserImage(user_id, targetFile.getPath());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            rd.forward(request,response);
-        }catch (SQLException ex){
-            ex.printStackTrace();
-            rd = request.getRequestDispatcher("/LogoutServlet");
-            rd.forward(request,response);
+            PrintWriter out = response.getWriter();
+            out.print("{\"status\":3}");
         }
-
-
-
     }
-
 }
-
-//Part filePart = request.getPart("fileName");
-//        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-//        InputStream fileContent = filePart.getInputStream();
-//        File targetFile = new File("./User_Files/" + fileName);
-//        FileUtils.copyInputStreamToFile(fileContent, targetFile);
