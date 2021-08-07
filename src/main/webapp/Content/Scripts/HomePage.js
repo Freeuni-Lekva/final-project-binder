@@ -6,6 +6,7 @@ let pictures = [];
 
 
 
+
 function requestSent(){
     let xhr = new XMLHttpRequest();
     console.log('blalala');
@@ -26,9 +27,20 @@ $(document).ready(function() {
         $(".input-file").before(
             function() {
                 if ( ! $(this).prev().hasClass('input-ghost') ) {
+                    const Reader = new FileReader();
+                    let imagePreview = document.getElementById('ImagePreview');
                     var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0'>");
                     element.attr("name",$(this).attr("name"));
                     element.change(function(){
+                        Reader.readAsDataURL(this.files[0]);
+
+                        Reader.addEventListener('load', () => {
+                            console.log(Reader.result);
+                            imagePreview.setAttribute('src', Reader.result);
+
+                        })
+                        console.log(Reader.result);
+                        imagePreview.setAttribute('src', Reader.result);
                         element.next(element).find('input').val((element.val()).split('\\').pop());
                     });
                     $(this).find("button.btn-choose").click(function(){
@@ -55,6 +67,7 @@ $(document).ready(function() {
         var url = "ImageDownloadServlet";
         var form = $("#sampleUploadFrm")[0];
         var data = new FormData(form);
+        $("")
         $.ajax({
             type : "POST",
             encType : "multipart/form-data",
@@ -96,11 +109,12 @@ $(function() {
 });*/
 
 
-function addPicturesTimeOut(){
+/*function addPicturesTimeOut(){
     let uploadFileInput = document.getElementById('fileUploadInputId');
     let imagePreview = document.getElementById('ImagePreview');
     const Reader = new FileReader();
     uploadFileInput.addEventListener('change', function (){
+        console.log('shemovida');
         Reader.readAsDataURL(this.files[0])
 
 
@@ -111,12 +125,12 @@ function addPicturesTimeOut(){
         })
         console.log(pictures.length);
     });
-}
+}*/
 
 
 function init(){
     setTimeout(checkMessages, 200);
-    setTimeout(addPicturesTimeOut, 200);
+   // setTimeout(addPicturesTimeOut, 200);
 }
 init();
 

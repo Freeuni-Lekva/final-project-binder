@@ -59,11 +59,12 @@
     <div  class="uploadImageContainer">
         <form id="sampleUploadFrm" method="POST" action="#" enctype="multipart/form-data">
             <div class="form-group">
-                <div class="input-group input-file" name="file">
+                <div  class="input-group input-file" name="file">
 						<span class="input-group-btn">
-							<button class="uploadImageImageChooser btn btn-default btn-choose" type="button">Choose</button>
+							<button  class="uploadImageImageChooser btn btn-default btn-choose" type="button">Choose</button>
 						</span>
-                    <input type="text" class="form-control" placeholder='Choose a file...' />
+                    <input
+                           type="text" class="form-control" placeholder='Choose a file...' />
 
                     <span class="input-group-btn">
 							<button class="btn btn-warning btn-reset" type="button">Reset</button>
@@ -73,8 +74,7 @@
                 </div>
             </div>
         </form>
-
-        <img class="imagePreviewContainer" id="ImagePreview" src="" alt="Picture Previwe">
+        <img pclass="imagePreviewContainer" id="ImagePreview" src="" alt="Picture Preview">
     </div>
 </div>
 
