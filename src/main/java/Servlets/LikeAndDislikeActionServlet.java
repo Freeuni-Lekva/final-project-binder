@@ -37,7 +37,13 @@ public class LikeAndDislikeActionServlet extends HttpServlet {
 
         try {
             ActionDAO.Action(actor,subject,action);
-            out.print("{\"status\":1}");
+            if(action == 1 && ActionDAO.isMatch(actor,subject) == 1){
+                out.print("{\"status\":3}");
+
+            }else{
+                out.print("{\"status\":1}");
+            }
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             out.print("{\"status\":2}");

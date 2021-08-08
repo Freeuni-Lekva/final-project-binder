@@ -111,13 +111,18 @@ $(document).ready(function() {
                     getSuggestedUserInfo();
                     getSuggestedUserImages();
                     displaySuggestedUser();
-                }else{
+                }else if(status == 2){
                     console.log('axla aq shemovida');
-                     suggestedUserID = null;
-                     suggestedUserName = null;
-                     suggestedUserAge = null;
+                    suggestedUserID = null;
+                    suggestedUserName = null;
+                    suggestedUserAge = null;
                     displaySuggestedUser();
-                    alert("failed");
+                }else if(status == 3){
+                    getSuggestedUserInfo();
+                    getSuggestedUserImages();
+                    displaySuggestedUser();
+                }else{
+                    alert("Unexpected error");
                 }
             },
             error: function (msg) {

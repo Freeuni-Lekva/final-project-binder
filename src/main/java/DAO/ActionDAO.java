@@ -13,14 +13,13 @@ import java.util.HashSet;
 
 public class ActionDAO{
 
-    private static Connection con;
+    private static Connection con = MyDatabase.getConnection();;
     private static HashSet<String> result;
     public static final int ACTION_LIKE = 1;
     public static final int ACTION_DISLIKE = -1;
 
     //get list of users who liked/disliked this user
     public static HashSet<String> getActors(int userID, int action) throws SQLException {
-        con = MyDatabase.getConnection();
         result = new HashSet<>();
         PreparedStatement pstmt = con.prepareStatement("SELECT actor_id " +
                         "FROM Actions " +
@@ -40,7 +39,6 @@ public class ActionDAO{
 
     //get list of users liked/disliked by this user
     public static HashSet<String> getSubjects(int userID,int action) throws SQLException {
-        con = MyDatabase.getConnection();
         result = new HashSet<>();
         PreparedStatement pstmt = con.prepareStatement("SELECT subject_id " +
                 "FROM Actions " +
@@ -60,12 +58,24 @@ public class ActionDAO{
 
     //add relation of these users in DB
     public static void Action(int actorID, int subjectID, int action) throws SQLException{
-        con = MyDatabase.getConnection();
         PreparedStatement pstmt = con.prepareStatement("INSERT INTO Actions (actor_id,subject_id,relation) VALUES (?,?,?)");
         pstmt.setInt( 1,actorID);
         pstmt.setInt(2,subjectID);
         pstmt.setInt(3,action);
         pstmt.executeUpdate();
+    }
+
+
+    public static int isMatch(int actorID, int subjectID) throws SQLException{
+        int result = 0;
+        PreparedStatement pstmt = con.prepareStatement("Select case when actor_id = ? then true else false END \n" +
+                                                            "from Actions where relation = 1 AND subject_id = ?;");
+        pstmt.setInt( 1,actorID);
+        pstmt.setInt(2,subjectID);
+        ResultSet rs = pstmt.executeQuery();
+        rs.next();
+        result = rs.getInt(1);
+        return result;
     }
 
 
