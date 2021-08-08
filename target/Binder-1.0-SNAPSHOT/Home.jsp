@@ -59,7 +59,7 @@
     <div  class="uploadImageContainer">
         <form id="sampleUploadFrm" method="POST" action="#" enctype="multipart/form-data">
             <div class="form-group">
-                <div  class="input-group input-file" name="file">
+                <div  class="input-group input-file uploadImageHeader" name="file">
 						<span class="input-group-btn">
 							<button  class="uploadImageImageChooser btn btn-default btn-choose" type="button">Choose</button>
 						</span>

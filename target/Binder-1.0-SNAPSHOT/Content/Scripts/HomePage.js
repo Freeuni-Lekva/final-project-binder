@@ -32,11 +32,12 @@ $(document).ready(function() {
                     var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0'>");
                     element.attr("name",$(this).attr("name"));
                     element.change(function(){
-                        Reader.readAsDataURL(this.files[0])
+                        Reader.readAsDataURL(this.files[0]);
+
                         Reader.addEventListener('load', () => {
                             console.log(Reader.result);
                             imagePreview.setAttribute('src', Reader.result);
-                            
+
                         })
                         console.log(Reader.result);
                         imagePreview.setAttribute('src', Reader.result);
