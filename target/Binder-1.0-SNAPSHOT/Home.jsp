@@ -37,6 +37,8 @@
             response.sendRedirect("index.jsp");
         }
 
+        System.out.print(request.getServletContext().getRealPath(""));
+
         //ArrayList<string> imagePaths = UserImagesDAO.getUserImages(userInfo.getUser_profile_id)
         //if(suggestion.getSuggestedUser == null) -> no suggested more users
     %>
@@ -47,9 +49,10 @@
         <span class="suggestionName" id = "suggestionName" val = "">ragaca</span>
         <span id = "suggestedUserGender" hidden><%out.write(sex);%></span>
         <span id = "currentUser" hidden><%out.write(String.valueOf(id));%></span>
+        <span id ="suggestedUserId" hidden></span>
         <img class="suggestionImage" id = "suggestionImage" src="">
         <div class="suggestionButtonsContainer">
-            <button id = "LikeButton" style="background: #2AFE14" class="suggestionToggleButton">
+            <button  id = "LikeButton" style="background: #2AFE14" class="suggestionToggleButton">
                 <i style="color: white" class="fas fa-check fa-2x"></i>
             </button>
             <button id = "DislikeButton" style="background: #FE3014" class="suggestionToggleButton">

@@ -37,10 +37,10 @@ public class LikeAndDislikeActionServlet extends HttpServlet {
 
         try {
             ActionDAO.Action(actor,subject,action);
-            out.print("\"Status\":1");
+            out.print("{\"status\":1}");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-            out.print("\"Status\":2");
+            out.print("{\"status\":2}");
         }
 
     }

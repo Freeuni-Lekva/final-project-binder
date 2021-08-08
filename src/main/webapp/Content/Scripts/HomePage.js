@@ -24,13 +24,15 @@ function requestSent(){
 
 $(document).ready(function() {
 
-    var suggestedUserID = null;
-    var suggestedUserName = null;
+    let suggestedUserID = null;
+    let suggestedUserName = null;
     var suggestedUserAge = null;
     var sex = $("#suggestedUserGender").text();
     var id = $("#currentUser").text();
+    let currUser = $('#suggestedUserId');
     var images = null;
     var hobbies = null;
+
 
     function getSuggestedUserInfo() {
         $.ajax({
@@ -40,9 +42,10 @@ $(document).ready(function() {
             data: {"userID": id},
             success: function (msg) {
                 try{
-                    var response = JSON.parse(msg);
+                    console.log("tryshi shemovida");
+                    let response = JSON.parse(msg).status;
                     if(response == 0){
-                        alert("no more suggestions");
+                        suggestedUserID = null;
                     }
                 }catch (e){
                     suggestedUserID = msg[0];
@@ -57,25 +60,40 @@ $(document).ready(function() {
     }
 
     function getSuggestedUserImages() {
-        $.ajax({
-            async: false,
-            type: "POST",
-            url: "GetUserImagesServlet",
-            dataType: "json",
-            data: {"userID": suggestedUserID},
-            success: function (msg) {
-                images = msg;
-            },
-            error: function (msg) {
-                alert("No images");
-            }
-        });
+        if(suggestedUserID != null){
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "GetUserImagesServlet",
+                dataType: "json",
+                data: {"userID": suggestedUserID},
+                success: function (msg) {
+                    images = msg;
+                },
+                error: function (msg) {
+                    alert("No images");
+                }
+            });
+        }
+
     }
 
     function displaySuggestedUser(){
         console.log("update?");
-        $("#suggestionImage").attr("src",images[0]);
-        $("#suggestionName").text(suggestedUserName);
+        console.log(suggestedUserID);
+        if(suggestedUserID == null){
+            let blankSuggestionImg = ((sex === 'MALE') ? 'DEFAULT_THUMB_FEMALE.jpg' : 'DEFAULT_THUMB_MALE.jpg');
+            $("#suggestionImage").attr("src","Content/Images/" + blankSuggestionImg);
+            $("#suggestionName").text("There are no more suggestions");
+            $("#LikeButton").attr("style","background: grey");
+            $("#LikeButton").attr('disabled', 'true');
+            $("#DislikeButton").attr("style","background: grey");
+            $("#DisLikeButton").attr('disabled', 'true');
+        }else{
+            $("#suggestionImage").attr("src",images[0]);
+            $("#suggestionName").text(suggestedUserName);
+        }
+
     }
 
     function act(action){
@@ -86,20 +104,23 @@ $(document).ready(function() {
             dataType: "json",
             data: {"actor": id, "subject": suggestedUserID,"action":action},
             success: function (msg) {
-                var response = JSON.parse(msg);
-                var status = response.status;
+                const currMsg = JSON.stringify(msg);
+                let response = JSON.parse(currMsg);
+                let status = response.status;
                 if (status == 1) {
                     getSuggestedUserInfo();
-                    console.log(images);
                     getSuggestedUserImages();
-                    console.log(images);
                     displaySuggestedUser();
                 }else{
+                    console.log('axla aq shemovida');
+                     suggestedUserID = null;
+                     suggestedUserName = null;
+                     suggestedUserAge = null;
+                    displaySuggestedUser();
                     alert("failed");
                 }
             },
             error: function (msg) {
-                return null;
                 alert("No images");
             }
         });
@@ -120,12 +141,9 @@ $(document).ready(function() {
             act(-1);
         });
     }else{
-        let blankSuggestionImg = ((sex === 'MALE') ? 'DEFAULT_THUMB_FEMALE.jpg' : 'DEFAULT_THUMB_MALE.jpg');
-        $("#suggestionImage").attr("src","Content/Images/" + blankSuggestionImg);
-        $("#suggestionName").text("There are no more suggestions");
-        $("#LikeButton").attr("style","invisible");
-        $("#DislikeButton").attr("style","invisible");
+        displaySuggestedUser();
     }
+
 
     function bs_input_file() {
         $(".input-file").before(
