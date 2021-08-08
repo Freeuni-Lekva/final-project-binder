@@ -19,10 +19,9 @@ public class SuggestionDataDAO {
         ArrayList<Integer> result = new ArrayList<>();
         PreparedStatement pstmt = con.prepareStatement(
                     "SELECT user_id FROM User_profile " +
-                        "WHERE sex  != " + "?" +" " +
+                        "WHERE sex  != ? " +
                         "AND user_id not in (SELECT subject_id from ACTIONS where actor_id =  ? )" +
-                        "AND CITY = ? " +
-                            "LIMIT 20");
+                        "AND CITY = ? ");
         pstmt.setString(1,user.getSex());
         pstmt.setInt(2,user.getUser_id());
         pstmt.setString(3,user.getCity());

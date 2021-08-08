@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -38,10 +39,13 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 @MultipartConfig
 @WebServlet(name = "ImageDownloadServlet",value = "/ImageDownloadServlet")
 public class ImageDownloadServlet extends HttpServlet {
+
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(!ServletFileUpload.isMultipartContent(request)){
             throw new ServletException("Content type is not multipart/form-data");
@@ -76,9 +80,11 @@ public class ImageDownloadServlet extends HttpServlet {
                         out.print("{\"status\":2}");
                         return;
                     }
-                    File targetFile = new File("./User_Files/" + username + imageCount + "." + fileExtension);
+                    String relativePath = "Content\\User_Files\\" + username + imageCount + "." + fileExtension;
+                    String htmlPath = "Content/User_Files/" + username + imageCount + "." + fileExtension;
+                    File targetFile = new File( request.getSession(false).getServletContext().getRealPath("") + relativePath);
                     FileUtils.copyInputStreamToFile(fileContent, targetFile);
-                    UserImagesDAO.setUserImage(user_id, targetFile.getPath());
+                    UserImagesDAO.setUserImage(user_id, htmlPath);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

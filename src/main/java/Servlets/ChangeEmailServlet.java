@@ -11,28 +11,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
 @WebServlet(name = "ChangeEmailServlet", value = "/ChangeEmailServlet")
 public class ChangeEmailServlet extends HttpServlet {
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("Home.jsp");
         if(request.getSession(false) == null){
-            rd = request.getRequestDispatcher("index.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request,response);
         }
+        PrintWriter out = response.getWriter();
         String newEmail = request.getParameter("email");
         if(!newEmail.contains("@")
         || (newEmail.split("@")[0].length() <=1 || newEmail.split("@")[1].length() <= 1)
         || (!newEmail.split("@")[1].contains("."))
         || (newEmail.lastIndexOf("@") != newEmail.indexOf("@"))){
-            request.setAttribute("EmailChangeFailed","Invalid email");
-            rd.forward(request,response);
+            out.print("{\"status\":1}");
+            return;
         }
 
         try {
@@ -40,10 +43,14 @@ public class ChangeEmailServlet extends HttpServlet {
             User user = UserDAO.getUserByID(user_id);
             user.setEmail(newEmail);
             UserDAO.updateUser(user);
-            rd.forward(request,response);
+            out.print("{\"status\":2}");
+            return;
         } catch (SQLException ex) {
-            request.setAttribute("EmailChangeFailed","This email is already in use");
+            ex.printStackTrace();
+            out.print("{\"status\":3}");
+            RequestDispatcher rd = request.getRequestDispatcher("/LogoutServlet");
             rd.forward(request,response);
+            return;
         }
     }
 

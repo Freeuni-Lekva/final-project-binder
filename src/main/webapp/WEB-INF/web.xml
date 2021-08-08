@@ -12,4 +12,6 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
+    <default-context-path>user.dir</default-context-path>>
+
 </web-app>

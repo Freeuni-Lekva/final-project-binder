@@ -23,6 +23,110 @@ function requestSent(){
 }
 
 $(document).ready(function() {
+
+    var suggestedUserID = null;
+    var suggestedUserName = null;
+    var suggestedUserAge = null;
+    var sex = $("#suggestedUserGender").text();
+    var id = $("#currentUser").text();
+    var images = null;
+    var hobbies = null;
+
+    function getSuggestedUserInfo() {
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "SuggestedUserServlet",
+            data: {"userID": id},
+            success: function (msg) {
+                try{
+                    var response = JSON.parse(msg);
+                    if(response == 0){
+                        alert("no more suggestions");
+                    }
+                }catch (e){
+                    suggestedUserID = msg[0];
+                    suggestedUserName = msg[1];
+                    suggestedUserAge = msg[2];
+                }
+            },
+            error: function (msg) {
+                alert("no more suggestions");
+            }
+        });
+    }
+
+    function getSuggestedUserImages() {
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "GetUserImagesServlet",
+            dataType: "json",
+            data: {"userID": suggestedUserID},
+            success: function (msg) {
+                images = msg;
+            },
+            error: function (msg) {
+                alert("No images");
+            }
+        });
+    }
+
+    function displaySuggestedUser(){
+        console.log("update?");
+        $("#suggestionImage").attr("src",images[0]);
+        $("#suggestionName").text(suggestedUserName);
+    }
+
+    function act(action){
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "LikeAndDislikeActionServlet",
+            dataType: "json",
+            data: {"actor": id, "subject": suggestedUserID,"action":action},
+            success: function (msg) {
+                var response = JSON.parse(msg);
+                var status = response.status;
+                if (status == 1) {
+                    getSuggestedUserInfo();
+                    console.log(images);
+                    getSuggestedUserImages();
+                    console.log(images);
+                    displaySuggestedUser();
+                }else{
+                    alert("failed");
+                }
+            },
+            error: function (msg) {
+                return null;
+                alert("No images");
+            }
+        });
+    }
+
+    getSuggestedUserInfo();
+
+
+    if(suggestedUserID != null) {
+        getSuggestedUserImages();
+        $("#suggestionImage").attr("src",images[0]);
+        $("#suggestionName").text(suggestedUserName);
+
+        $("#LikeButton").on("click", function () {
+            act(1);
+        });
+        $("#DisLikeButton").on("click", function () {
+            act(-1);
+        });
+    }else{
+        let blankSuggestionImg = ((sex === 'MALE') ? 'DEFAULT_THUMB_FEMALE.jpg' : 'DEFAULT_THUMB_MALE.jpg');
+        $("#suggestionImage").attr("src","Content/Images/" + blankSuggestionImg);
+        $("#suggestionName").text("There are no more suggestions");
+        $("#LikeButton").attr("style","invisible");
+        $("#DislikeButton").attr("style","invisible");
+    }
+
     function bs_input_file() {
         $(".input-file").before(
             function() {
@@ -94,19 +198,117 @@ $(document).ready(function() {
             }
         });
     });
-});
 
-/*
-$(function() {
-    $('#imageUpload').ajaxForm({
-        success: function(msg) {
-            alert("File has been uploaded successfully");
-        },
-        error: function(msg) {
-            $("#upload-error").text("Couldn't upload file");
-        }
+    $("#changeEmailButton").on("click",function(){
+        var newEmail = $("#email").val();
+        var url = "ChangeEmailServlet";
+        $.ajax({
+            type : "POST",
+            url : url,
+            data : {"email":newEmail},
+            success : function(msg) {
+                var response = JSON.parse(msg);
+                var status = response.status;
+                if (status == 1) {
+                    $("#changeEmailError").text("Invalid Email");
+                } else if (status == 2){
+                    $("#changeEmailError").text("Email has been updates successfully")
+                }else if(status == 3){
+                    $("#changeEmailError").text("Email could not be uploaded")
+                }else{
+                    $("#changeEmailError").text("Couldn't upload email")
+                }
+            },
+            error : function(msg) {
+                $("#changeEmailError").text("Email could not be uploaded");
+            }
+        });
     });
-});*/
+
+    $("#changeUsernameID").on("click",function(){
+        var newUsername = $("#username").val();
+        var url = "ChangeUsernameServlet";
+        $.ajax({
+            type : "POST",
+            url : url,
+            data : {"username":newUsername},
+            success : function(msg) {
+                var response = JSON.parse(msg);
+                var status = response.status;
+                if (status == 1) {
+                    $("#changeUsernameError").text("Username must consist of at least 4 characters");
+                } else if (status == 2){
+                    $("#changeUsernameError").text("Username has been updates successfully")
+                }else if(status == 3){
+                    $("#changeUsernameError").text("Username could not be updated")
+                }else{
+                    $("#changeUsernameError").text("Couldn't update Username")
+                }
+            },
+            error : function(msg) {
+                $("#changeUsernameError").text("Username could not be updated");
+            }
+        });
+    });
+
+    $("#changePasswordButton").on("click",function(){
+        var oldPass = $("#oldPassword").val();
+        var newPass = $("#newPassword").val();
+        var newPassRepeat = $("#newPasswordRepeat").val();
+        var url = "ChangePasswordServlet";
+        $.ajax({
+            type : "POST",
+            url : url,
+            data : {"oldPassword":oldPass,"newPassword":newPass,"newPasswordRepeat":newPassRepeat},
+            success : function(msg) {
+                var response = JSON.parse(msg);
+                var status = response.status;
+                if (status == 1) {
+                    $("#changePasswordError").text("Please fill new password fields correctly");
+                } else if (status == 2){
+                    $("#changePasswordError").text("New password must be different from the current")
+                }else if(status == 3){
+                    $("#changePasswordError").text("Please enter your current password correctly")
+                }else if(status == 4){
+                    $("#changePasswordError").text("Your password has been updated successfully!")
+                }else{
+                    $("#changePasswordError").text("Your password could not be updated");
+                }
+            },
+            error : function(msg) {
+                $("#changePasswordError").text("Your password could not be updated");
+            }
+        });
+    });
+
+
+    $("#changeLocationButton").on("click",function(){
+        var newCity = $("#OutputCity").val();
+        var url = "ChangeLocationServlet";
+        $.ajax({
+            type : "POST",
+            url : url,
+            data : {"city":newCity},
+            success : function(msg) {
+                var response = JSON.parse(msg);
+                var status = response.status;
+                if (status == 1) {
+                    $("#changeLocationError").text("New location must differ from the current one");
+                } else if (status == 2){
+                    $("#changeLocationError").text("Location was updated successfully!")
+                }else if(status == 3){
+                    $("#changeLocationError").text("Please choose your location")
+                }else{
+                    $("#changeLocationError").text("Your location could not be updated");
+                }
+            },
+            error : function(msg) {
+                $("#changeLocationError").text("Your location could not be updated");
+            }
+        });
+    });
+
+});
 
 
 /*function addPicturesTimeOut(){

@@ -12,6 +12,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
 @WebServlet(name = "ChangeLocationServlet", value = "/ChangeLocationServlet")
@@ -29,20 +30,29 @@ public class ChangeLocationServlet extends HttpServlet {
             rd.forward(request,response);
         }
 
+        PrintWriter out = response.getWriter();
+
         try {
             int user_id = SessionsDAO.getUser_id(request.getSession(false).getId());
             PersonalUserInfo userInfo;
             userInfo = PersonalInfoDAO.getUserInfo(user_id);
 
+            if(request.getParameter("city").isEmpty()){
+                out.print("{\"status\":3}");
+                return;
+            }
             String city = request.getParameter("city");
             if(userInfo.getCity().equals(city)){
-                request.setAttribute("LocationUpdateFailed","New location must differ from the current one");
-                rd.forward(request,response);
+                out.print("{\"status\":1}");
+                return;
             }
 
             userInfo.setCity( request.getParameter("city"));
             PersonalInfoDAO.updateUserInfo(userInfo);
+            out.print("{\"status\":2}");
+            return;
         } catch (SQLException | RegistrationException ex){
+            out.print("{\"status\":3}");
             ex.printStackTrace();
             rd = request.getRequestDispatcher("/LogoutServlet");
             rd.forward(request,response);

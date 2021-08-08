@@ -5,6 +5,7 @@
 <%@ page import="DAO.PersonalInfoDAO" %>
 <%@ page import="Model.PersonalUserInfo" %>
 <%@ page import="Implementations.Suggestion" %>
+<%@ page import="DAO.UserImagesDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -20,19 +21,21 @@
             request.getSession();
             response.sendRedirect("index.jsp");
         }
-        Suggestion suggestion = null;
         String name = "";
+        String path = "";
+        String sex = "";
+        int id = 0;
         try {
             User user = UserDAO.getUserByID(SessionsDAO.getUser_id(session.getId()));
             PersonalUserInfo userInfo = PersonalInfoDAO.getUserInfo(user.getUser_id());
             request.setAttribute("userInfo",userInfo);
             name = user.getUsername();
-            suggestion = new Suggestion(userInfo);
+            id = user.getUser_id();
+            sex = userInfo.getSex();
         } catch (SQLException ex) {
             ex.printStackTrace();
             response.sendRedirect("index.jsp");
         }
-
 
         //ArrayList<string> imagePaths = UserImagesDAO.getUserImages(userInfo.getUser_profile_id)
         //if(suggestion.getSuggestedUser == null) -> no suggested more users
@@ -40,26 +43,26 @@
 </head>
 <body>
 <div class="suggestionBoxContainer">
-    <%--img src="<%=System.getProperty("catalina.home") + "/bin/User_Files/ragaca0.jpg"%>" >--%>
     <div class="suggestionContainer">
-        <span class="suggestionName">ragaca</span>
-        <img class="suggestionImage" src="Content/UserImages/d65n3vh-cf16163a-ad52-461b-b0a1-d41b04c10a8b.jpg">
+        <span class="suggestionName" id = "suggestionName" val = "">ragaca</span>
+        <span id = "suggestedUserGender" hidden><%out.write(sex);%></span>
+        <span id = "currentUser" hidden><%out.write(String.valueOf(id));%></span>
+        <img class="suggestionImage" id = "suggestionImage" src="">
         <div class="suggestionButtonsContainer">
-            <div style="background: #2AFE14" class="suggestionToggleButton">
+            <button id = "LikeButton" style="background: #2AFE14" class="suggestionToggleButton">
                 <i style="color: white" class="fas fa-check fa-2x"></i>
-            </div>
-            <div style="background: #FE3014" class="suggestionToggleButton">
+            </button>
+            <button id = "DislikeButton" style="background: #FE3014" class="suggestionToggleButton">
                 <i style="color: white" class="fas fa-times fa-2x"></i>
-            </div>
+            </button>
         </div>
     </div>
-
 </div>
 <div id="uploadImageContainer" class="modal">
     <div  class="uploadImageContainer">
         <form id="sampleUploadFrm" method="POST" action="#" enctype="multipart/form-data">
             <div class="form-group">
-                <div  class="input-group input-file uploadImageHeader" name="file">
+                <div  class="input-group input-file" name="file">
 						<span class="input-group-btn">
 							<button  class="uploadImageImageChooser btn btn-default btn-choose" type="button">Choose</button>
 						</span>
@@ -84,8 +87,7 @@
 </div>
 <div class="navMainContainer">
     <span class="navWelcome"><%out.write("Welcome " + name);%></span>
-    <form action="ChangePasswordServlet" name="changePasswordForm" method="post">
-        <div class="modal" id="changePassword">
+    <div class="modal" id="changePassword">
             <div  class="userInfoModal">
                 <span>Change Password</span>
                 <div class="closeToggle">
@@ -95,50 +97,44 @@
                 <input class="userInfoInput" id = "oldPassword" name = "oldPassword" placeholder="old Password">
                 <input class="userInfoInput" id = "newPassword" name = "newPassword" placeholder="new Password">
                 <input class="userInfoInput" id = "newPasswordRepeat" name = "newPasswordRepeat" placeholder="repeat new Password">
-                <%if(request.getAttribute("PassChangeFailed") != null)
-                    out.write("<p style=\"color:red;\" >" + request.getAttribute("PassChangeFailed") +"<p>"); %>
-                <button class="submitButton" type="submit">
+                <button class="submitButton" id = "changePasswordButton">
                     submit
                 </button>
+                <p id = "changePasswordError" value = ""></p>
             </div>
-        </div>
-    </form>
-    <form action="ChangeEmailServlet" name="ChangeEmailServlet" method="post">
-        <div class="modal" id="changeEmail">
-            <div  class="userInfoModal">
-                <span>Change Email</span>
-                <div class="closeToggle">
-                    <i style="color: white; cursor: pointer" class="fas fa-times"
-                       onclick="dataDismiss('changeEmail')"></i>
-                </div>
-                <input name = "email" id = "email" class="userInfoInput" placeholder="New Email">
-                <%if(request.getAttribute("EmailChangeFailed") != null)
-                    out.write("<p style=\"color:red;\">" + request.getAttribute("EmailChangeFailed") +"<p>");%>
-                <button class="submitButton" type="submit">
-                    submit
-                </button>
+    </div>
+
+    <div class="modal" id="changeEmail">
+        <div  class="userInfoModal">
+            <span>Change Email</span>
+            <div class="closeToggle">
+                <i style="color: white; cursor: pointer" class="fas fa-times"
+                    onclick="dataDismiss('changeEmail')"></i>
             </div>
+            <input name = "email" id = "email" class="userInfoInput" placeholder="New Email">
+            <button id = "changeEmailButton" class="submitButton" >
+                submit
+            </button>
+            <p id = "changeEmailError" value = ""></p>
         </div>
-    </form>
-    <form action="ChangeUsernameServlet" name="ChangeUsernameForm" method="post">
-        <div class="modal" id="changeUsername">
+    </div>
+
+    <div class="modal" id="changeUsername">
             <div  class="userInfoModal">
                 <span>Change Username</span>
                 <div class="closeToggle">
                     <i style="color: white; cursor: pointer" class="fas fa-times"
                        onclick="dataDismiss('changeUsername')"></i>
                 </div>
-                <input class="userInfoInput" name="username" placeholder="newUsername">
-                <%if(request.getAttribute("UsernameChangeFailed") != null)
-                    out.write("<p style=\"color:red;\" >" + request.getAttribute("UsernameChangeFailed") +"<p>"); %>
-                <button class="submitButton" type="submit">
+                <input class="userInfoInput" name="username" id = "username" placeholder="newUsername">
+                <button class="submitButton" id = "changeUsernameID">
                     submit
                 </button>
+                <p id = "changeUsernameError" value = ""></p>
             </div>
-        </div>
-    </form>
-    <form action="ChangeLocationServlet" name="ChangeLocationForm" method="post">
-        <div class="modal" id="changeLocation">
+    </div>
+
+    <div class="modal" id="changeLocation">
             <div  class="userInfoModal">
                 <span>Change Location</span>
                 <div class="closeToggle">
@@ -210,13 +206,12 @@
                         </div>
                     </div>
                     <input id="OutputCity"  style="display: none" name="city" class="forms">
-                    <%if(request.getAttribute("LocationUpdateFailed") != null)
-                        out.write("<p style=\"color:red;\" >" + request.getAttribute("LocationUpdateFailed") +"<p>"); %>
-                </div>
-                <button class="submitButton" type="submit">
+                   </div>
+                <button class="submitButton" id = "changeLocationButton" type="submit">
                     submit
                 </button>
-            </div>
+                <p id = "changeLocationError" value = ""></p>
+    </div>
 
         </div>
     </form>
