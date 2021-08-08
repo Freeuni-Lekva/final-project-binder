@@ -142,7 +142,7 @@ $(document).ready(function() {
         $("#LikeButton").on("click", function () {
             act(1);
         });
-        $("#DisLikeButton").on("click", function () {
+        $("#DislikeButton").on("click", function () {
             act(-1);
         });
     }else{

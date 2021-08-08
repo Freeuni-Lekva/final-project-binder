@@ -51,7 +51,9 @@ html,body{
     top: 0px;
     left: 0px;
     display: flex;
+    align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 .chatContainer__Header{
@@ -452,6 +454,7 @@ html,body{
 }
 
 .uploadImageSubmitButton{
+    cursor: pointer;
     background: none;
     border: 2px solid white;
     border-radius: 10px;
@@ -465,8 +468,12 @@ html,body{
 }
 
 .uploadImageImageChooser{
-    width: 120px;
+    cursor: pointer;
+    width: 80px;
+    color: white;
+    border-radius: 10px;
     background: none;
+    border: 2px solid white;
     height: 30px;
     display: flex;
     justify-content: center;

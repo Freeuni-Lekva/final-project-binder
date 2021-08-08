@@ -65,27 +65,34 @@
     <div  class="uploadImageContainer">
         <form id="sampleUploadFrm" method="POST" action="#" enctype="multipart/form-data">
             <div class="form-group">
-                <div  class="input-group input-file" name="file">
+                <div  class="input-group input-file uploadImageHeader" name="file">
 						<span class="input-group-btn">
 							<button  class="uploadImageImageChooser btn btn-default btn-choose" type="button">Choose</button>
 						</span>
-                    <input
+                    <input style="display: none"
                            type="text" class="form-control" placeholder='Choose a file...' />
 
-                    <span class="input-group-btn">
-							<button class="btn btn-warning btn-reset" type="button">Reset</button>
+                    <span  class="input-group-btn">
+							<button class="btn btn-warning btn-reset uploadImageSubmitButton" type="button">Reset</button>
 					</span>
                     <button type="button" class = "uploadImageSubmitButton" id="uploadBtn">Submit</button>
                     <p id = "errorMessage" value = ""></p>
                 </div>
             </div>
         </form>
-        <img pclass="imagePreviewContainer" id="ImagePreview" src="" alt="Picture Preview">
+        <img class="imagePreviewContainer" id="ImagePreview" src="" alt="Picture Preview">
     </div>
 </div>
 
 <div class="chatsContainer">
     <span class="chatContainer__Header">Chats</span>
+    <div class="chatsContainerBody">
+        <div class="currentChatContainer">
+            <img class="chatUserIcon" src="Content/UserImages/neckbeards19.jpg">
+            <span>saxeli</span>
+        </div>
+    </div>
+
 
 </div>
 <div class="navMainContainer">
