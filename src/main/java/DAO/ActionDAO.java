@@ -73,7 +73,8 @@ public class ActionDAO{
         pstmt.setInt( 1,actorID);
         pstmt.setInt(2,subjectID);
         ResultSet rs = pstmt.executeQuery();
-        rs.next();
+        if(!rs.next())
+            return result;
         result = rs.getInt(1);
         return result;
     }

@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@WebServlet(name = "SuggestedUserServlet", value = "/SuggestedUserServlet")
-public class SuggestedUserServlet extends HttpServlet {
+@WebServlet(name = "GetSuggestedUserServlet", value = "/GetSuggestedUserServlet")
+public class GetSuggestedUserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

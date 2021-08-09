@@ -29,7 +29,7 @@
             User user = UserDAO.getUserByID(SessionsDAO.getUser_id(session.getId()));
             PersonalUserInfo userInfo = PersonalInfoDAO.getUserInfo(user.getUser_id());
             request.setAttribute("userInfo",userInfo);
-            name = user.getUsername();
+            name = user.getName();
             id = user.getUser_id();
             sex = userInfo.getSex();
         } catch (SQLException ex) {
@@ -46,7 +46,7 @@
 <body>
 <div class="suggestionBoxContainer">
     <div class="suggestionContainer">
-        <span class="suggestionName" id = "suggestionName" val = "">ragaca</span>
+        <span class="suggestionName" id = "suggestionName" val = "">No more suggestions</span>
         <span id = "suggestedUserGender" hidden><%out.write(sex);%></span>
         <span id = "currentUser" hidden><%out.write(String.valueOf(id));%></span>
         <span id ="suggestedUserId" hidden></span>
@@ -85,13 +85,9 @@
 </div>
 
 <div class="chatsContainer">
-    <span class="chatContainer__Header">Chats</span>
-    <div class="chatsContainerBody">
-        <div class="currentChatContainer">
-            <img class="chatUserIcon" src="Content/UserImages/neckbeards19.jpg">
-            <span>saxeli</span>
-        </div>
-    </div>
+    <span id = "chatsContainer" class="chatContainer__Header">Chats</span>
+
+
 
 
 </div>

@@ -38,16 +38,15 @@ $(document).ready(function() {
         $.ajax({
             async: false,
             type: "POST",
-            url: "SuggestedUserServlet",
+            url: "GetSuggestedUserServlet",
             data: {"userID": id},
             success: function (msg) {
-                try{
-                    console.log("tryshi shemovida");
+                try {
                     let response = JSON.parse(msg).status;
-                    if(response == 0){
+                    if (response == 0) {
                         suggestedUserID = null;
                     }
-                }catch (e){
+                } catch (e) {
                     suggestedUserID = msg[0];
                     suggestedUserName = msg[1];
                     suggestedUserAge = msg[2];
@@ -60,7 +59,7 @@ $(document).ready(function() {
     }
 
     function getSuggestedUserImages() {
-        if(suggestedUserID != null){
+        if (suggestedUserID != null) {
             $.ajax({
                 async: false,
                 type: "POST",
@@ -78,52 +77,51 @@ $(document).ready(function() {
 
     }
 
-    function displaySuggestedUser(){
-        console.log("update?");
-        console.log(suggestedUserID);
-        if(suggestedUserID == null){
+    function displaySuggestedUser() {
+        if (suggestedUserID == null) {
+            console.log("are we here?")
             let blankSuggestionImg = ((sex === 'MALE') ? 'DEFAULT_THUMB_FEMALE.jpg' : 'DEFAULT_THUMB_MALE.jpg');
-            $("#suggestionImage").attr("src","Content/Images/" + blankSuggestionImg);
+            $("#suggestionImage").attr("src", "Content/Images/" + blankSuggestionImg);
             $("#suggestionName").text("There are no more suggestions");
-            $("#LikeButton").attr("style","background: grey");
+            $("#LikeButton").attr("style", "background: grey");
             $("#LikeButton").attr('disabled', 'true');
-            $("#DislikeButton").attr("style","background: grey");
+            $("#DislikeButton").attr("style", "background: grey");
             $("#DisLikeButton").attr('disabled', 'true');
-        }else{
-            $("#suggestionImage").attr("src",images[0]);
+        } else {
+            $("#suggestionImage").attr("src", images[0]);
             $("#suggestionName").text(suggestedUserName);
         }
 
     }
 
-    function act(action){
+    /*
+    <div class="chatsContainerBody">
+        <div class="currentChatContainer">
+            <img class="chatUserIcon" src="Content/UserImages/neckbeards19.jpg">
+            <span>saxeli</span>
+        </div>
+    </div>
+     */
+
+    function displayChats(){
+        console.log("are we here?");
+        $("#chatsContainer").append("<div class=\"chatsContainerBody\">\n" +
+            "        <div class=\"currentChatContainer\">\n" +
+            "            <img class=\"chatUserIcon\" src=" + images[0] +">\n" +
+            "            <span>"+ suggestedUserName +"</span>\n" +
+            "        </div>\n" +
+            "    </div>")
+    }
+
+    function addMatch(){
         $.ajax({
             async: false,
             type: "POST",
-            url: "LikeAndDislikeActionServlet",
+            url: "AddNewMatchServlet",
             dataType: "json",
-            data: {"actor": id, "subject": suggestedUserID,"action":action},
+            data: {"likedUserID": suggestedUserID,"currUserID" : id},
             success: function (msg) {
-                const currMsg = JSON.stringify(msg);
-                let response = JSON.parse(currMsg);
-                let status = response.status;
-                if (status == 1) {
-                    getSuggestedUserInfo();
-                    getSuggestedUserImages();
-                    displaySuggestedUser();
-                }else if(status == 2){
-                    console.log('axla aq shemovida');
-                    suggestedUserID = null;
-                    suggestedUserName = null;
-                    suggestedUserAge = null;
-                    displaySuggestedUser();
-                }else if(status == 3){
-                    getSuggestedUserInfo();
-                    getSuggestedUserImages();
-                    displaySuggestedUser();
-                }else{
-                    alert("Unexpected error");
-                }
+
             },
             error: function (msg) {
                 alert("No images");
@@ -131,23 +129,52 @@ $(document).ready(function() {
         });
     }
 
-    getSuggestedUserInfo();
-
-
-    if(suggestedUserID != null) {
-        getSuggestedUserImages();
-        $("#suggestionImage").attr("src",images[0]);
-        $("#suggestionName").text(suggestedUserName);
-
-        $("#LikeButton").on("click", function () {
-            act(1);
-        });
-        $("#DislikeButton").on("click", function () {
-            act(-1);
-        });
-    }else{
-        displaySuggestedUser();
+    function act(action) {
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "LikeAndDislikeActionServlet",
+                dataType: "json",
+                data: {"actor": id, "subject": suggestedUserID, "action": action},
+                success: function (msg) {
+                    const currMsg = JSON.stringify(msg);
+                    let response = JSON.parse(currMsg);
+                    let status = response.status;
+                    if (status == 1) {
+                        getSuggestedUserInfo();
+                        getSuggestedUserImages();
+                        displaySuggestedUser();
+                    } else if (status == 2) {
+                        suggestedUserID = null;
+                        suggestedUserName = null;
+                        suggestedUserAge = null;
+                        displaySuggestedUser();
+                    } else if (status == 3) {
+                        displayChats();
+                        getSuggestedUserInfo();
+                        getSuggestedUserImages();
+                        displaySuggestedUser();
+                    } else {
+                        alert("Unexpected error");
+                    }
+                },
+                error: function (msg) {
+                    alert("No images");
+                }
+            });
     }
+
+    getSuggestedUserInfo();
+    getSuggestedUserImages();
+    displaySuggestedUser();
+
+    $("#LikeButton").on("click", function () {
+            act(1);
+    });
+
+    $("#DislikeButton").on("click", function () {
+            act(-1);
+    });
 
 
     function bs_input_file() {
@@ -162,11 +189,9 @@ $(document).ready(function() {
                         Reader.readAsDataURL(this.files[0]);
 
                         Reader.addEventListener('load', () => {
-                            console.log(Reader.result);
                             imagePreview.setAttribute('src', Reader.result);
 
                         })
-                        console.log(Reader.result);
                         imagePreview.setAttribute('src', Reader.result);
                         element.next(element).find('input').val((element.val()).split('\\').pop());
                     });
