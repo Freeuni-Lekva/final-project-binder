@@ -1,7 +1,23 @@
 Create table Chat_Room(
     chat_room_id int auto_increment primary key,
-    actions_id_1 int ,
-    actions_id_2 int ,
-    foreign key  (actions_id_1) references actions(actions_id) on update cascade on delete cascade,
-    foreign key  (actions_id_2) references actions(actions_id) on update cascade on delete cascade
+    user_id_1 int ,
+    user_id_2 int ,
+    create_date date ,
+    last_message varchar(30) default '',
+    last_message_sent_date date ,
+    foreign key  (user_id_1) references user (user_id) on update cascade on delete cascade,
+    foreign key  (user_id_2) references user (user_id) on update cascade on delete cascade
 );
+delimiter //
+Create trigger Chat_Room_trigger_before_insert before insert
+    on binder.chat_room
+    for each row
+    if new.create_date is null then
+		set new.create_date = sysdate() ,  new.last_message_sent_date = sysdate();
+end if;
+//
+delimiter ;
+
+
+
+

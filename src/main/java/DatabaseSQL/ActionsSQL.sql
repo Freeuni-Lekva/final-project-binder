@@ -8,11 +8,23 @@ Create table Actions(
     foreign key  (subject_id) references user(user_id) on update cascade on delete cascade
 );
 delimiter //
-Create trigger Actions_trigger_before_insert before insert
+Create trigger Actions_trigger_before_insert_date before insert
     on binder.Actions
     for each row
     if new.last_modified is null then
 	    set new.last_modified = sysdate();
+end if;
+//
+Create trigger Actions_trigger_after_insert_match after insert
+    on binder.Actions
+    for each row
+    if new.relation = 1 and exists (select 'X' from actions
+			   where actions.subject_id = new.actor_id
+               and actions.actor_id = new.subject_id
+               and relation = 1)
+    then
+    insert into chat_room (user_id_1 , user_id_2)
+    values (new.actor_id , new.subject_id );
 end if;
 //
 delimiter ;
