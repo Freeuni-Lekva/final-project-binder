@@ -14,8 +14,8 @@ public class MatchesDAO {
 
     public static ArrayList<ChatRoom> getMatches(int user_id) throws SQLException {
         ArrayList<ChatRoom> result = new ArrayList<>();
-        PreparedStatement pstmt = con.prepareStatement("SELECT * from chat_room" +
-                                                        "where user_id_1 = ?" +
+        PreparedStatement pstmt = con.prepareStatement("SELECT * from chat_room " +
+                                                        "where user_id_1 = ? " +
                                                         "or user_id_2 = ? ");
         pstmt.setInt(1,user_id);
         pstmt.setInt(2,user_id);

@@ -1,6 +1,7 @@
 package Servlets;
 
 import DAO.ActionDAO;
+import DAO.MatchesDAO;
 import org.apache.commons.io.IOExceptionList;
 
 import javax.servlet.RequestDispatcher;
@@ -38,15 +39,19 @@ public class LikeAndDislikeActionServlet extends HttpServlet {
         try {
             ActionDAO.Action(actor,subject,action);
             if(action == 1 && ActionDAO.isMatch(subject,actor) == 1){
+                MatchesDAO.addMatch(actor,subject);
                 out.print("{\"status\":3}");
+                return;
             }else{
                 out.print("{\"status\":1}");
+                return;
             }
 
         } catch (SQLException throwables) {
             System.out.println(subject);
             throwables.printStackTrace();
             out.print("{\"status\":2}");
+            return;
         }
 
     }

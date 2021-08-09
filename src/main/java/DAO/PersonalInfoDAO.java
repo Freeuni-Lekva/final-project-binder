@@ -52,6 +52,25 @@ public class PersonalInfoDAO {
         return userInfo;
     }
 
+    public static PersonalUserInfo getUserInfoByPersonalID(int user_personal_id) throws SQLException {
+        PreparedStatement pstmt = con.prepareStatement("Use binder; ");
+        StringBuilder statement = new StringBuilder();
+        statement.append("Select * from User_profile where user_profile_id = " + user_personal_id);
+        PersonalUserInfo userInfo = new PersonalUserInfo();
+        ResultSet rs = pstmt.executeQuery(statement.toString());
+        rs.next();
+        userInfo.setUser_profile_id(rs.getInt(1));
+        userInfo.setUsername(rs.getString(2));
+        userInfo.setCity(rs.getString(3));
+        userInfo.setDateOfBirth(rs.getString(4));
+        userInfo.setAge(rs.getInt(5));
+        userInfo.setPhoneNumber(rs.getString(6));
+        userInfo.setHobbies( rs.getString(7));
+        userInfo.setSex(rs.getString(8));
+        userInfo.setUser_id(rs.getInt(9));
+        return userInfo;
+    }
+
     public static void setUserInfo(PersonalUserInfo userInfo) throws SQLException, RegistrationException {
         PreparedStatement pstmt = con.prepareStatement("INSERT INTO User_profile " +
                 " (username,City, dateOfBirth, age, phone_number, hobbies, sex , user_id) " +

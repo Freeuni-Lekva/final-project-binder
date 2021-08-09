@@ -28,9 +28,11 @@ $(document).ready(function() {
     let suggestedUserName = null;
     var suggestedUserAge = null;
     var sex = $("#suggestedUserGender").text();
-    var id = $("#currentUser").text();
+    var id = $("#currentUserID").text();
+    var profileID = $("#currentUserProfileID").text();
     let currUser = $('#suggestedUserId');
     var images = null;
+    var chats = null;
     var hobbies = null;
 
 
@@ -65,7 +67,7 @@ $(document).ready(function() {
                 type: "POST",
                 url: "GetUserImagesServlet",
                 dataType: "json",
-                data: {"userID": suggestedUserID},
+                data: {"suggestedPersonalId": suggestedUserID},
                 success: function (msg) {
                     images = msg;
                 },
@@ -74,12 +76,10 @@ $(document).ready(function() {
                 }
             });
         }
-
     }
 
     function displaySuggestedUser() {
         if (suggestedUserID == null) {
-            console.log("are we here?")
             let blankSuggestionImg = ((sex === 'MALE') ? 'DEFAULT_THUMB_FEMALE.jpg' : 'DEFAULT_THUMB_MALE.jpg');
             $("#suggestionImage").attr("src", "Content/Images/" + blankSuggestionImg);
             $("#suggestionName").text("There are no more suggestions");
@@ -113,20 +113,23 @@ $(document).ready(function() {
             "    </div>")
     }
 
-    function addMatch(){
-        $.ajax({
-            async: false,
-            type: "POST",
-            url: "AddNewMatchServlet",
-            dataType: "json",
-            data: {"likedUserID": suggestedUserID,"currUserID" : id},
-            success: function (msg) {
-
-            },
-            error: function (msg) {
-                alert("No images");
-            }
-        });
+    function getChats() {
+        console.log("we should not be here")
+        if (suggestedUserID != null) {
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "GetAllMatchesServlet",
+                dataType: "json",
+                data: {"user_Profile_ID": profileID},
+                success: function (msg) {
+                    chats = msg;
+                },
+                error: function (msg) {
+                    alert("No images");
+                }
+            });
+        }
     }
 
     function act(action) {
@@ -135,7 +138,7 @@ $(document).ready(function() {
                 type: "POST",
                 url: "LikeAndDislikeActionServlet",
                 dataType: "json",
-                data: {"actor": id, "subject": suggestedUserID, "action": action},
+                data: {"actor": profileID, "subject": suggestedUserID, "action": action},
                 success: function (msg) {
                     const currMsg = JSON.stringify(msg);
                     let response = JSON.parse(currMsg);
@@ -150,6 +153,8 @@ $(document).ready(function() {
                         suggestedUserAge = null;
                         displaySuggestedUser();
                     } else if (status == 3) {
+                        getChats();
+                        console.log(chats[0]);
                         displayChats();
                         getSuggestedUserInfo();
                         getSuggestedUserImages();

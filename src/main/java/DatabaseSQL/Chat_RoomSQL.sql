@@ -5,8 +5,8 @@ Create table Chat_Room(
     create_date date ,
     last_message varchar(30) default '',
     last_message_sent_date date ,
-    foreign key  (user_id_1) references user (user_id) on update cascade on delete cascade,
-    foreign key  (user_id_2) references user (user_id) on update cascade on delete cascade
+    foreign key  (user_id_1) references user_profile (user_profile_id) on update cascade on delete cascade,
+    foreign key  (user_id_2) references user_profile (user_profile_id) on update cascade on delete cascade
 );
 delimiter //
 Create trigger Chat_Room_trigger_before_insert before insert

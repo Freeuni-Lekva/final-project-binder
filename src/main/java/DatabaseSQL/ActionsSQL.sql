@@ -4,8 +4,8 @@ Create table Actions(
     last_modified date not null,
     actor_id int ,
     subject_id int ,
-    foreign key  (actor_id) references user(user_id) on update cascade on delete cascade,
-    foreign key  (subject_id) references user(user_id) on update cascade on delete cascade
+    foreign key  (actor_id) references user_profile(user_profile_id) on update cascade on delete cascade,
+    foreign key  (subject_id) references user_profile(user_profile_id) on update cascade on delete cascade
 );
 delimiter //
 Create trigger Actions_trigger_before_insert_date before insert

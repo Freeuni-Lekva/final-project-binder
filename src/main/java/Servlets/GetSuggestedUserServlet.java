@@ -33,13 +33,12 @@ public class GetSuggestedUserServlet extends HttpServlet {
         try {
             PersonalUserInfo userInfo = PersonalInfoDAO.getUserInfo(user_id);
             ArrayList<Integer> validUsers = SuggestionDataDAO.getSuggestions(userInfo);
-
             if(validUsers.isEmpty()){
                 out.print("{\"status\":0}");
                 return;
             }else{
                 int suggested_user_id = validUsers.get(rand.nextInt(validUsers.size()));
-                PersonalUserInfo suggestedUser = PersonalInfoDAO.getUserInfo(suggested_user_id);
+                PersonalUserInfo suggestedUser = PersonalInfoDAO.getUserInfoByPersonalID(suggested_user_id);
                 List<String> info = new ArrayList<>();
 
                 info.add(String.valueOf(suggested_user_id));

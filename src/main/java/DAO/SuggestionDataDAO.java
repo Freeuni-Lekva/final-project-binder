@@ -18,15 +18,15 @@ public class SuggestionDataDAO {
         con = MyDatabase.getConnection();
         ArrayList<Integer> result = new ArrayList<>();
         PreparedStatement pstmt = con.prepareStatement(
-                    "SELECT user_id FROM User_profile " +
-                        "WHERE sex  != ? " +
-                        "AND user_id not in (SELECT subject_id from ACTIONS where actor_id =  ? )" +
-                        "AND CITY = ? ");
+                    "SELECT user_profile_id FROM User_profile WHERE sex  != ? " +
+                            "AND user_profile_id not in (SELECT subject_id from ACTIONS where actor_id =  ? ) " +
+                            "AND CITY = ? ");
         pstmt.setString(1,user.getSex());
-        pstmt.setInt(2,user.getUser_id());
+        pstmt.setInt(2,user.getUser_profile_id());
         pstmt.setString(3,user.getCity());
         ResultSet rs = pstmt.executeQuery();
         while(rs.next()){
+            System.out.println(rs.toString());
             result.add(rs.getInt(1));
         }
         return result;

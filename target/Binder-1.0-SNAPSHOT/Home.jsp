@@ -25,12 +25,14 @@
         String path = "";
         String sex = "";
         int id = 0;
+        int profileID = 0;
         try {
             User user = UserDAO.getUserByID(SessionsDAO.getUser_id(session.getId()));
             PersonalUserInfo userInfo = PersonalInfoDAO.getUserInfo(user.getUser_id());
             request.setAttribute("userInfo",userInfo);
             name = user.getName();
             id = user.getUser_id();
+            profileID = userInfo.getUser_profile_id();
             sex = userInfo.getSex();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -48,7 +50,8 @@
     <div class="suggestionContainer">
         <span class="suggestionName" id = "suggestionName" val = "">No more suggestions</span>
         <span id = "suggestedUserGender" hidden><%out.write(sex);%></span>
-        <span id = "currentUser" hidden><%out.write(String.valueOf(id));%></span>
+        <span id = "currentUserID" hidden><%out.write(String.valueOf(id));%></span>
+        <span id = "currentUserProfileID" hidden><%out.write(String.valueOf(profileID));%></span>
         <span id ="suggestedUserId" hidden></span>
         <img class="suggestionImage" id = "suggestionImage" src="">
         <div class="suggestionButtonsContainer">
