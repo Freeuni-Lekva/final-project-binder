@@ -32,10 +32,11 @@ $(document).ready(function() {
     var profileID = $("#currentUserProfileID").text();
     let currUser = $('#suggestedUserId');
     var images = null;
+    let blankSuggestionImg = ((sex === 'MALE') ? 'DEFAULT_THUMB_FEMALE.jpg' : 'DEFAULT_THUMB_MALE.jpg');
     var chats = null;
     var hobbies = null;
 
-
+    console.log("here? 1")
     function getSuggestedUserInfo() {
         $.ajax({
             async: false,
@@ -80,7 +81,6 @@ $(document).ready(function() {
 
     function displaySuggestedUser() {
         if (suggestedUserID == null) {
-            let blankSuggestionImg = ((sex === 'MALE') ? 'DEFAULT_THUMB_FEMALE.jpg' : 'DEFAULT_THUMB_MALE.jpg');
             $("#suggestionImage").attr("src", "Content/Images/" + blankSuggestionImg);
             $("#suggestionName").text("There are no more suggestions");
             $("#LikeButton").attr("style", "background: grey");
@@ -103,19 +103,19 @@ $(document).ready(function() {
     </div>
      */
 
-    function displayChats(){
-        console.log("are we here?");
-        $("#chatsContainer").append("<div class=\"chatsContainerBody\">\n" +
-            "        <div class=\"currentChatContainer\">\n" +
-            "            <img class=\"chatUserIcon\" src=" + images[0] +">\n" +
-            "            <span>"+ suggestedUserName +"</span>\n" +
-            "        </div>\n" +
-            "    </div>")
+    function displayChats() {
+        console.log(chats)
+        if (chats.length != 0) {
+            $("#chatsContainer").append("<div class=\"chatsContainerBody\">\n" +
+                "        <div class=\"currentChatContainer\">\n" +
+                "            <img class=\"chatUserIcon\" src=" + (chats[0].image == null ? blankSuggestionImg : chats[0].image) +">\n" +
+                "            <span>"+ chats[0].subjectUserName +"</span>\n" +
+                "        </div>\n" +
+                "    </div>")
+        }
     }
 
     function getChats() {
-        console.log("we should not be here")
-        if (suggestedUserID != null) {
             $.ajax({
                 async: false,
                 type: "POST",
@@ -123,13 +123,13 @@ $(document).ready(function() {
                 dataType: "json",
                 data: {"user_Profile_ID": profileID},
                 success: function (msg) {
+                    console.log(msg);
                     chats = msg;
                 },
                 error: function (msg) {
-                    alert("No images");
+                    alert("No chats");
                 }
             });
-        }
     }
 
     function act(action) {
@@ -138,12 +138,15 @@ $(document).ready(function() {
                 type: "POST",
                 url: "LikeAndDislikeActionServlet",
                 dataType: "json",
-                data: {"actor": profileID, "subject": suggestedUserID, "action": action},
+                data: {"actor": profileID, "subject": suggestedUserID, "action": action,
+                        "subjectName": suggestedUserName,"subjectImage": (images == null ? blankSuggestionImg : images[0])},
                 success: function (msg) {
                     const currMsg = JSON.stringify(msg);
                     let response = JSON.parse(currMsg);
                     let status = response.status;
                     if (status == 1) {
+                        getChats();
+                        displayChats();
                         getSuggestedUserInfo();
                         getSuggestedUserImages();
                         displaySuggestedUser();
@@ -151,6 +154,8 @@ $(document).ready(function() {
                         suggestedUserID = null;
                         suggestedUserName = null;
                         suggestedUserAge = null;
+                        getChats();
+                        displayChats();
                         displaySuggestedUser();
                     } else if (status == 3) {
                         getChats();
@@ -172,6 +177,8 @@ $(document).ready(function() {
     getSuggestedUserInfo();
     getSuggestedUserImages();
     displaySuggestedUser();
+    getChats();
+    displayChats();
 
     $("#LikeButton").on("click", function () {
             act(1);

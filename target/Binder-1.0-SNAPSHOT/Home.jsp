@@ -30,7 +30,7 @@
             User user = UserDAO.getUserByID(SessionsDAO.getUser_id(session.getId()));
             PersonalUserInfo userInfo = PersonalInfoDAO.getUserInfo(user.getUser_id());
             request.setAttribute("userInfo",userInfo);
-            name = user.getName();
+            name = user.getUsername();
             id = user.getUser_id();
             profileID = userInfo.getUser_profile_id();
             sex = userInfo.getSex();
@@ -38,8 +38,6 @@
             ex.printStackTrace();
             response.sendRedirect("index.jsp");
         }
-
-        System.out.print(request.getServletContext().getRealPath(""));
 
         //ArrayList<string> imagePaths = UserImagesDAO.getUserImages(userInfo.getUser_profile_id)
         //if(suggestion.getSuggestedUser == null) -> no suggested more users
@@ -89,7 +87,6 @@
 
 <div class="chatsContainer">
     <span id = "chatsContainer" class="chatContainer__Header">Chats</span>
-
 
 
 
