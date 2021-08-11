@@ -2,9 +2,13 @@ const hobbieNum = 5;
 let hobbies = [];
 let currentDisplayUserModalID = -1;
 let userInfoModalsContainer = ['changePassword', 'changeEmail','changeUsername', 'changeLocation'];
-let pictures = [];
 
 
+function displayCurentChat(){
+
+    $('.openedChatContainer').css('display', 'block');
+    $('.chatsContainerBody').css('display', 'none');
+}
 
 
 function requestSent(){
@@ -98,15 +102,19 @@ $(document).ready(function() {
         if (chats.length != 0) {
             for(let i=0; i<chats.length; i++)
             {
+                console.log(chats);
                 let chatImage = chats[i].image.length == 0 ? blankSuggestionImg : chats[i].image;
                 console.log(chatImage);
-                $("#chatsContainerBody").append( "<div class=\"currentChatContainer\">\n" +
+                $("#chatsContainerBody").append( "<div onclick='displayCurentChat()' class=\"currentChatContainer\">\n" +
                     "            <img class=\"chatUserIcon\" src=" + chatImage + ">\n" +
                     "            <span>" + chats[i].chat_buddy_name + "</span>\n" +
                     "        </div>");
+
             }
         }
     }
+
+
 
     function getChats() {
             $.ajax({
@@ -138,7 +146,7 @@ $(document).ready(function() {
                     let status = response.status;
                     if (status == 1) {
                         getChats();
-                        displayChats();
+
                         getSuggestedUserInfo();
                         getSuggestedUserImages();
                         displaySuggestedUser();
@@ -147,7 +155,7 @@ $(document).ready(function() {
                         suggestedUserName = null;
                         suggestedUserAge = null;
                         getChats();
-                        displayChats();
+
                         displaySuggestedUser();
                     } else if (status == 3) {
                         getChats();
@@ -398,7 +406,6 @@ function checkMessages(){
         console.log("");
         document.getElementById('AccountInfo').style.display = 'none';
     }
-
 }
 
 function toggleModal(modalId){
@@ -467,9 +474,6 @@ function changeDate(id, number){
     if(id === 'city'){
         setCity();
     }
-
-    /*if(id === 'userDay') document.getElementById('dayDropDown').style.display = "none";
-    else document.getElementById('MonthDropDown').style.display = "none";*/
 }
 
 
@@ -532,11 +536,6 @@ function displayInfoModal(id){
     currentDisplayUserModalID = id;
 }
 
-function addPicturesToProfile(){
-    if(pictures.length < 3){
-        pictures.push(uploadFileInput.value);
-    }
 
-}
 
 

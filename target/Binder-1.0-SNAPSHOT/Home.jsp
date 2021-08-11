@@ -86,10 +86,12 @@
 
 <div class="chatsContainer">
     <span  class="chatContainer__Header">Chats</span>
-    <div id = "chatsContainerBody" class=\"chatsContainerBody\">
+    <div id ="chatsContainerBody" class="chatsContainerBody">
 
     </div>
+    <div class="openedChatContainer">
 
+    </div>
 
 
 </div>
