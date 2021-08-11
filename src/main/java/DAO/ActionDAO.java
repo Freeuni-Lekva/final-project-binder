@@ -68,8 +68,8 @@ public class ActionDAO{
 
     public static int isMatch(int actorID, int subjectID) throws SQLException{
         int result = 0;
-        PreparedStatement pstmt = con.prepareStatement("Select case when actor_id = ? then true else false END \n" +
-                "from Actions where relation = 1 AND subject_id = ?;");
+        PreparedStatement pstmt = con.prepareStatement("Select count(*)\n" +
+                "from Actions where relation = 1 AND actor_id = ? AND subject_id = ?;");
         pstmt.setInt( 1,actorID);
         pstmt.setInt(2,subjectID);
         ResultSet rs = pstmt.executeQuery();

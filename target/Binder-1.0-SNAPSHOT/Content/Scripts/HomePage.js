@@ -5,9 +5,9 @@ let userInfoModalsContainer = ['changePassword', 'changeEmail','changeUsername',
 
 
 function displayCurentChat(){
-    console.log("shemovida");
+
     $('.openedChatContainer').css('display', 'block');
-    console.log($('.openedChatContainer'));
+    $('.chatsContainerBody').css('display', 'none');
 }
 
 
@@ -98,13 +98,12 @@ $(document).ready(function() {
     }
 
     function displayChats() {
-        console.log(chats)
+        console.log("here?")
         if (chats.length != 0) {
+            $("#chatsContainerBody").empty();
             for(let i=0; i<chats.length; i++)
             {
-                console.log(chats);
                 let chatImage = chats[i].image.length == 0 ? blankSuggestionImg : chats[i].image;
-                console.log(chatImage);
                 $("#chatsContainerBody").append( "<div onclick='displayCurentChat()' class=\"currentChatContainer\">\n" +
                     "            <img class=\"chatUserIcon\" src=" + chatImage + ">\n" +
                     "            <span>" + chats[i].chat_buddy_name + "</span>\n" +
@@ -134,29 +133,29 @@ $(document).ready(function() {
     }
 
     function act(action) {
+        console.log(suggestedUserID);
             $.ajax({
                 async: false,
                 type: "POST",
                 url: "LikeAndDislikeActionServlet",
                 dataType: "json",
+
                 data: {"actor": profileID, "subject": suggestedUserID, "action": action, "sex": sex},
                 success: function (msg) {
                     const currMsg = JSON.stringify(msg);
                     let response = JSON.parse(currMsg);
                     let status = response.status;
                     if (status == 1) {
-                        getChats();
-
                         getSuggestedUserInfo();
                         getSuggestedUserImages();
                         displaySuggestedUser();
+                        console.log("acts: status 1");
                     } else if (status == 2) {
                         suggestedUserID = null;
                         suggestedUserName = null;
                         suggestedUserAge = null;
-                        getChats();
-
                         displaySuggestedUser();
+                        console.log("acts: status 2");
                     } else if (status == 3) {
                         getChats();
                         console.log(chats[0]);
@@ -164,6 +163,7 @@ $(document).ready(function() {
                         getSuggestedUserInfo();
                         getSuggestedUserImages();
                         displaySuggestedUser();
+                        console.log("acts: status 3");
                     } else {
                         alert("Unexpected error");
                     }

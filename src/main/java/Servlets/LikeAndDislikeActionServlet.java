@@ -53,7 +53,6 @@ public class LikeAndDislikeActionServlet extends HttpServlet {
             }
 
         } catch (SQLException throwables) {
-            System.out.println(subject);
             throwables.printStackTrace();
             out.print("{\"status\":2}");
             return;
