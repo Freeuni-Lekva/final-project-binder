@@ -26,7 +26,9 @@ public class UserImagesDAO {
             pstmt.executeUpdate();
     }
 
-    public static void removeUserIcon(int user_profile_ID) throws SQLException {
+    /*
+
+         public static void removeUserIcon(int user_profile_ID) throws SQLException {
         PreparedStatement pstmt = con.prepareStatement("update image " +
                 "set (isProfilePicture = false) " +
                 "where user_profile_id = ?" +
@@ -35,7 +37,7 @@ public class UserImagesDAO {
         pstmt.executeUpdate();
     }
 
-    public static void setUserIconPath(int user_profile_ID, String path) throws SQLException {
+     public static void setUserIconPath(int user_profile_ID, String path) throws SQLException {
         removeUserIcon(user_profile_ID);
         PreparedStatement pstmt = con.prepareStatement(
                 "UPDATE Image set (isProfilePicture = true)" +
@@ -46,7 +48,7 @@ public class UserImagesDAO {
         pstmt.executeUpdate();
     }
 
-    public static String getUserIconPath(int user_profile_ID) throws SQLException{
+     public static String getUserIconPath(int user_profile_ID) throws SQLException{
         PreparedStatement pstmt = con.prepareStatement(
                 "Select Image_path from image" +
                         "where user_profile_id = ?" +
@@ -65,6 +67,20 @@ public class UserImagesDAO {
         ResultSet rs = pstmt.executeQuery();
         while(rs.next()){
             result.add(rs.getString(1));
+        }
+        return result;
+    }
+     */
+
+    public static String getUserImages(int user_profile_ID) throws SQLException{
+        //ArrayList<String> result = new ArrayList<>();
+        String result = "";
+        PreparedStatement pstmt = con.prepareStatement(
+                "Select Image_path from image where user_profile_id = ?");
+        pstmt.setInt(1, user_profile_ID);
+        ResultSet rs = pstmt.executeQuery();
+        while(rs.next()){
+            result = rs.getString(1);
         }
         return result;
     }

@@ -26,7 +26,6 @@ public class SuggestionDataDAO {
         pstmt.setString(3,user.getCity());
         ResultSet rs = pstmt.executeQuery();
         while(rs.next()){
-            System.out.println(rs.toString());
             result.add(rs.getInt(1));
         }
         return result;

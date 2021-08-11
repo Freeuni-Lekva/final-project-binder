@@ -62,12 +62,13 @@ public class ImageDownloadServlet extends HttpServlet {
                 String username = userInfo.getUsername();
                 user_id = userInfo.getUser_profile_id();
 
+                /*
                 int imageCount = UserImagesDAO.getUserImages(user_id).size();
                 if(imageCount >= 3){
                     PrintWriter out = response.getWriter();
                     out.print("{\"status\":1}");
                     return;
-                }
+                }*/
 
                 Collection<Part> parts = request.getParts();
                 for(Part p : parts){
@@ -80,8 +81,12 @@ public class ImageDownloadServlet extends HttpServlet {
                         out.print("{\"status\":2}");
                         return;
                     }
+                    /*
                     String relativePath = "Content\\User_Files\\" + username + imageCount + "." + fileExtension;
                     String htmlPath = "Content/User_Files/" + username + imageCount + "." + fileExtension;
+                    */
+                    String relativePath = "Content\\User_Files\\" + username  + "." + fileExtension;
+                    String htmlPath = "Content/User_Files/" + username  + "." + fileExtension;
                     File targetFile = new File( request.getSession(false).getServletContext().getRealPath("") + relativePath);
                     FileUtils.copyInputStreamToFile(fileContent, targetFile);
                     UserImagesDAO.setUserImage(user_id, htmlPath);

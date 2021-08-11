@@ -30,9 +30,8 @@ $(document).ready(function() {
     var sex = $("#suggestedUserGender").text();
     var id = $("#currentUserID").text();
     var profileID = $("#currentUserProfileID").text();
-    let currUser = $('#suggestedUserId');
-    var images = null;
-    let blankSuggestionImg = ((sex === 'MALE') ? 'DEFAULT_THUMB_FEMALE.jpg' : 'DEFAULT_THUMB_MALE.jpg');
+    var image = null;
+    let blankSuggestionImg = "Content/Images/" + (((sex === 'MALE') ? 'DEFAULT_THUMB_FEMALE.jpg' : 'DEFAULT_THUMB_MALE.jpg'));
     var chats = null;
     var hobbies = null;
 
@@ -70,7 +69,7 @@ $(document).ready(function() {
                 dataType: "json",
                 data: {"suggestedPersonalId": suggestedUserID},
                 success: function (msg) {
-                    images = msg;
+                    image = msg;
                 },
                 error: function (msg) {
                     alert("No images");
@@ -81,37 +80,31 @@ $(document).ready(function() {
 
     function displaySuggestedUser() {
         if (suggestedUserID == null) {
-            $("#suggestionImage").attr("src", "Content/Images/" + blankSuggestionImg);
+            $("#suggestionImage").attr("src", blankSuggestionImg);
             $("#suggestionName").text("There are no more suggestions");
             $("#LikeButton").attr("style", "background: grey");
             $("#LikeButton").attr('disabled', 'true');
             $("#DislikeButton").attr("style", "background: grey");
             $("#DisLikeButton").attr('disabled', 'true');
         } else {
-            $("#suggestionImage").attr("src", images[0]);
+            $("#suggestionImage").attr("src", image);
             $("#suggestionName").text(suggestedUserName);
         }
 
     }
 
-    /*
-    <div class="chatsContainerBody">
-        <div class="currentChatContainer">
-            <img class="chatUserIcon" src="Content/UserImages/neckbeards19.jpg">
-            <span>saxeli</span>
-        </div>
-    </div>
-     */
-
     function displayChats() {
         console.log(chats)
         if (chats.length != 0) {
-            $("#chatsContainer").append("<div class=\"chatsContainerBody\">\n" +
-                "        <div class=\"currentChatContainer\">\n" +
-                "            <img class=\"chatUserIcon\" src=" + (chats[0].image == null ? blankSuggestionImg : chats[0].image) +">\n" +
-                "            <span>"+ chats[0].subjectUserName +"</span>\n" +
-                "        </div>\n" +
-                "    </div>")
+            for(let i=0; i<chats.length; i++)
+            {
+                let chatImage = chats[i].image.length == 0 ? blankSuggestionImg : chats[i].image;
+                console.log(chatImage);
+                $("#chatsContainerBody").append( "<div class=\"currentChatContainer\">\n" +
+                    "            <img class=\"chatUserIcon\" src=" + chatImage + ">\n" +
+                    "            <span>" + chats[i].chat_buddy_name + "</span>\n" +
+                    "        </div>");
+            }
         }
     }
 
@@ -121,7 +114,7 @@ $(document).ready(function() {
                 type: "POST",
                 url: "GetAllMatchesServlet",
                 dataType: "json",
-                data: {"user_Profile_ID": profileID},
+                data: {"user_Profile_ID": profileID, "sex": sex},
                 success: function (msg) {
                     console.log(msg);
                     chats = msg;
@@ -138,8 +131,7 @@ $(document).ready(function() {
                 type: "POST",
                 url: "LikeAndDislikeActionServlet",
                 dataType: "json",
-                data: {"actor": profileID, "subject": suggestedUserID, "action": action,
-                        "subjectName": suggestedUserName,"subjectImage": (images == null ? blankSuggestionImg : images[0])},
+                data: {"actor": profileID, "subject": suggestedUserID, "action": action, "sex": sex},
                 success: function (msg) {
                     const currMsg = JSON.stringify(msg);
                     let response = JSON.parse(currMsg);

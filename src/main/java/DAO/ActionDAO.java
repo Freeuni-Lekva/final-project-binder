@@ -22,9 +22,9 @@ public class ActionDAO{
     public static HashSet<String> getActors(int userID, int action) throws SQLException {
         result = new HashSet<>();
         PreparedStatement pstmt = con.prepareStatement("SELECT actor_id " +
-                        "FROM Actions " +
-                        "WHERE subject_id = ?" +
-                        "AND relation = ?");
+                "FROM Actions " +
+                "WHERE subject_id = ?" +
+                "AND relation = ?");
         pstmt.setInt(1,userID);
         pstmt.setInt(2,action);
         ResultSet rs = pstmt.executeQuery();
@@ -69,7 +69,7 @@ public class ActionDAO{
     public static int isMatch(int actorID, int subjectID) throws SQLException{
         int result = 0;
         PreparedStatement pstmt = con.prepareStatement("Select case when actor_id = ? then true else false END \n" +
-                                                            "from Actions where relation = 1 AND subject_id = ?;");
+                "from Actions where relation = 1 AND subject_id = ?;");
         pstmt.setInt( 1,actorID);
         pstmt.setInt(2,subjectID);
         ResultSet rs = pstmt.executeQuery();
@@ -81,5 +81,3 @@ public class ActionDAO{
 
 
 }
-
-

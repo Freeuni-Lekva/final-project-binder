@@ -50,7 +50,6 @@
         <span id = "suggestedUserGender" hidden><%out.write(sex);%></span>
         <span id = "currentUserID" hidden><%out.write(String.valueOf(id));%></span>
         <span id = "currentUserProfileID" hidden><%out.write(String.valueOf(profileID));%></span>
-        <span id ="suggestedUserId" hidden></span>
         <img class="suggestionImage" id = "suggestionImage" src="">
         <div class="suggestionButtonsContainer">
             <button  id = "LikeButton" style="background: #2AFE14" class="suggestionToggleButton">
@@ -86,7 +85,10 @@
 </div>
 
 <div class="chatsContainer">
-    <span id = "chatsContainer" class="chatContainer__Header">Chats</span>
+    <span  class="chatContainer__Header">Chats</span>
+    <div id = "chatsContainerBody" class=\"chatsContainerBody\">
+
+    </div>
 
 
 

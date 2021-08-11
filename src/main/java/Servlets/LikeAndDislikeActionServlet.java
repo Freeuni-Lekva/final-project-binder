@@ -1,8 +1,7 @@
 package Servlets;
 
-import DAO.*;
-import Model.PersonalUserInfo;
-import Model.User;
+import DAO.ActionDAO;
+import DAO.MatchesDAO;
 import org.apache.commons.io.IOExceptionList;
 
 import javax.servlet.RequestDispatcher;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.List;
 
 @WebServlet(name = "LikeAndDislikeActionServlet",value = "/LikeAndDislikeActionServlet")
 public class LikeAndDislikeActionServlet extends HttpServlet {
@@ -37,16 +35,16 @@ public class LikeAndDislikeActionServlet extends HttpServlet {
         int actor = Integer.valueOf(request.getParameter("actor"));
         int subject = Integer.valueOf(request.getParameter("subject"));
         int action = Integer.valueOf(request.getParameter("action"));
-        String subjectName = request.getParameter("subjectName");
-        String image = request.getParameter("subjectImage");
-
+        String sex = request.getParameter("sex");
         try {
-            PersonalUserInfo user = PersonalInfoDAO.getUserInfoByPersonalID(actor);
-            List<String> images = UserImagesDAO.getUserImages(actor);
             ActionDAO.Action(actor,subject,action);
             if(action == 1 && ActionDAO.isMatch(subject,actor) == 1){
-                MatchesDAO.addMatch(actor,subject,subjectName,image);
-                MatchesDAO.addMatch(subject,actor,user.getUsername(),images.get(0));
+                if(sex.equals("MALE")) {
+                    MatchesDAO.addMatch(actor, subject);
+                }else {
+                    MatchesDAO.addMatch(subject,actor);
+                }
+
                 out.print("{\"status\":3}");
                 return;
             }else{
@@ -55,6 +53,7 @@ public class LikeAndDislikeActionServlet extends HttpServlet {
             }
 
         } catch (SQLException throwables) {
+            System.out.println(subject);
             throwables.printStackTrace();
             out.print("{\"status\":2}");
             return;

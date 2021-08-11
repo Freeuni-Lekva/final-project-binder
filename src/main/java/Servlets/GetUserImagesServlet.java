@@ -30,15 +30,15 @@ public class GetUserImagesServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int user_profile_id = Integer.valueOf(request.getParameter("suggestedPersonalId"));
         PrintWriter out = response.getWriter();
-        List<String> list = new ArrayList<>();
+        //List<String> list = new ArrayList<>();
         try {
             PersonalUserInfo userInfo = PersonalInfoDAO.getUserInfoByPersonalID(user_profile_id);
-            list = UserImagesDAO.getUserImages(userInfo.getUser_profile_id());
-            if (list.isEmpty()) {
+            String result = UserImagesDAO.getUserImages(userInfo.getUser_profile_id());
+            if (result.isEmpty()) {
                 out.print("{\"status\":0}");
                 return;
             }
-            String json = (new Gson()).toJson(list);
+            String json = (new Gson()).toJson(result);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(json);

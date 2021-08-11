@@ -25,14 +25,16 @@ public class GetAllMatchesServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int user_profile_id = Integer.parseInt(request.getParameter("user_Profile_ID"));
+        String sex = request.getParameter("sex");
         PrintWriter out = response.getWriter();
 
         try {
-            List<ChatRoom> chats = MatchesDAO.getMatches(user_profile_id);
+            int position = sex.equals("MALE") ? 1 : 2;
+            List<ChatRoom> chats = MatchesDAO.getMatches(user_profile_id,position);
             String json = (new Gson()).toJson(chats);
             out.write(json);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
 
     }
