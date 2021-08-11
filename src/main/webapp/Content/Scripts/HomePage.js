@@ -4,10 +4,17 @@ let currentDisplayUserModalID = -1;
 let userInfoModalsContainer = ['changePassword', 'changeEmail','changeUsername', 'changeLocation'];
 
 
-function displayCurentChat(){
-
+function displayCurentChat(currentName){
+    console.log('shemovida',currentName);
+    $('#currentOpenChatName').text(currentName);
     $('.openedChatContainer').css('display', 'block');
     $('.chatsContainerBody').css('display', 'none');
+    document.querySelector('.chatsContainerBody').scrollTop = document.querySelector('.chatsContainerBody').scrollHeight;
+}
+
+function chatDismiss(){
+    $('.openedChatContainer').css('display', 'none');
+    $('.chatsContainerBody').css('display', 'block');
 }
 
 
@@ -104,7 +111,8 @@ $(document).ready(function() {
             for(let i=0; i<chats.length; i++)
             {
                 let chatImage = chats[i].image.length == 0 ? blankSuggestionImg : chats[i].image;
-                $("#chatsContainerBody").append( "<div onclick='displayCurentChat()' class=\"currentChatContainer\">\n" +
+                let currChat = chats[i].chat_buddy_name;
+                $("#chatsContainerBody").append( "<div onclick=\"displayCurentChat('" + currChat  +"')\" class=\"currentChatContainer\">\n" +
                     "            <img class=\"chatUserIcon\" src=" + chatImage + ">\n" +
                     "            <span>" + chats[i].chat_buddy_name + "</span>\n" +
                     "        </div>");

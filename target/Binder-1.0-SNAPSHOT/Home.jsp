@@ -90,10 +90,35 @@
 
     </div>
     <div class="openedChatContainer">
+        <div class="openedChatHeader">
+            <span id="currentOpenChatName">dfgdgf</span>
+            <i onclick="chatDismiss()" class="fas fa-times closeToggle"></i>
+        </div>
+        <div class="openedChatBody">
+            <div class="myText"> sdfsdfsdfsdf</div>
+            <div class="yourLoversText"> sdfsdfsdfsdf</div>
+            <div class="myText"> send bobs and vagine pls send bobs and vagene,
+            im dying cancer</div>
+            <div class="yourLoversText"> sdfjsdfjk sdfnklsd
+            sdfsdfsdfsdfsdfsdfsdf
+            sdfsdfsdfsdfsdfsd dg dfgjdfgdfg
+            sdvkjsdfsadgjkedngldf skdjgdfdf fuck sdfsdsdfgndfgnedfgwdfg
+            offf
+            sdfsdfsdf
+            </div>
+            <div class="myText">ok fuck yous sdfsdfsdnfsqdfns  skjdfbqwefj kergmqwe</div>
+            <div class="yourLoversText">This page shares my best articles to read on topics like health,
+                happiness, creativity, productivity and more.
+                The central question that drives my work is,
+                “How can we live better?” To answer that question,
+                I like to write about science-based ways to solve practical problems.</div>
 
+        </div>
+        <div class="openedChatInputContainer">
+            <input class="openedChatInput" placeholder="Send message">
+            <i style="color: #E67826; cursor: pointer" class="far fa-paper-plane fa-2x"></i>
+        </div>
     </div>
-
-
 </div>
 <div class="navMainContainer">
     <span class="navWelcome"><%out.write("Welcome " + name);%></span>
