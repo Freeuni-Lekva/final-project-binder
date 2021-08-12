@@ -2,6 +2,7 @@ const hobbieNum = 5;
 let hobbies = [];
 let currentDisplayUserModalID = -1;
 let userInfoModalsContainer = ['changePassword', 'changeEmail','changeUsername', 'changeLocation'];
+let displayCurrentChat;
 
 
 
@@ -10,6 +11,9 @@ function chatDismiss(){
     $('.openedChatContainer').css('display', 'none');
     $('.chatsContainerBody').css('display', 'block');
 }
+
+
+
 
 $(document).ready(function() {
 
@@ -24,6 +28,10 @@ $(document).ready(function() {
     let chats = null;
     let messages = null;
     let hobbies = null;
+
+    let currentChatMessage = $('.openedChatInput');
+
+
 
     console.log(messages);
 
@@ -49,6 +57,37 @@ $(document).ready(function() {
                 alert("no more suggestions");
             }
         });
+    }
+
+    displayCurrentChat = function (currentName, chatRoom){
+
+        console.log('shemovida',currentName);
+        $('#currentOpenChatName').text(currentName);
+        $('.openedChatContainer').css('display', 'block');
+        $('.chatsContainerBody').css('display', 'none');
+        currentChatMessage.on('keydown', function (e){
+            if (e.key == "Enter" && currentChatMessage.val() !== ""){
+                sendMessage(chatRoom, currentChatMessage.val());
+                currentChatMessage.val("") ;
+            }
+        });
+        $('#sendMessageId').click(function (){
+            if(currentChatMessage.val() !== ""){
+                sendMessage(chatRoom, currentChatMessage.val());
+                currentChatMessage.val("") ;
+            }
+        })
+        getMessages(chatRoom, profileID);
+        console.log(messages);
+        for(let i = 0; i < messages.length; i++){
+            let currentClass;
+            currentMessageToSend = messages[i].message;
+            console.log(currentMessageToSend);
+            if(messages[i].isReceived) currentClass = "yourLoversText";
+            else currentClass = "myText";
+            $('.openedChatBody').append(`<div class="${currentClass}">${currentMessageToSend}</div>`)
+        }
+
     }
 
     function getSuggestedUserImages() {
@@ -84,6 +123,7 @@ $(document).ready(function() {
             }
         });
     }
+
 
     function sendMessage(chat_room_id, msg){
         $.ajax({
@@ -122,14 +162,6 @@ $(document).ready(function() {
 
     }
 
-    function displayCurrentChat(currentName){
-        console.log('shemovida',currentName);
-        $('#currentOpenChatName').text(currentName);
-        $('.openedChatContainer').css('display', 'block');
-        $('.chatsContainerBody').css('display', 'none');
-        document.querySelector('.chatsContainerBody').scrollTop = document.querySelector('.chatsContainerBody').scrollHeight;
-    }
-
     function displayChats() {
         if (chats.length != 0) {
             $("#chatsContainerBody").empty();
@@ -137,7 +169,8 @@ $(document).ready(function() {
             {
                 let chatImage = chats[i].image.length == 0 ? blankSuggestionImg : chats[i].image;
                 let currName = chats[i].chat_buddy_name;
-                $("#chatsContainerBody").append( "<div onclick=\"displayCurrentChat('" + currName + "')\" class=\"currentChatContainer\">\n" +
+                let currChatRoom = chats[i].chat_room_id;
+                $("#chatsContainerBody").append( "<div onclick=\"displayCurrentChat('" + currName + "', '" + currChatRoom + "')\" class=\"currentChatContainer\">\n" +
                     "            <img class=\"chatUserIcon\" src=" + chatImage + ">\n" +
                     "            <span>" + chats[i].chat_buddy_name + "</span>\n" +
                     "        </div>");

@@ -18,8 +18,9 @@ public class MessagesDAO {
 
     public static List<Message> getMessages(int chat_room_id, int user_profile_id) throws SQLException {
         List<Message> result = new ArrayList<>();
-        PreparedStatement pstmt = con.prepareStatement("Select * from message where chat_room_id = ? ");
+        PreparedStatement pstmt = con.prepareStatement("Select * from message where chat_room_id = ? order by sent_date asc");
         pstmt.setInt(1,chat_room_id);
+
         ResultSet rs = pstmt.executeQuery();
         while(rs.next()){
             int id = rs.getInt(1);
