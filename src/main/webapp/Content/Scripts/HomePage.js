@@ -4,7 +4,7 @@ let currentDisplayUserModalID = -1;
 let userInfoModalsContainer = ['changePassword', 'changeEmail','changeUsername', 'changeLocation'];
 
 
-function displayCurentChat(currentName){
+function displayCurrentChat(currentName){
     console.log('shemovida',currentName);
     $('#currentOpenChatName').text(currentName);
     $('.openedChatContainer').css('display', 'block');
@@ -18,35 +18,22 @@ function chatDismiss(){
 }
 
 
-function requestSent(){
-    let xhr = new XMLHttpRequest();
-    console.log('blalala');
-
-    xhr.open('GET','AsyncServlet', true);
-
-    xhr.onload = function (){
-        const ragacSurati = JSON.parse(this.responseText).toString();
-        console.log(ragacSurati);
-        console.log(typeof (ragacSurati));
-        document.getElementById('ragacasurati').setAttribute('src',ragacSurati);
-    }
-    xhr.send();
-}
-
 $(document).ready(function() {
 
     let suggestedUserID = null;
     let suggestedUserName = null;
-    var suggestedUserAge = null;
-    var sex = $("#suggestedUserGender").text();
+    let suggestedUserAge = null;
+    let sex = $("#suggestedUserGender").text();
     var id = $("#currentUserID").text();
     var profileID = $("#currentUserProfileID").text();
-    var image = null;
+    let image = null;
     let blankSuggestionImg = "Content/Images/" + (((sex === 'MALE') ? 'DEFAULT_THUMB_FEMALE.jpg' : 'DEFAULT_THUMB_MALE.jpg'));
-    var chats = null;
-    var hobbies = null;
+    let chats = null;
+    let messages = null;
+    let hobbies = null;
 
-    console.log("here? 1")
+    console.log(messages);
+
     function getSuggestedUserInfo() {
         $.ajax({
             async: false,
@@ -89,6 +76,44 @@ $(document).ready(function() {
         }
     }
 
+    function getMessages(chat_room_id,profileID){
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "GetMessagesServlet",
+            dataType: "json",
+            data: {"chat_room_id": chat_room_id, "user_profile_id": profileID},
+            success: function (msg) {
+                messages = msg;
+            },
+            error: function (msg) {
+                alert("No messages");
+            }
+        });
+    }
+
+    function sendMessage(chat_room_id, msg){
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "SendMessageServlet",
+            dataType: "json",
+            data: {"chat_room_id": chat_room_id, "user_profile_id": profileID, "message": msg},
+            success: function (msg) {
+                if (status == 1) {
+                    console.log("Message Sent");
+                }
+                else if (status == 2){
+                    console.log("Something went wrong");
+                }
+            },
+            error: function (msg) {
+                alert("Couldn't send message");
+                console.log(msg);
+            }
+        });
+    }
+
     function displaySuggestedUser() {
         if (suggestedUserID == null) {
             $("#suggestionImage").attr("src", blankSuggestionImg);
@@ -105,18 +130,16 @@ $(document).ready(function() {
     }
 
     function displayChats() {
-        console.log("here?")
         if (chats.length != 0) {
             $("#chatsContainerBody").empty();
             for(let i=0; i<chats.length; i++)
             {
                 let chatImage = chats[i].image.length == 0 ? blankSuggestionImg : chats[i].image;
-                let currChat = chats[i].chat_buddy_name;
-                $("#chatsContainerBody").append( "<div onclick=\"displayCurentChat('" + currChat  +"')\" class=\"currentChatContainer\">\n" +
+                let currName = chats[i].chat_buddy_name;
+                $("#chatsContainerBody").append( "<div onclick=\"displayCurrentChat('" + currName + "')\" class=\"currentChatContainer\">\n" +
                     "            <img class=\"chatUserIcon\" src=" + chatImage + ">\n" +
                     "            <span>" + chats[i].chat_buddy_name + "</span>\n" +
                     "        </div>");
-
             }
         }
     }
