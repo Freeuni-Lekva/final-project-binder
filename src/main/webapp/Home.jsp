@@ -92,7 +92,7 @@
     <div class="openedChatContainer">
         <div class="openedChatHeader">
             <span id="currentOpenChatName">dfgdgf</span>
-            <i onclick="chatDismiss()" class="fas fa-times closeToggle"></i>
+            <i id = "dismissChat" onclick="chatDismiss()" class="fas fa-times closeToggle"></i>
         </div>
         <div class="openedChatBody">
 

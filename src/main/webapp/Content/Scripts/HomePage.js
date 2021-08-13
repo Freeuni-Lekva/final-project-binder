@@ -27,6 +27,8 @@ $(document).ready(function() {
     let blankSuggestionImg = "Content/Images/" + (((sex === 'MALE') ? 'DEFAULT_THUMB_FEMALE.jpg' : 'DEFAULT_THUMB_MALE.jpg'));
     let chats = null;
     let messages = null;
+    let checkerThread = null;
+    let checkerThreadID = null;
     let hobbies = null;
 
     let currentChatMessage = $('.openedChatInput');
@@ -59,35 +61,44 @@ $(document).ready(function() {
         });
     }
 
-    displayCurrentChat = function (currentName, chatRoom){
+    checkerThread = function(chatRoom){
+        let oldMessages = 0;
+        getMessages(chatRoom, profileID);
+        if(messages != null){
+            if(messages.length > oldMessages) {
+                oldMessages = messages.length;
+                $('.openedChatBody').empty();
+                for (let i = 0; i < messages.length; i++) {
+                    let currentClass;
+                    if (messages[i].isReceived) currentClass = "yourLoversText";
+                    else currentClass = "myText";
+                    $('.openedChatBody').append(`<div class="${currentClass}">${(messages[i].message)}</div>`)
+                }
+            }
+        }
+    };
 
-        console.log('shemovida',currentName);
+    $("#dismissChat").on("click",clearInterval(checkerThreadID));
+
+    displayCurrentChat = function (currentName, chatRoom){
+        checkerThreadID = setInterval(function() {checkerThread(chatRoom)}, 500);
         $('#currentOpenChatName').text(currentName);
         $('.openedChatContainer').css('display', 'block');
         $('.chatsContainerBody').css('display', 'none');
         currentChatMessage.on('keydown', function (e){
             if (e.key == "Enter" && currentChatMessage.val() !== ""){
                 sendMessage(chatRoom, currentChatMessage.val());
+                $('.openedChatBody').append(`<div class="${"myText"}">${currentChatMessage.val()}</div>`);
                 currentChatMessage.val("") ;
             }
         });
         $('#sendMessageId').click(function (){
             if(currentChatMessage.val() !== ""){
                 sendMessage(chatRoom, currentChatMessage.val());
+                $('.openedChatBody').append(`<div class="${"myText"}">${currentChatMessage.val()}</div>`);
                 currentChatMessage.val("") ;
             }
         })
-        getMessages(chatRoom, profileID);
-        console.log(messages);
-        for(let i = 0; i < messages.length; i++){
-            let currentClass;
-            currentMessageToSend = messages[i].message;
-            console.log(currentMessageToSend);
-            if(messages[i].isReceived) currentClass = "yourLoversText";
-            else currentClass = "myText";
-            $('.openedChatBody').append(`<div class="${currentClass}">${currentMessageToSend}</div>`)
-        }
-
     }
 
     function getSuggestedUserImages() {
