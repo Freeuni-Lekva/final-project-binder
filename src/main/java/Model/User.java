@@ -14,6 +14,9 @@ public class User {
     private String email;
     private String username;
     private String password;
+
+    private boolean isBanned = false;
+    private boolean isAdmin = false;
     private boolean has_user_profile;
 
 
@@ -28,11 +31,26 @@ public class User {
         this.username = username;
         this.password = password; //hashed
         this.has_user_profile = has_user_profile;
-
-
     }
     public User(){
 
+    }
+
+
+    public boolean isBanned() {
+        return isBanned;
+    }
+
+    public void setBanned(boolean banned) {
+        isBanned = banned;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
     public void setUser_id(int user_id) {
         this.user_id = user_id;
@@ -89,5 +107,6 @@ public class User {
     public boolean getHas_user_profile(){
         return has_user_profile;
     }
+
 
 }

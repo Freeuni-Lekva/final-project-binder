@@ -15,7 +15,14 @@
     try{
         if(SessionsDAO.getUser_id(session.getId()) != -1){
             User user = UserDAO.getUserByID(SessionsDAO.getUser_id(session.getId()));
-            if(user.getHas_user_profile() == true){
+            if(user.isBanned()){
+                SessionsDAO.deleteSession(session.getId());
+                response.sendRedirect("login.jsp");
+            }
+            else if(user.isAdmin()){
+                response.sendRedirect("Admin.jsp");
+            }
+            else if(user.getHas_user_profile() == true){
                 response.sendRedirect("Home.jsp");
             }else{
                 response.sendRedirect("CompleteRegister.jsp");

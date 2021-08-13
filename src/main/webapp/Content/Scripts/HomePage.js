@@ -3,14 +3,9 @@ let hobbies = [];
 let currentDisplayUserModalID = -1;
 let userInfoModalsContainer = ['changePassword', 'changeEmail','changeUsername', 'changeLocation'];
 let displayCurrentChat;
+let chatDismiss;
 
 
-
-
-function chatDismiss(){
-    $('.openedChatContainer').css('display', 'none');
-    $('.chatsContainerBody').css('display', 'block');
-}
 
 
 
@@ -78,10 +73,16 @@ $(document).ready(function() {
         }
     };
 
-    $("#dismissChat").on("click",clearInterval(checkerThreadID));
+    chatDismiss = function(){
+        $('.openedChatContainer').css('display', 'none');
+        $('.chatsContainerBody').css('display', 'block');
+        clearInterval(checkerThreadID);
+        $('.openedChatBody').empty();
+        console.log("finished");
+    }
 
     displayCurrentChat = function (currentName, chatRoom){
-        checkerThreadID = setInterval(function() {checkerThread(chatRoom)}, 500);
+        checkerThreadID = setInterval(function() {checkerThread(chatRoom)}, 1);
         $('#currentOpenChatName').text(currentName);
         $('.openedChatContainer').css('display', 'block');
         $('.chatsContainerBody').css('display', 'none');
@@ -167,7 +168,8 @@ $(document).ready(function() {
             $("#DislikeButton").attr("style", "background: grey");
             $("#DisLikeButton").attr('disabled', 'true');
         } else {
-            $("#suggestionImage").attr("src", image);
+            console.log(image);
+            $("#suggestionImage").attr("src", "'" + (image == null) ? blankSuggestionImg :  image + "'");
             $("#suggestionName").text(suggestedUserName);
         }
 

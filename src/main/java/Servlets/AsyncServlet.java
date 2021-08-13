@@ -24,19 +24,7 @@ import java.util.List;
 public class AsyncServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        /*
-        List<String> list = new ArrayList<>();
-        try {
-            int ragaca = SessionsDAO.getUser_id(request.getSession(false).getId());
-             list = UserImagesDAO.getUserImages(ragaca);
-        String json = new Gson().toJson(list);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(json);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }*/
+        
     }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

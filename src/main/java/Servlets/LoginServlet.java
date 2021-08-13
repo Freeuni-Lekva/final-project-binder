@@ -34,12 +34,19 @@ public class LoginServlet extends HttpServlet {
             try {
                 User user = UserDAO.getUser(username,isUser);
                 if(user.getPassword().equals(password)){
-                    SessionsDAO.setSession(request.getSession(false).getId(),user.getUser_id());
-                    if(user.getHas_user_profile()){
+                    if(user.isAdmin()){
+                        rd = request.getRequestDispatcher("Admin.jsp");
+                    }else if(user.isBanned()){
+                        request.setAttribute("loginWrong", "Your are banned from this website!");
+                        rd = request.getRequestDispatcher("index.jsp");
+                        rd.forward(request,response);
+                        return;
+                    }else if(user.getHas_user_profile()){
                         rd = request.getRequestDispatcher("Home.jsp");
                     }else{
                         rd = request.getRequestDispatcher("CompleteRegister.jsp");
                     }
+                    SessionsDAO.setSession(request.getSession(false).getId(),user.getUser_id());
                     rd.forward(request, response);
                 }else{
                     request.setAttribute("loginWrong", "Wrong password");

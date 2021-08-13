@@ -17,6 +17,9 @@
         String name = "";
         try {
             User user = UserDAO.getUserByID(SessionsDAO.getUser_id(session.getId()));
+            if(user.getHas_user_profile()){
+                response.sendRedirect("Home.jsp");
+            }
             name = user.getUsername();
         } catch (SQLException ex) {
             response.sendRedirect("index.jsp");

@@ -5,5 +5,6 @@ Create table User(
     email varchar(30) unique,
     username varchar (30) unique,
     password varchar(30) ,
-    has_user_profile char(1) default 'N' check(has_user_profile in ('Y','N') or has_user_profile is null)
+    has_user_profile char(1) default 'N' check(has_user_profile in ('Y','N') or has_user_profile is null),
+    isAdmin boolean default false
 );

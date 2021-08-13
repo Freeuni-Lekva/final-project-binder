@@ -36,6 +36,8 @@ public class UserDAO {
         user.setUsername(rs.getString(5));
         user.setPassword(rs.getString(6));
         user.setHas_user_profile(rs.getString(7));
+        user.setAdmin(rs.getBoolean(8));
+        user.setBanned(rs.getBoolean(9));
         return user;
     }
     public static User getUserByID(int user_id) throws  SQLException{
@@ -55,6 +57,8 @@ public class UserDAO {
         user.setUsername(rs.getString(5));
         user.setPassword(rs.getString(6));
         user.setHas_user_profile(rs.getString(7));
+        user.setAdmin(rs.getBoolean(8));
+        user.setBanned(rs.getBoolean(9));
         return user;
     }
     public static User setUser(User user) throws SQLException, RegistrationException {
@@ -100,4 +104,13 @@ public class UserDAO {
         pstmt.setInt(7,user.getUser_id());
         pstmt.executeUpdate();
     }
+
+    public static void banUser(int user_id) throws SQLException {
+        PreparedStatement pstmt = con.prepareStatement("UPDATE user " +
+                " SET isBanned = true where user_id = ?"
+        );
+        pstmt.setInt(1,user_id);
+        pstmt.executeUpdate();
+    }
+
 }

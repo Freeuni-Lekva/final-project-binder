@@ -1,0 +1,124 @@
+.navMainContainer{
+    padding-right: 20px;
+    position: absolute;
+    left: 408px;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    width: calc(100% - 465px);
+    height: 80px;
+    padding-left: 40px;
+    justify-content: space-between;
+    align-items: center;
+    background: #E67826;
+}
+
+.userBoxContainer{
+    position: absolute;
+    top: 90px;
+    left: 408px;
+    width: calc(100% - 409px);
+    height: calc(100% - 98px);
+    display: flex;
+    background: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.userImage{
+    width: 120px;
+    height: 160px;
+}
+
+.userContainer{
+    padding: 10px;
+    height: 100%;
+    background: #E67826;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.userBanContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.userName{
+    font-size: 20px;
+    color: #ffffff;
+    font-weight: 300;
+}
+
+
+.userToggleButton{
+    cursor: pointer;
+    display: block;
+    width: 60px;
+    height: 60px;
+    border-radius: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navWelcome{
+    font-size: 25px;
+    color: white;
+}
+
+.navSignOut{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    font-size: 20px;
+    color: white;
+    position: relative;
+    width: 110px;
+}
+
+.signOutButton{
+    margin-top: 20px;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.bannedUsersContainer{
+    width: 400px;
+    position: absolute;
+    height: calc(100% - 8px);
+    background: #FFFFFF;
+    border: 2px solid #E67826;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    top: 0px;
+    left: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.bannedUsersContainer__Header{
+    position: absolute;
+    top: 0;
+    display: flex;
+    align-items: center;
+    width: calc(100% - 30px);
+    font-size: 40px;
+    color: #E67826;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: 1000;
+    border-bottom: 3px solid black;
+}

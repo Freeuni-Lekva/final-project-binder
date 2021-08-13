@@ -22,12 +22,20 @@
             response.sendRedirect("index.jsp");
         }
         String name = "";
-        String path = "";
         String sex = "";
         int id = 0;
         int profileID = 0;
         try {
             User user = UserDAO.getUserByID(SessionsDAO.getUser_id(session.getId()));
+
+            if(user.isBanned()){
+                SessionsDAO.deleteSession(session.getId());
+                response.sendRedirect("login.jsp");
+            }
+            else if(user.getHas_user_profile() == false){
+                response.sendRedirect("CompleteRegister.jsp");
+            }
+
             PersonalUserInfo userInfo = PersonalInfoDAO.getUserInfo(user.getUser_id());
             request.setAttribute("userInfo",userInfo);
             name = user.getUsername();
@@ -38,9 +46,6 @@
             ex.printStackTrace();
             response.sendRedirect("index.jsp");
         }
-
-        //ArrayList<string> imagePaths = UserImagesDAO.getUserImages(userInfo.getUser_profile_id)
-        //if(suggestion.getSuggestedUser == null) -> no suggested more users
     %>
 </head>
 <body>
