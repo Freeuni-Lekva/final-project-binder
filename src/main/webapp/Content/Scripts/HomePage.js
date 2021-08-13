@@ -145,6 +145,8 @@ $(document).ready(function() {
             dataType: "json",
             data: {"chat_room_id": chat_room_id, "user_profile_id": profileID, "message": msg},
             success: function (msg) {
+                let response = JSON.parse(msg);
+                let status = response.status;
                 if (status == 1) {
                     console.log("Message Sent");
                 }

@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
 
@@ -111,6 +113,35 @@ public class UserDAO {
         );
         pstmt.setInt(1,user_id);
         pstmt.executeUpdate();
+    }
+
+    public static void unbanUser(int user_id) throws SQLException {
+        PreparedStatement pstmt = con.prepareStatement("UPDATE user " +
+                " SET isBanned = false where user_id = ?"
+        );
+        pstmt.setInt(1,user_id);
+        pstmt.executeUpdate();
+    }
+
+    public static List<User> getBannedUsers() throws SQLException {
+        List<User> result = new ArrayList<>();
+        PreparedStatement pstmt = con.prepareStatement("Select * from User where isBanned = true");
+        ResultSet rs = pstmt.executeQuery();
+
+        while(rs.next()) {
+            User user = new User();
+            user.setUser_id(rs.getInt(1));
+            user.setName(rs.getString(2));
+            user.setSurname(rs.getString(3));
+            user.setEmail(rs.getString(4));
+            user.setUsername(rs.getString(5));
+            user.setPassword(rs.getString(6));
+            user.setHas_user_profile(rs.getString(7));
+            user.setAdmin(rs.getBoolean(8));
+            user.setBanned(rs.getBoolean(9));
+            result.add(user);
+        }
+        return result;
     }
 
 }

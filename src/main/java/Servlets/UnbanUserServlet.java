@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 
-@WebServlet(name = "BanUserServlet", value = "/BanUserServlet")
-public class BanUserServlet extends HttpServlet{
+@WebServlet(name = "UnbanUserServlet", value = "/UnbanUserServlet")
+public class UnbanUserServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -26,8 +26,7 @@ public class BanUserServlet extends HttpServlet{
         PrintWriter out = resp.getWriter();
 
         try{
-            UserDAO.banUser(user_id);
-            SessionsDAO.deleteSession(user_id);
+            UserDAO.unbanUser(user_id);
             out.print("{\"status\":1}");
             return;
         } catch (SQLException ex) {
