@@ -52,6 +52,13 @@ public class SessionsDAO {
                 "DELETE from SESSIONS" );
         pstmt.executeUpdate();
     }
+    public static void deleteSession(int user_ID) throws SQLException{
+        con = MyDatabase.getConnection();
+        PreparedStatement pstmt = con.prepareStatement(
+                "DELETE from SESSIONS WHERE user_id = ?" );
+        pstmt.setInt(1,user_ID);
+        pstmt.executeUpdate();
+    }
 
 
 }

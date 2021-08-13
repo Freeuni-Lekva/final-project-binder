@@ -51,6 +51,11 @@
 
     <div class="navMainContainer">
         <span class="navWelcome"></span>
+        <div class="searchForUserContainer">
+            <input class="searchForUserInput" placeholder="Search for User">
+            <i style="color: white; cursor: pointer" class="fas fa-search fa-2x"></i>
+
+        </div>
         <div class="navSignOut">
             <span>Log out</span>
             <form action="LogoutServlet" method="post">
