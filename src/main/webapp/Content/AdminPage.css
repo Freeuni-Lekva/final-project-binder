@@ -19,28 +19,38 @@
     left: 408px;
     width: calc(100% - 409px);
     height: calc(100% - 98px);
-    display: flex;
+    display: none;
     background: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.userImage{
-    width: 120px;
-    height: 160px;
-}
+
 
 .userContainer{
+    width: 500px;
     padding: 10px;
     height: 100%;
     background: #E67826;
     border-radius: 10px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
     gap: 10px;
+}
+
+.userContainerHeader{
+    padding-bottom: 10px;
+    width: 500px;
+    display: flex;
+    color: #ffffff;
+    font-size: 20px;
+    justify-content: space-around;
+    border-bottom: 2px solid white;
+    margin-bottom: 20px;
+
 }
 
 .userBanContainer{
@@ -67,6 +77,74 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.userImageandInfoContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.userInfoBox{
+    width: 230px;
+    display: flex;
+    gap: 7px;
+    flex-direction: column;
+}
+
+.userBanButton{
+    cursor: pointer;
+    width: 100px;
+    height: 50px;
+    background: none;
+    border: 2px solid red;
+    color: red;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-weight: 800;
+    margin-top: 30px;
+}
+
+.userUnbanButton{
+    cursor: pointer;
+    width: 100px;
+    height: 50px;
+    background: none;
+    border: 2px solid #6ADB58;
+    color: #6ADB58;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-weight: 800;
+    margin-top: 30px;
+}
+.userIsAdminDisplay{
+    cursor: pointer;
+    width: 100px;
+    height: 50px;
+    background: none;
+    border: 2px solid white;
+    color: white;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-weight: 800;
+    margin-top: 30px;
+}
+
+.userInfoValue{
+    color: #ffffff;
+    font-size: 20px;
+}
+
+
+.userContainerImage{
+    width: 200px;
+    height: 300px;
 }
 
 .navWelcome{

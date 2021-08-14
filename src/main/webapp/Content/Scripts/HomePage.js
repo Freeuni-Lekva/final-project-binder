@@ -171,7 +171,7 @@ $(document).ready(function() {
             $("#DisLikeButton").attr('disabled', 'true');
         } else {
             console.log(image);
-            $("#suggestionImage").attr("src", "'" + (image == null) ? blankSuggestionImg :  image + "'");
+            $("#suggestionImage").attr("src",  (image == null ? blankSuggestionImg :  image));
             $("#suggestionName").text(suggestedUserName);
         }
 

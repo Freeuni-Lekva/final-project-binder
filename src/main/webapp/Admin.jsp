@@ -37,10 +37,31 @@
 
     <div class="userBoxContainer">
         <div class="userContainer">
-            <span class="userName" id = "userName" val = "">No more users</span>
-            <img class="userImage" id = "userImage" src="">
-            <div class="userBanContainer">
-
+            <div class="userContainerHeader" id = "userName" val = "">
+                <span id="currentUserUsername">
+                </span>
+                <span id="currentUserStatus">
+                </span>
+            </div>
+            <div class="userImageandInfoContainer">
+                <img  class="userContainerImage" src="Content/Images/DEFAULT_UNI_PROFILE.jpg">
+                <div class="userInfoBox">
+                    <span id="currentUserAge" class="userInfoValue"></span>
+                    <span id="currentUserSex" class="userInfoValue"></span>
+                    <span id="currentUserCity" class="userInfoValue"></span>
+                    <span id="currentUserName" class="userInfoValue"></span>
+                    <span id="currentUserSurname" class="userInfoValue"></span>
+                    <span id="currentUserEmail" class="userInfoValue"></span>
+                </div>
+            </div>
+            <button  class="userBanButton">
+                Ban User
+            </button>
+            <button  class="userUnbanButton">
+                Unban User
+            </button>
+            <div  class="userIsAdminDisplay">
+                User is Admin
             </div>
         </div>
     </div>
@@ -53,7 +74,7 @@
         <span class="navWelcome"></span>
         <div class="searchForUserContainer">
             <input class="searchForUserInput" placeholder="Search for User">
-            <i style="color: white; cursor: pointer" class="fas fa-search fa-2x"></i>
+            <i id="searchForUserId" style="color: white; cursor: pointer" class="fas fa-search fa-2x"></i>
 
         </div>
         <div class="navSignOut">

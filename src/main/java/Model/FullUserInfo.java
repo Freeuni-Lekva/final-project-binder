@@ -3,7 +3,7 @@ package Model;
 import Enums.City;
 import Enums.Hobbies;
 
-public class FullUserInfo extends User {
+public class FullUserInfo {
     private String name;
     private String surname;
     private String email;

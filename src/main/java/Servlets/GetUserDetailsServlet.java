@@ -31,11 +31,20 @@ public class GetUserDetailsServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int user_id = Integer.parseInt(req.getParameter("user_ID"));
+        int user_id = Integer.parseInt(req.getParameter("userID"));
         PrintWriter out = resp.getWriter();
         try{
             User user = UserDAO.getUserByID(user_id);
-            FullUserInfo fullInfo = (FullUserInfo) user;
+            FullUserInfo fullInfo = new FullUserInfo();
+            fullInfo.setUsername(user.getUsername());
+            fullInfo.setAdmin(user.isAdmin());
+            fullInfo.setEmail(user.getEmail());
+            fullInfo.setHas_user_profile(user.getHas_user_profile());
+            fullInfo.setName(user.getName());
+            fullInfo.setSurname(user.getSurname());
+            fullInfo.setBanned(user.isBanned());
+            System.out.println(user_id);
+            System.out.println(user.isBanned());
             if(user.getHas_user_profile()){
                 PersonalUserInfo userInfo = PersonalInfoDAO.getUserInfo(user_id);
                 fullInfo.setAge(userInfo.getAge());
@@ -47,7 +56,7 @@ public class GetUserDetailsServlet extends HttpServlet {
                     fullInfo.setImage(image);
                 }catch (SQLException ex){
                     ex.printStackTrace();
-                    String image = (fullInfo.getSex() == "MALE") ? DEFAULT_IMAGE_MALE : DEFAULT_IMAGE_FEMALE;
+                    String image =  DEFAULT_IMAGE_MALE;
                     fullInfo.setImage(image);
                 }
             }
@@ -55,6 +64,7 @@ public class GetUserDetailsServlet extends HttpServlet {
             out.write(json);
         } catch (SQLException ex) {
             ex.printStackTrace();
+            out.print("{\"status\":1}");
         }
 
     }
