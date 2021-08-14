@@ -1,8 +1,6 @@
 $(document).ready(function() {
 
-    let id = 327;
-    unbanUser();
-
+    let id = null;
     let userInfo = null;
     let bannedUsers = null;
 
@@ -35,12 +33,12 @@ $(document).ready(function() {
         });
     }
 
-    function banUser() {
+    function banUser(user_id) {
         $.ajax({
             async: false,
             type: "POST",
             url: "BanUserServlet",
-            data: {"userID": id},
+            data: {"userID": user_id},
             success: function (msg) {
                 let response = JSON.parse(msg);
                 let status = response.status;
@@ -57,12 +55,12 @@ $(document).ready(function() {
         });
     }
 
-    function unbanUser(){
+    function unbanUser(user_id){
         $.ajax({
             async: false,
             type: "POST",
             url: "UnbanUserServlet",
-            data: {"userID": id},
+            data: {"userID": user_id},
             success: function (msg) {
                 let response = JSON.parse(msg);
                 let status = response.status;
