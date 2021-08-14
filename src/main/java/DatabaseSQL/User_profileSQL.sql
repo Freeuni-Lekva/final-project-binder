@@ -6,22 +6,22 @@ Create table User_profile(
     age varchar(30),
     phone_number varchar(30),
     hobbies varchar(300),
-    sex varchar(7) check(sex in ('MALE','FEMALE') or sex is null),
+    sex varchar(7) not null check(sex in ('MALE','FEMALE') ),
     user_id int unique,
-    foreign key  (user_id) references binder.user(user_id) on update cascade on delete cascade
+    foreign key  (user_id) references user(user_id) on update cascade on delete cascade
 );
 delimiter //
 Create trigger user_profile_trigger_after_delete after delete
-    on binder.user_profile
+    on user_profile
     for each row
-    update binder.user
+    update user
     set user.has_user_profile = 'N'
     where user.user_id = old.user_id
         //
                          delimiter ;
 delimiter //
 Create trigger user_profile_trigger_before_insert before insert
-    on binder.user_profile
+    on user_profile
     for each row
     if new.username is null then
     set new.username = ( select username
