@@ -6,6 +6,7 @@
 <html>
 <head>
     <title>Binder</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/9bff1b7661.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="Content/HomePage.css">
     <script src="Content/Scripts/HomePage.js"></script>

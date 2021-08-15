@@ -528,6 +528,13 @@ html,body{
     left: 89px;
 }
 
+.displayHobbiesContainer{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
 
 
 ::-webkit-scrollbar {

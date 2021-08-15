@@ -1,10 +1,10 @@
 
 .suggestionBoxContainer{
     position: absolute;
-    top: 90px;
+    top: 92px;
     left: 408px;
     width: calc(100% - 409px);
-    height: calc(100% - 98px);
+    height: calc(100% - 110px);
     display: flex;
     background: none;
     flex-direction: column;
@@ -14,7 +14,7 @@
 
 .suggestionImage{
     width: 300px;
-    height: 400px;
+    height: 325px;
 }
 
 .suggestionContainer{

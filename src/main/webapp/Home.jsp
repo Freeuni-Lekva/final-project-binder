@@ -55,6 +55,8 @@
         <span id = "suggestedUserGender" hidden><%out.write(sex);%></span>
         <span id = "currentUserID" hidden><%out.write(String.valueOf(id));%></span>
         <span id = "currentUserProfileID" hidden><%out.write(String.valueOf(profileID));%></span>
+        <span style="font-size: 16px; color: white" id="currentUserProfileAge"></span>
+        <div class="displayHobbiesContainer"></div>
         <img class="suggestionImage" id = "suggestionImage" src="">
         <div class="suggestionButtonsContainer">
             <button  id = "LikeButton" style="background: #2AFE14" class="suggestionToggleButton">
@@ -96,7 +98,7 @@
     </div>
     <div class="openedChatContainer">
         <div class="openedChatHeader">
-            <span id="currentOpenChatName">dfgdgf</span>
+            <span id="currentOpenChatName"></span>
             <i id = "dismissChat" onclick="chatDismiss()" class="fas fa-times closeToggle"></i>
         </div>
         <div class="openedChatBody">

@@ -16,8 +16,9 @@ $(document).ready(function() {
     let suggestedUserName = null;
     let suggestedUserAge = null;
     let sex = $("#suggestedUserGender").text();
-    var id = $("#currentUserID").text();
-    var profileID = $("#currentUserProfileID").text();
+    let id = $("#currentUserID").text();
+    let profileID = $("#currentUserProfileID").text();
+    let currentUserAge = $('#currentUserProfileAge');
     let image = null;
     let blankSuggestionImg = "Content/Images/" + (((sex === 'MALE') ? 'DEFAULT_THUMB_FEMALE.jpg' : 'DEFAULT_THUMB_MALE.jpg'));
     let chats = null;
@@ -48,6 +49,7 @@ $(document).ready(function() {
                     suggestedUserID = msg[0];
                     suggestedUserName = msg[1];
                     suggestedUserAge = msg[2];
+                    currentUserAge.text(`Age: ${msg[2]}`);
                 }
             },
             error: function (msg) {
@@ -168,11 +170,13 @@ $(document).ready(function() {
             $("#LikeButton").attr("style", "background: grey");
             $("#LikeButton").attr('disabled', 'true');
             $("#DislikeButton").attr("style", "background: grey");
-            $("#DisLikeButton").attr('disabled', 'true');
+            $("#DislikeButton").attr('disabled', 'true');
+            currentUserAge.css('display', 'none');
         } else {
             console.log(image);
             $("#suggestionImage").attr("src",  (image == null ? blankSuggestionImg :  image));
             $("#suggestionName").text(suggestedUserName);
+            currentUserAge.css('display', 'block');
         }
 
     }
