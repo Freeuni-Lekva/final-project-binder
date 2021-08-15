@@ -156,7 +156,7 @@ $(document).ready(function() {
                 } catch (e) {
                     suggestedUserID = msg[0];
                     suggestedUserName = msg[1];
-                    suggestedUserAge = msg[2];
+                    currentUserAge.text(msg[2]);
                 }
             },
             error: function (msg) {

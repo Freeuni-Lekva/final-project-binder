@@ -235,10 +235,9 @@
                     if(ErrorMessage != null)
                     {
                         System.out.println(ErrorMessage);
-                        out.print("<p style="color:red">" + ErrorMessage + "</p>");
+                        out.print("<p style=\"color:red\">" + ErrorMessage + "</p>");
                     }
                 %>
-
                 <button class="submitButton" type="submit" class="registerButton">
                     Complete Registration</button>
             </div>

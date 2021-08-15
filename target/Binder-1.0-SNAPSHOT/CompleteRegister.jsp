@@ -230,6 +230,14 @@
                     </div>
                     <input  class="genderInput"  style="display: none" name="sex" class="forms">
                 </div>
+                <%
+                    String ErrorMessage = (String) request.getAttribute("ErrorMessage");
+                    if(ErrorMessage != null)
+                    {
+                        System.out.println(ErrorMessage);
+                        out.print("<p style=\"color:red\">" + ErrorMessage + "</p>");
+                    }
+                %>
                 <button class="submitButton" type="submit" class="registerButton">
                     Complete Registration</button>
             </div>
