@@ -1,7 +1,8 @@
 package Servlets;
 
-import DAO.ActionDAO;
-import DAO.MatchesDAO;
+import DAO.*;
+import Model.PersonalUserInfo;
+import Model.User;
 import org.apache.commons.io.IOExceptionList;
 
 import javax.servlet.RequestDispatcher;
@@ -37,6 +38,12 @@ public class LikeAndDislikeActionServlet extends HttpServlet {
         int action = Integer.valueOf(request.getParameter("action"));
         String sex = request.getParameter("sex");
         try {
+            PersonalUserInfo user = PersonalInfoDAO.getUserInfoByPersonalID(actor);
+            if(SessionsDAO.getUser_id(request.getSession(false).getId()) != user.getUser_id()){
+                out.print("{\"status\":2}");
+                return;
+            }
+
             ActionDAO.Action(actor,subject,action);
             if(action == 1 && ActionDAO.isMatch(subject,actor) == 1){
                 if(sex.equals("MALE")) {

@@ -2,7 +2,12 @@ package Servlets;
 
 
 import DAO.MessagesDAO;
+import DAO.PersonalInfoDAO;
+import DAO.SessionsDAO;
+import DAO.UserDAO;
 import Model.Message;
+import Model.PersonalUserInfo;
+import Model.User;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
@@ -30,11 +35,20 @@ public class GetMessagesServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         try{
+            PersonalUserInfo userInfo = PersonalInfoDAO.getUserInfoByPersonalID(user_profile_id);
+            int logged_user_id = SessionsDAO.getUser_id(request.getSession(false).getId());
+            if(userInfo.getUser_id() != logged_user_id){
+                out.print("{\"status\":1}");
+                return;
+            }
+
             List<Message> messages = MessagesDAO.getMessages(chat_room_id,user_profile_id);
             String json = (new Gson()).toJson(messages);
             out.write(json);
         }catch (SQLException ex){
             ex.printStackTrace();
+            out.print("{\"status\":2}");
+            return;
         }
 
     }

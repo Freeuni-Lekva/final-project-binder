@@ -124,6 +124,7 @@ $(document).ready(function() {
                 userInfo = JSON.parse(msg);
 
                 if(userInfo.status == 1) alert("user was not found");
+                else if(userInfo.status == 2) alert("You do not have permission!");
                 else {
                     setCurrentUserInfo();
                     $('.userBoxContainer').css('display', 'flex');
@@ -144,6 +145,11 @@ $(document).ready(function() {
             url: "GetBannedUsersServlet",
             success: function (msg) {
                 bannedUsers = JSON.parse(msg);
+                if(bannedUsers.status == 2){
+                    alert("Something is Wrong");
+                }else if (bannedUsers.status == 3){
+                    alert("You do not have permission!");
+                }
             },
             error: function (msg) {
                 alert("Unexpected Error!");
@@ -166,7 +172,9 @@ $(document).ready(function() {
                     displayBannedUsers();
                 }
                 else if (status == 2){
-                    console.log("Something went wrong");
+                    alert("Something went wrong");
+                }else if (status == 3){
+                    alert("You do not have permission!");
                 }
             },
             error: function (msg) {

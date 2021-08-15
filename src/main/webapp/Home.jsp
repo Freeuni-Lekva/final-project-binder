@@ -34,6 +34,8 @@
             }
             else if(user.getHas_user_profile() == false){
                 response.sendRedirect("CompleteRegister.jsp");
+            }else if(user == null){
+                response.sendRedirect("login.jsp");
             }
 
             PersonalUserInfo userInfo = PersonalInfoDAO.getUserInfo(user.getUser_id());
