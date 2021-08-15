@@ -92,6 +92,13 @@ public class UserDAO {
             return user;
         }
     }
+    public static void deleteUser(User user) throws SQLException {
+
+        PreparedStatement pstmt = con.prepareStatement("DELETE FROM user " +
+                " where user_id = ? " );
+        pstmt.setInt(1,user.getUser_id());
+        pstmt.executeUpdate();
+    }
     public static void updateUser(User user) throws SQLException {
         PreparedStatement pstmt = con.prepareStatement("UPDATE user " +
                 " SET name = ? , surname = ? , email = ? , username = ? , password = ? , has_user_profile = ? " +
