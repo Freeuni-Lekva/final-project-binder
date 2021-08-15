@@ -64,29 +64,29 @@
                     <div id="LONG_WALKS_ON_THE_BEACH" class="hobbieElement" onclick="chooseHobbie('LONG_WALKS_ON_THE_BEACH')" >
                         Long walks on beach
                     </div>
-                    <div id="HOBBY2" class="hobbieElement" onclick="chooseHobbie('HOBBY2')">
-                        HOBBY2
+                    <div id="CHESS" class="hobbieElement" onclick="chooseHobbie('CHESS')">
+                        Chess
                     </div>
-                    <div id="HOBBY3" class="hobbieElement" onclick="chooseHobbie('HOBBY3')">
-                        HOBBY3
+                    <div id="YOGA" class="hobbieElement" onclick="chooseHobbie('YOGA')">
+                        Yoga
                     </div>
-                    <div id="HOBBY4" class="hobbieElement" onclick="chooseHobbie('HOBBY4')">
-                        HOBBY4
+                    <div id="EATING" class="hobbieElement" onclick="chooseHobbie('EATING')">
+                        Eating
                     </div>
-                    <div id="HOBBY5" class="hobbieElement" onclick="chooseHobbie('HOBBY5')">
-                        HOBBY5
+                    <div id="FISHING" class="hobbieElement" onclick="chooseHobbie('FISHING')">
+                        Fishing
                     </div>
-                    <div id="HOBBY6" class="hobbieElement" onclick="chooseHobbie('HOBBY6')">
-                        HOBBY6
+                    <div id="KUNG_FU" class="hobbieElement" onclick="chooseHobbie('KUNG_FU')">
+                        Kung Fu
                     </div>
-                    <div id="HOBBY7" class="hobbieElement" onclick="chooseHobbie('HOBBY7')">
-                        HOBBY7
+                    <div id="COLLECTING_TEA_BAGS" class="hobbieElement" onclick="chooseHobbie('COLLECTING_TEA_BAGS')">
+                        Collecting tea bags
                     </div>
-                    <div id='HOBBY8'class="hobbieElement" onclick="chooseHobbie('HOBBY8')">
-                        HOBBY8
+                    <div id='MUSIC'class="hobbieElement" onclick="chooseHobbie('MUSIC')">
+                        Music
                     </div>
-                    <div id="HOBBY9" class="hobbieElement" onclick="chooseHobbie('HOBBY9')">
-                        HOBBY9
+                    <div id="ANIMALS" class="hobbieElement" onclick="chooseHobbie('ANIMALS')">
+                        Animals
                     </div>
                 </div>
                 <input id="OutputHobbies"  style="display: none" name="hobbies" class="forms">

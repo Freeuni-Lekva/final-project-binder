@@ -57,6 +57,9 @@ public class PersonalInfoServlet extends HttpServlet {
             PersonalUserInfo userInfo = new PersonalUserInfo(username, dateOfBirth, phoneNumber, city, hobbies, sex, user_id);
             User currUser;
             userInfo.setAge(PersonalUserInfo.getCurrentAge(userInfo.getDateOfBirth(),"d/M/yyyy"));
+            if(userInfo.getAge() < 18 || userInfo.getAge() > 99){
+                request.setAttribute("ErrorMessage","Your age doesn't meet registration requirement");
+            }
             currUser = UserDAO.getUserByID(user_id);
             currUser.setHas_user_profile("Y");
             userInfo.setUser_id(currUser.getUser_id());
