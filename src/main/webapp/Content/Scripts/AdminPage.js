@@ -57,7 +57,7 @@ $(document).ready(function() {
         if(userInfo.has_user_profile){
             currentUserAge.text(`Age: ${userInfo.age}`);
             currentUserCity.text(`City: ${userInfo.city}`);
-            if(userInfo.image != null){
+            if(userInfo.image != "null"){
                 currentUserImage.attr('src', userInfo.image);
             }
         }else{

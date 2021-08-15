@@ -53,6 +53,7 @@ public class GetUserDetailsServlet extends HttpServlet {
                 fullInfo.setPhoneNumber(userInfo.getPhoneNumber());
                 try{
                     String image = UserImagesDAO.getUserImages(userInfo.getUser_profile_id());
+                    if(image.isEmpty()) image = "null";
                     fullInfo.setImage(image);
                 }catch (SQLException ex){
                     ex.printStackTrace();

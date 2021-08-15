@@ -46,6 +46,7 @@ $(document).ready(function() {
                         suggestedUserID = null;
                     }
                 } catch (e) {
+                    console.log(msg);
                     suggestedUserID = msg[0];
                     suggestedUserName = msg[1];
                     suggestedUserAge = msg[2];
