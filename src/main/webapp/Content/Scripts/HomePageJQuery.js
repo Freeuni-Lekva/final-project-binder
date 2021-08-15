@@ -34,6 +34,21 @@ function removeHobbie(element){
     hobbies = hobbies.filter(v => v !== element);
 }
 
+function getSuggestedUserHobbies(){
+    $.ajax({
+        async: false,
+        type: "POST",
+        url: "GetUserHobbiesServlet",
+        data: {"user_personal_id": suggestedUserID},
+        success: function (msg) {
+            hobbies = msg;
+        },
+        error: function (msg) {
+            console.log("Unable to get Hobbies");
+        }
+    });
+}
+
 
 function changeDate(id, number){
     document.getElementById(id).textContent = number;
