@@ -7,6 +7,7 @@ import java.awt.*;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.stream.Stream;
@@ -129,6 +130,9 @@ public class PersonalUserInfo {
 
     public static int getCurrentAge(String date , String format){
         LocalDate now = LocalDate.now();
+        if(date == null){
+            date = "";
+        }
         LocalDate birthDate = LocalDate.parse(date, DateTimeFormatter.ofPattern(format));
         int age = Period.between(birthDate,now).getYears();
         return age;
