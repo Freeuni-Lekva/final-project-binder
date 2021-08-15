@@ -6,5 +6,6 @@ Create table User(
     username varchar (30) unique,
     password varchar(30) ,
     has_user_profile char(1) default 'N' check(has_user_profile in ('Y','N') or has_user_profile is null),
-    isAdmin boolean default false
+    isAdmin boolean default false,
+    isBanned boolean default false
 );

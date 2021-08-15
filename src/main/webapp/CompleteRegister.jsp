@@ -17,9 +17,15 @@
         String name = "";
         try {
             User user = UserDAO.getUserByID(SessionsDAO.getUser_id(session.getId()));
-            if(user.getHas_user_profile()){
+            if(user.isBanned()){
+                SessionsDAO.deleteSession(session.getId());
+                response.sendRedirect("login.jsp");
+            }else if(user == null){
+                response.sendRedirect("login.jsp");
+            }else if(user.getHas_user_profile()){
                 response.sendRedirect("Home.jsp");
             }
+
             name = user.getUsername();
         } catch (SQLException ex) {
             response.sendRedirect("index.jsp");

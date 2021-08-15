@@ -2,6 +2,7 @@ package Servlets;
 
 
 import DAO.PersonalInfoDAO;
+import DAO.SessionsDAO;
 import DAO.UserDAO;
 import DAO.UserImagesDAO;
 import Model.FullUserInfo;
@@ -34,6 +35,13 @@ public class GetUserDetailsServlet extends HttpServlet {
         int user_id = Integer.parseInt(req.getParameter("userID"));
         PrintWriter out = resp.getWriter();
         try{
+            User logged_in_user = UserDAO.getUserByID(SessionsDAO.getUser_id(req.getSession(false).getId()));
+            if (!logged_in_user.isAdmin()) {
+                out.print("{\"status\":2}");
+                return;
+            }
+
+
             User user = UserDAO.getUserByID(user_id);
             FullUserInfo fullInfo = new FullUserInfo();
             fullInfo.setUsername(user.getUsername());

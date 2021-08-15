@@ -41,7 +41,7 @@ $(document).ready(function() {
             success: function (msg) {
                 try {
                     let response = JSON.parse(msg).status;
-                    if (response == 0) {
+                    if (response === 0) {
                         suggestedUserID = null;
                     }
                 } catch (e) {
@@ -114,7 +114,8 @@ $(document).ready(function() {
                     image = msg;
                 },
                 error: function (msg) {
-                    alert("No images");
+                    image = null;
+                    console.log("No Images");
                 }
             });
         }
@@ -129,6 +130,11 @@ $(document).ready(function() {
             data: {"chat_room_id": chat_room_id, "user_profile_id": profileID},
             success: function (msg) {
                 messages = msg;
+                if(msg.status == 1){
+                    alert("You are not a participant!");
+                }else if (msg.status == 2){
+                    alert("Something went wrong!");
+                }
             },
             error: function (msg) {
                 alert("No messages");
@@ -145,13 +151,14 @@ $(document).ready(function() {
             dataType: "json",
             data: {"chat_room_id": chat_room_id, "user_profile_id": profileID, "message": msg},
             success: function (msg) {
-                let response = JSON.parse(msg);
-                let status = response.status;
-                if (status == 1) {
+                let response = msg;
+                if (response.status == 1) {
                     console.log("Message Sent");
                 }
-                else if (status == 2){
-                    console.log("Something went wrong");
+                else if (response.status == 2){
+                    alert("Something went wrong");
+                }else if (response.status == 3){
+                    alert("You must be logged in!");
                 }
             },
             error: function (msg) {
@@ -171,7 +178,9 @@ $(document).ready(function() {
             $("#DisLikeButton").attr('disabled', 'true');
         } else {
             console.log(image);
-            $("#suggestionImage").attr("src",  (image == null ? blankSuggestionImg :  image));
+            image = (image == null) ? blankSuggestionImg :  image;
+            console.log(image);
+            $("#suggestionImage").attr("src", image);
             $("#suggestionName").text(suggestedUserName);
         }
 
@@ -231,11 +240,11 @@ $(document).ready(function() {
                         displaySuggestedUser();
                         console.log("acts: status 1");
                     } else if (status == 2) {
+                        console.log("acts: status 2");
                         suggestedUserID = null;
                         suggestedUserName = null;
                         suggestedUserAge = null;
                         displaySuggestedUser();
-                        console.log("acts: status 2");
                     } else if (status == 3) {
                         getChats();
                         console.log(chats[0]);

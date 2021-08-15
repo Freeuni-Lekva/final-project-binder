@@ -54,6 +54,7 @@ public class ImageDownloadServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request,response);
         }
+        PrintWriter out = response.getWriter();
 
         if(ServletFileUpload.isMultipartContent(request)) {
             try {
@@ -62,14 +63,6 @@ public class ImageDownloadServlet extends HttpServlet {
                 String username = userInfo.getUsername();
                 user_id = userInfo.getUser_profile_id();
 
-                /*
-                int imageCount = UserImagesDAO.getUserImages(user_id).size();
-                if(imageCount >= 3){
-                    PrintWriter out = response.getWriter();
-                    out.print("{\"status\":1}");
-                    return;
-                }*/
-
                 Collection<Part> parts = request.getParts();
                 for(Part p : parts){
                     InputStream fileContent = p.getInputStream();
@@ -77,14 +70,9 @@ public class ImageDownloadServlet extends HttpServlet {
                     String fileName = Paths.get(p.getSubmittedFileName()).getFileName().toString();
                     String fileExtension = fileName.split("\\.")[1];
                     if(!"jpg,png,gif,jpeg".contains(fileExtension)){
-                        PrintWriter out = response.getWriter();
                         out.print("{\"status\":2}");
                         return;
                     }
-                    /*
-                    String relativePath = "Content\\User_Files\\" + username + imageCount + "." + fileExtension;
-                    String htmlPath = "Content/User_Files/" + username + imageCount + "." + fileExtension;
-                    */
                     String relativePath = "Content\\User_Files\\" + username  + "." + fileExtension;
                     String htmlPath = "Content/User_Files/" + username  + "." + fileExtension;
                     File targetFile = new File( request.getSession(false).getServletContext().getRealPath("") + relativePath);
@@ -94,7 +82,6 @@ public class ImageDownloadServlet extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            PrintWriter out = response.getWriter();
             out.print("{\"status\":3}");
         }
     }

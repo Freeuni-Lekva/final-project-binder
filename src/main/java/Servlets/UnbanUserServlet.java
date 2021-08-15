@@ -3,6 +3,7 @@ package Servlets;
 
 import DAO.SessionsDAO;
 import DAO.UserDAO;
+import Model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,6 +27,12 @@ public class UnbanUserServlet extends HttpServlet{
         PrintWriter out = resp.getWriter();
 
         try{
+            int logged_user_id = SessionsDAO.getUser_id(req.getSession(false).getId());
+            User user = UserDAO.getUserByID(logged_user_id);
+            if(user.isAdmin() == false){
+                out.print("{\"status\":3}");
+                return;
+            }
             UserDAO.unbanUser(user_id);
             out.print("{\"status\":1}");
             return;

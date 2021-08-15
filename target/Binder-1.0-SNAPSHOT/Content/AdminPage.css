@@ -239,6 +239,7 @@ body{
 }
 
 .bannedUserValue{
+    cursor: pointer;
     margin-bottom: 10px;
     border-radius: 8px;
     background: #BE0426;
