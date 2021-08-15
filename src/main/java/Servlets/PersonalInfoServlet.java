@@ -65,9 +65,15 @@ public class PersonalInfoServlet extends HttpServlet {
             rd = request.getRequestDispatcher("Home.jsp");
             rd.forward(request, response);
         }catch (DateTimeParseException ex){
+            request.setAttribute("ErrorMessage","Please enter correct date!");
             ex.printStackTrace();
             rd.forward(request,response);
         } catch (RegistrationException | SQLException ex){
+            request.setAttribute("ErrorMessage","Please enter correct information!");
+            ex.printStackTrace();
+            rd.forward(request,response);
+        }catch(IllegalArgumentException ex){
+            request.setAttribute("ErrorMessage","Please fill all fields correctly!");
             ex.printStackTrace();
             rd.forward(request,response);
         }

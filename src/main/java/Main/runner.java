@@ -4,7 +4,6 @@ import DAO.PersonalInfoDAO;
 import DAO.UserDAO;
 import DAO.UserImagesDAO;
 import Exceptions.RegistrationException;
-import Implementations.Suggestion;
 import Model.PersonalUserInfo;
 import Model.User;
 

@@ -4,7 +4,6 @@
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="DAO.PersonalInfoDAO" %>
 <%@ page import="Model.PersonalUserInfo" %>
-<%@ page import="Implementations.Suggestion" %>
 <%@ page import="DAO.UserImagesDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -14,7 +13,7 @@
     <link rel="stylesheet" href="Content/HomePage.css">
     <link rel="stylesheet" href="Content/Suggestion.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="Content/Scripts/HomePage.js"></script>
+    <script src="Content/Scripts/HomePageJQuery.js"></script>
 
     <%
         if(session == null){
