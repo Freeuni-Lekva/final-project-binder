@@ -33,6 +33,7 @@
     <h1>Welcome Admin</h1>
     <div class="bannedUsersContainer">
         <span class="bannedUsersContainer__Header">Banned Users</span>
+        <div class="bannedUserBody"></div>
     </div>
 
     <div class="userBoxContainer">

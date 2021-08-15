@@ -1,3 +1,5 @@
+let chooseBannedUser;
+
 $(document).ready(function() {
 
     let id = null;
@@ -23,6 +25,8 @@ $(document).ready(function() {
     let isAdmin = $('.userIsAdminDisplay');
 
     getBannedUsers();
+    console.log(bannedUsers);
+    displayBannedUsers();
 
     BanButton.on('click', function(){
         BanButton.css('display', 'none');
@@ -92,6 +96,23 @@ $(document).ready(function() {
             }else BanButton.css('display', 'flex');
         }
     }
+     chooseBannedUser = function (currid){
+        id = currid;
+        getUserInfo();
+    }
+
+    function displayBannedUsers(){
+        $('.bannedUserBody').html("");
+        if(bannedUsers.length != 0){
+            for(let i = 0; i < bannedUsers.length; i++){
+                $('.bannedUserBody').append(`<div class='bannedUserValue' 
+                onclick="chooseBannedUser(${bannedUsers[i].user_id})">
+                    <span>ID: ${bannedUsers[i].user_id}</span>
+                    <span>Username: ${bannedUsers[i].username}</span>
+                </div>`)
+            }
+        }
+    }
 
     function getUserInfo() {
         $.ajax({
@@ -116,12 +137,13 @@ $(document).ready(function() {
     }
 
     function getBannedUsers(){
+        console.log('shemovida aq');
         $.ajax({
             async: false,
             type: "POST",
             url: "GetBannedUsersServlet",
             success: function (msg) {
-                bannedUsers = msg;
+                bannedUsers = JSON.parse(msg);
             },
             error: function (msg) {
                 alert("Unexpected Error!");
@@ -140,6 +162,8 @@ $(document).ready(function() {
                 let status = response.status;
                 if (status == 1) {
                     console.log("User got Banned Successfully!");
+                    getBannedUsers();
+                    displayBannedUsers();
                 }
                 else if (status == 2){
                     console.log("Something went wrong");
@@ -162,6 +186,8 @@ $(document).ready(function() {
                 let response = JSON.parse(msg);
                 let status = response.status;
                 if (status == 1) {
+                    getBannedUsers();
+                    displayBannedUsers();
                     console.log("User got unbanned Successfully!");
                 }
                 else if (status == 2){
