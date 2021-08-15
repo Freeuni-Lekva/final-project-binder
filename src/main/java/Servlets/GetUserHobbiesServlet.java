@@ -31,24 +31,27 @@ public class GetUserHobbiesServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int user_personal_id = Integer.parseInt(req.getParameter("user_personal_id"));
         PrintWriter out = resp.getWriter();
-
         try{
             SessionsDAO.getUser_id(req.getSession(false).getId());
             PersonalUserInfo userInfo = PersonalInfoDAO.getUserInfoByPersonalID(user_personal_id);
             Hobbies[] hobbies = userInfo.getHobbies();
             List<String> res = new ArrayList<>();
             for(Hobbies h : hobbies)
-                res.add(h.toString());
-
+                res.add(h.toString().replace("_", " "));
             String json = (new Gson()).toJson(res);
             if(json.isEmpty()) json = "null";
             out.write(json);
 
         }catch (SQLException throwables) {
             throwables.printStackTrace();
+            String json = "";
+            if(json.isEmpty()) json = "null";
+            out.write(json);
         }catch (IllegalArgumentException ex){
             ex.printStackTrace();
+            String json = "";
+            if(json.isEmpty()) json = "null";
+            out.write(json);
         }
-
     }
 }

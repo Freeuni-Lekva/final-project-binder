@@ -34,20 +34,7 @@ function removeHobbie(element){
     hobbies = hobbies.filter(v => v !== element);
 }
 
-function getSuggestedUserHobbies(){
-    $.ajax({
-        async: false,
-        type: "POST",
-        url: "GetUserHobbiesServlet",
-        data: {"user_personal_id": suggestedUserID},
-        success: function (msg) {
-            hobbies = msg;
-        },
-        error: function (msg) {
-            console.log("Unable to get Hobbies");
-        }
-    });
-}
+
 
 
 function changeDate(id, number){
@@ -127,13 +114,14 @@ $(document).ready(function() {
     let id = $("#currentUserID").text();
     let profileID = $("#currentUserProfileID").text();
     let currentUserAge = $('#currentUserProfileAge');
+    let currentUserHobbies = $('.displayHobbiesContainer');
     let image = null;
     let blankSuggestionImg = "Content/Images/" + (((sex === 'MALE') ? 'DEFAULT_THUMB_FEMALE.jpg' : 'DEFAULT_THUMB_MALE.jpg'));
     let chats = null;
     let messages = null;
     let checkerThread = null;
     let checkerThreadID = null;
-    let hobbies = null;
+    let userHobbies = null;
 
     let currentChatMessage = $('.openedChatInput');
 
@@ -211,6 +199,25 @@ $(document).ready(function() {
         })
     }
 
+    function getSuggestedUserHobbies(){
+        userHobbies = "null";
+        currentUserHobbies.html('');
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "GetUserHobbiesServlet",
+            data: {"user_personal_id": suggestedUserID},
+            success: function (msg) {
+                console.log(msg);
+                userHobbies = JSON.parse(msg);
+                console.log(userHobbies);
+            },
+            error: function (msg) {
+                console.log("Unable to get Hobbies");
+            }
+        });
+    }
+
     function getSuggestedUserImages() {
         if (suggestedUserID != null) {
             $.ajax({
@@ -278,6 +285,7 @@ $(document).ready(function() {
     }
 
     function displaySuggestedUser() {
+        currentUserHobbies.html("");
         if (suggestedUserID == null) {
             $("#suggestionImage").attr("src", blankSuggestionImg);
             $("#suggestionName").text("There are no more suggestions");
@@ -286,6 +294,7 @@ $(document).ready(function() {
             $("#DislikeButton").attr("style", "background: grey");
             $("#DislikeButton").attr('disabled', 'true');
             currentUserAge.css('display', 'none');
+            currentUserHobbies.html('');
         } else {
             console.log(image);
             image = (image == null) ? blankSuggestionImg :  image;
@@ -293,6 +302,14 @@ $(document).ready(function() {
             $("#suggestionImage").attr("src", image);
             $("#suggestionName").text(suggestedUserName);
             currentUserAge.css('display', 'block');
+            if(userHobbies != "null" && userHobbies != null){
+                if(userHobbies.length > 0){
+                    currentUserHobbies.append(`<div>Hobbies: </div>`)
+                    for(let i = 0; i < userHobbies.length; i++){
+                        currentUserHobbies.append(`<span>${userHobbies[i].toLowerCase()}</span>`)
+                    }
+                }else currentUserHobbies.html('');
+            }else currentUserHobbies.html('');
         }
 
     }
@@ -347,6 +364,7 @@ $(document).ready(function() {
                 let status = response.status;
                 if (status == 1) {
                     getSuggestedUserInfo();
+                    getSuggestedUserHobbies();
                     getSuggestedUserImages();
                     displaySuggestedUser();
                     console.log("acts: status 1");
@@ -361,6 +379,7 @@ $(document).ready(function() {
                     console.log(chats[0]);
                     displayChats();
                     getSuggestedUserInfo();
+                    getSuggestedUserHobbies();
                     getSuggestedUserImages();
                     displaySuggestedUser();
                     console.log("acts: status 3");
@@ -375,10 +394,12 @@ $(document).ready(function() {
     }
 
     getSuggestedUserInfo();
+    getSuggestedUserHobbies();
     getSuggestedUserImages();
     displaySuggestedUser();
     getChats();
     displayChats();
+
 
     $("#LikeButton").on("click", function () {
         act(1);

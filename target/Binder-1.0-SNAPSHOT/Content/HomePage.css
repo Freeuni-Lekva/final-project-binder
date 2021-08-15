@@ -529,10 +529,21 @@ html,body{
 }
 
 .displayHobbiesContainer{
+    color: white;
+    font-weight: 600;
     width: 100%;
     display: flex;
     justify-content: flex-start;
     gap: 5px;
+    align-items: center;
+}
+
+.displayHobbiesContainer > span{
+    padding: 5px;
+    border: 1px solid white;
+    background: none;
+    font-size: 12px;
+    border-radius: 8px;
 }
 
 
