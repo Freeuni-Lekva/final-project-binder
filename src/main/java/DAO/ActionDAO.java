@@ -19,7 +19,7 @@ public class ActionDAO{
     public static final int ACTION_DISLIKE = -1;
 
     //get list of users who liked/disliked this user
-    public static HashSet<String> getActors(int userID, int action) throws SQLException {
+  /*  public static HashSet<String> getActors(int userID, int action) throws SQLException {
         result = new HashSet<>();
         PreparedStatement pstmt = con.prepareStatement("SELECT actor_id " +
                 "FROM Actions " +
@@ -36,7 +36,8 @@ public class ActionDAO{
         }
         return result;
     }
-
+   */
+/*
     //get list of users liked/disliked by this user
     public static HashSet<String> getSubjects(int userID,int action) throws SQLException {
         result = new HashSet<>();
@@ -55,8 +56,8 @@ public class ActionDAO{
         }
         return result;
     }
+*/
 
-    //add relation of these users in DB
     public static void Action(int actorID, int subjectID, int action) throws SQLException{
         PreparedStatement pstmt = con.prepareStatement("INSERT INTO Actions (actor_id,subject_id,relation) VALUES (?,?,?)");
         pstmt.setInt( 1,actorID);
@@ -68,7 +69,7 @@ public class ActionDAO{
 
     public static int isMatch(int actorID, int subjectID) throws SQLException{
         int result = 0;
-        PreparedStatement pstmt = con.prepareStatement("Select count(*)\n" +
+        PreparedStatement pstmt = con.prepareStatement("Select 1 \n" +
                 "from Actions where relation = 1 AND actor_id = ? AND subject_id = ?;");
         pstmt.setInt( 1,actorID);
         pstmt.setInt(2,subjectID);
