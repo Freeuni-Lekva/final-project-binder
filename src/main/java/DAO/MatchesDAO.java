@@ -36,14 +36,15 @@ public class MatchesDAO {
 
         return result;
     }
+    /*
     public static void  deleteMatch(int chat_room_id) throws SQLException {
         PreparedStatement pstmt = con.prepareStatement("DELETE FROM chat_room " +
                 "where chat_room_id = ? ");
         pstmt.setInt(1,chat_room_id);
         pstmt.executeUpdate();
     }
+    */
 
-    // for testing(deployed in action trigger)
     public static void  addMatch(int user_profile_id_1 , int user_profile_id_2) throws SQLException {
         PreparedStatement pstmt = con.prepareStatement("INSERT INTO chat_room (user_profile_id_1,user_profile_id_2) " +
                 "VALUES (?,?)");
