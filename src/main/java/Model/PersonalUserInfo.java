@@ -30,7 +30,7 @@ public class PersonalUserInfo {
         this.username = username;
         this.dateOfBirth = dateOfBirth;
         this.phoneNumber = phoneNumber;
-        this.city = City.valueOf(city.toUpperCase(Locale.ROOT));
+        this.setCity(city);
         this.hobbies = StringToHobbies(hobbies);
         this.age = getCurrentAge(dateOfBirth, "d/M/yyyy");
         this.sex = sex;
