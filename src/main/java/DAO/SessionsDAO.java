@@ -13,7 +13,7 @@ public class SessionsDAO {
 
     public static int getUser_id (String sessionID) throws SQLException {
         con = MyDatabase.getConnection();
-        int user_id = -1;
+        int user_id = 0;
         PreparedStatement pstmt = con.prepareStatement("Use binder; ");
         ResultSet rs = pstmt.executeQuery(
                 "SELECT user_id " +
@@ -38,7 +38,7 @@ public class SessionsDAO {
     }
 
 
-    public static void deleteSession(String sessionID) throws SQLException{ // todo
+    public static void deleteSession(String sessionID) throws SQLException{
         con = MyDatabase.getConnection();
         PreparedStatement pstmt = con.prepareStatement(
                 "DELETE from SESSIONS WHERE SESSIONID = ?" );
