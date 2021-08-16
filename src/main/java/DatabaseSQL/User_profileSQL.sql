@@ -30,3 +30,12 @@ Create trigger user_profile_trigger_before_insert before insert
 end if;
 //
 delimiter ;
+delimiter //
+Create trigger user_profile_trigger_after_insert after insert
+    on user_profile
+    for each row
+    update user
+    set user.has_user_profile = 'Y'
+    where user.user_id = new.user_id
+//
+delimiter ;

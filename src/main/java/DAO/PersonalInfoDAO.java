@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class PersonalInfoDAO {
 
     private static Connection con = MyDatabase.getConnection();
-
+/*
     public static PersonalUserInfo getUserInfo(String username) throws SQLException {
         PreparedStatement pstmt = con.prepareStatement("Use binder; ");
         StringBuilder statement = new StringBuilder();
@@ -33,6 +33,8 @@ public class PersonalInfoDAO {
         userInfo.setSex(rs.getString(8));
         return userInfo;
     }
+
+ */
     public static PersonalUserInfo getUserInfo(int user_id) throws SQLException {
         PreparedStatement pstmt = con.prepareStatement("Use binder; ");
         StringBuilder statement = new StringBuilder();
@@ -52,10 +54,10 @@ public class PersonalInfoDAO {
         return userInfo;
     }
 
-    public static PersonalUserInfo getUserInfoByPersonalID(int user_personal_id) throws SQLException {
+    public static PersonalUserInfo getUserInfoByPersonalID(int user_profile_id) throws SQLException {
         PreparedStatement pstmt = con.prepareStatement("Use binder; ");
         StringBuilder statement = new StringBuilder();
-        statement.append("Select * from User_profile where user_profile_id = " + user_personal_id);
+        statement.append("Select * from User_profile where user_profile_id = " + user_profile_id);
         PersonalUserInfo userInfo = new PersonalUserInfo();
         ResultSet rs = pstmt.executeQuery(statement.toString());
         rs.next();
@@ -103,7 +105,13 @@ public class PersonalInfoDAO {
         pstmt.setInt(9,userInfo.getUser_profile_id());
         pstmt.executeUpdate();
     }
-
+    public static void deleteUserInfo(int user_id) throws SQLException {
+        PreparedStatement pstmt = con.prepareStatement("DELETE FROM user_profile " +
+                " where user_id = ? " );
+        pstmt.setInt(1,user_id);
+        pstmt.executeUpdate();
+    }
+/*
     public static int GetUserProfileID(int userID) throws SQLException{
         PreparedStatement pstmt = con.prepareStatement("SELECT user_profile_id " +
                 " from user_profile "
@@ -114,7 +122,7 @@ public class PersonalInfoDAO {
         rs.next();
         return rs.getInt(1);
     }
-
+*/
 
 
 }

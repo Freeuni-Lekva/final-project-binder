@@ -61,10 +61,8 @@ public class PersonalInfoServlet extends HttpServlet {
                 request.setAttribute("ErrorMessage","Your age doesn't meet registration requirement");
             }
             currUser = UserDAO.getUserByID(user_id);
-            currUser.setHas_user_profile("Y");
             userInfo.setUser_id(currUser.getUser_id());
             PersonalInfoDAO.setUserInfo(userInfo);
-            UserDAO.updateUser(currUser);
             rd = request.getRequestDispatcher("Home.jsp");
             rd.forward(request, response);
         }catch (DateTimeParseException ex){
